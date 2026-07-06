@@ -1,0 +1,13 @@
+{
+  "name": "coorgply",
+  "version": "1.0.0",
+  "description": "CoorgPly - Premium Plywood, Veneers & Laminates",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.3"
+  }
+}

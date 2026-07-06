@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Coorg Ply</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#2e2f2c",
+            "on-primary": "#ffffff",
+            "secondary-container": "#fed3c7",
+            "on-surface": "#1b1c1c",
+            "tertiary": "#1a1a18",
+            "surface-container-highest": "#e5e2e1",
+            "on-secondary-fixed-variant": "#5d4037",
+            "primary-fixed": "#cde9db",
+            "on-secondary-fixed": "#2c160e",
+            "primary-container": "#1b332a",
+            "secondary-fixed": "#ffdbd0",
+            "primary": "#051e16",
+            "inverse-on-surface": "#f3f0ef",
+            "inverse-primary": "#b1cdc0",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed-dim": "#e7bdb1",
+            "primary-fixed-dim": "#b1cdc0",
+            "on-error": "#ffffff",
+            "surface": "#fcf9f8",
+            "on-error-container": "#93000a",
+            "background": "#fcf9f8",
+            "surface-container-low": "#f6f3f2",
+            "on-tertiary-fixed": "#1b1c19",
+            "inverse-surface": "#303030",
+            "error-container": "#ffdad6",
+            "secondary": "#77574d",
+            "on-tertiary-fixed-variant": "#474744",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#795950",
+            "error": "#ba1a1a",
+            "on-background": "#1b1c1c",
+            "surface-container": "#f0eded",
+            "on-primary-fixed": "#072018",
+            "on-primary-container": "#829c90",
+            "outline": "#727975",
+            "on-surface-variant": "#424845",
+            "tertiary-fixed-dim": "#c8c6c2",
+            "outline-variant": "#c2c8c3",
+            "surface-container-high": "#eae7e7",
+            "on-tertiary": "#ffffff",
+            "surface-bright": "#fcf9f8",
+            "surface-variant": "#e5e2e1",
+            "surface-dim": "#dcd9d9",
+            "tertiary-fixed": "#e4e2dd",
+            "on-tertiary-container": "#979692",
+            "on-primary-fixed-variant": "#334c42",
+            "surface-tint": "#4b6459"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "section-gap": "120px",
+            "margin-mobile": "16px",
+            "unit": "8px",
+            "container-max": "1280px",
+            "margin-desktop": "64px",
+            "gutter": "24px"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Playfair Display"],
+            "body-lg": ["Montserrat"],
+            "headline-md": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "label-md": ["Montserrat"],
+            "label-lg": ["Montserrat"],
+            "headline-display": ["Playfair Display"],
+            "body-md": ["Montserrat"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+            "label-lg": ["14px", { "letterSpacing": "0.1em", "fontWeight": "600" }],
+            "headline-display": ["64px", { "lineHeight": "1.1", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .nav-scrolled {
+      height: 4.5rem;
+      background-color: rgba(252, 249, 248, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px -5px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(194, 200, 195, 0.3);
+    }
+    .hero-img-mask {
+      clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+    }
+  </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+  
+  <!-- Top Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-500 h-28" id="main-header" data-transparent="true">
+    <div class="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-full">
+      <div class="flex items-center gap-3">
+        <img alt="Coorg Ply Logo" class="h-20 w-auto" src="logo.png"/>
+        <span class="font-headline-md text-3xl font-bold text-primary tracking-tight">Coorg Ply</span>
+      </div>
+      <nav class="hidden lg:flex items-center gap-10">
+        <a class="font-headline-md text-base tracking-wide" href="index.html">Home</a>
+        <a class="font-headline-md text-base tracking-wide" href="story.html">Our Story</a>
+        <a class="font-headline-md text-base tracking-wide" href="products.html">Products</a>
+        <a class="font-headline-md text-base tracking-wide" href="manufacturing.html">Manufacturing</a>
+        <a class="font-headline-md text-base tracking-wide" href="contact.html">Contact</a>
+      </nav>
+      <a href="contact.html" class="hidden lg:block bg-primary text-on-primary px-8 py-3.5 rounded-sm font-label-lg text-label-lg uppercase tracking-wider hover:bg-primary-container transition-all shadow-lg active:scale-95 text-center">
+        Get a Quote
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-28 overflow-hidden bg-surface-container-lowest">
+      <div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Typographic Content -->
+          <div class="lg:col-span-7 flex flex-col items-start order-2 lg:order-1">
+            <div class="overflow-hidden mb-2">
+              <span class="font-label-lg text-secondary tracking-[0.4em] uppercase block">Est. in the Hills</span>
+            </div>
+            <h1 class="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
+              Nature's <span class="italic font-normal serif">Resilience,</span> <br/>
+              Crafted.
+            </h1>
+            <p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">
+              Premium calibrated plywood engineered for lasting architectural integrity. Sourced responsibly from the heart of Coorg's misty landscapes.
+            </p>
+            <div class="flex flex-wrap gap-6 items-center">
+              <a class="bg-primary text-on-primary px-10 py-5 rounded-sm font-label-lg text-label-lg uppercase tracking-[0.15em] hover:bg-primary-container transition-all shadow-2xl flex items-center gap-3 group" href="products.html">
+                Explore Collection
+                <span class="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">arrow_right_alt</span>
+              </a>
+              <a class="group flex items-center gap-4 font-label-lg text-label-lg uppercase tracking-widest text-secondary hover:text-primary transition-colors" href="story.html">
+                <span class="w-12 h-[1px] bg-secondary group-hover:w-16 group-hover:bg-primary transition-all"></span>
+                Our Heritage
+              </a>
+            </div>
+          </div>
+          
+          <!-- Asymmetrical Image Integration -->
+          <div class="lg:col-span-5 relative order-1 lg:order-2">
+            <div class="relative z-20 hero-img-mask overflow-hidden shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] aspect-[4/5] lg:aspect-auto lg:h-[700px]">
+              <img alt="Premium Coorg Plywood Craftsmanship" class="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-[3s] ease-out" src="hero_plywood.png"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
+            </div>
+            <!-- Decorative Elements -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-secondary-container/30 -z-10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-40">PLY</div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="py-section-gap bg-surface" id="story">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+          <div class="lg:col-span-5 relative">
+            <div class="aspect-[4/5] overflow-hidden rounded-sm shadow-lg">
+              <img class="w-full h-full object-cover" alt="Coorg Ply Heritage — Wood processing in Coorg" src="heritage.png"/>
+            </div>
+            <div class="absolute -bottom-6 -right-6 bg-primary p-8 text-on-primary rounded-sm shadow-xl hidden md:block max-w-xs">
+              <p class="font-headline-md italic leading-tight">"Coorg is not just where we work. It is where our story began."</p>
+            </div>
+          </div>
+          <div class="lg:col-span-6 lg:col-start-7">
+            <div class="space-y-8">
+              <header>
+                <span class="font-label-lg text-label-lg text-secondary tracking-[0.2em] uppercase">Our Heritage</span>
+                <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary mt-4">Where Nature Meets Craftsmanship</h2>
+              </header>
+              <div class="space-y-6 text-on-surface-variant font-body-lg">
+                <p>Surrounded by forests and mist-covered hills, Coorg Ply was built on a simple belief: Strong wood should reflect nature’s strength and beauty.</p>
+                <p>What started as a vision to bring world-class plywood manufacturing to Coorg has grown into the region's first dedicated plywood and decorative veneer unit.</p>
+              </div>
+              <div class="pt-6 grid grid-cols-2 gap-6 border-t border-outline-variant/30">
+                <div class="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <h4 class="font-headline-md text-3xl text-primary font-bold">25+</h4>
+                  <p class="font-label-md text-on-surface-variant uppercase tracking-wider text-xs mt-1 font-semibold">Years Guarantee</p>
+                </div>
+                <div class="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <h4 class="font-headline-md text-3xl text-primary font-bold">ISO</h4>
+                  <p class="font-label-md text-on-surface-variant uppercase tracking-wider text-xs mt-1 font-semibold">9001:2015 Certified</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Gallery -->
+    <section class="py-section-gap bg-surface-container-low" id="products">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div class="max-w-2xl">
+            <span class="font-label-lg text-secondary tracking-[0.2em] uppercase">The Collection</span>
+            <h2 class="font-headline-lg text-3xl md:text-headline-lg text-primary mt-4">Our Premium Plywood Products</h2>
+            <p class="font-body-lg text-on-surface-variant mt-4 leading-relaxed">
+              Engineered for diverse applications, from high-end interior cabinetry to maritime structures.
+            </p>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+          <!-- MR Grade -->
+          <div class="group bg-surface-container-lowest p-1 rounded-sm shadow-sm border border-outline-variant/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div class="relative aspect-square mb-6 overflow-hidden">
+              <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="MR Grade Plywood" src="mr_grade_plywood.png"/>
+              <div class="absolute top-4 right-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-label-md z-10">MR GRADE</div>
+              <div class="absolute inset-0 bg-primary/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="flex flex-wrap justify-center gap-2 px-4">
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Strength</span>
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Moisture Resistant</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-8">
+              <h3 class="font-headline-md text-primary mb-3 text-2xl">MR Grade</h3>
+              <p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Ideal for interior furniture and partitions where moisture resistance is key.</p>
+              <a class="inline-flex items-center gap-2 text-primary font-label-lg uppercase tracking-wider group/link border-b-2 border-transparent hover:border-primary transition-all" href="manufacturing.html">
+                Specifications <span class="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">trending_flat</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- BWR Grade -->
+          <div class="group bg-surface-container-lowest p-1 rounded-sm shadow-sm border border-outline-variant/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div class="relative aspect-square mb-6 overflow-hidden">
+              <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="BWR Grade Plywood" src="bwr_grade_plywood.png"/>
+              <div class="absolute top-4 right-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-label-md z-10">BWR GRADE</div>
+              <div class="absolute inset-0 bg-primary/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="flex flex-wrap justify-center gap-2 px-4">
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Kitchen Grade</span>
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Durability</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-8">
+              <h3 class="font-headline-md text-primary mb-3 text-2xl">BWR Grade</h3>
+              <p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Water resistant plywood designed for kitchens and high-moisture zones.</p>
+              <a class="inline-flex items-center gap-2 text-primary font-label-lg uppercase tracking-wider group/link border-b-2 border-transparent hover:border-primary transition-all" href="manufacturing.html">
+                Specifications <span class="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">trending_flat</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- BWP Grade -->
+          <div class="group bg-surface-container-lowest p-1 rounded-sm shadow-sm border border-outline-variant/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div class="relative aspect-square mb-6 overflow-hidden">
+              <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="BWP Marine Plywood" src="bwp_marine_plywood.png"/>
+              <div class="absolute top-4 right-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-label-md z-10">BWP MARINE</div>
+              <div class="absolute inset-0 bg-primary/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="flex flex-wrap justify-center gap-2 px-4">
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Marine Grade</span>
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Extreme</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-8">
+              <h3 class="font-headline-md text-primary mb-3 text-2xl">BWP Marine</h3>
+              <p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">High durability plywood suitable for extreme high moisture and exterior use.</p>
+              <a class="inline-flex items-center gap-2 text-primary font-label-lg uppercase tracking-wider group/link border-b-2 border-transparent hover:border-primary transition-all" href="manufacturing.html">
+                Specifications <span class="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">trending_flat</span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Calibrated -->
+          <div class="group bg-surface-container-lowest p-1 rounded-sm shadow-sm border border-outline-variant/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+            <div class="relative aspect-square mb-6 overflow-hidden">
+              <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Calibrated Plywood" src="calibrated_plywood.png"/>
+              <div class="absolute top-4 right-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-label-md z-10">PREMIUM</div>
+              <div class="absolute inset-0 bg-primary/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="flex flex-wrap justify-center gap-2 px-4">
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Calibrated</span>
+                  <span class="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Precision</span>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-8">
+              <h3 class="font-headline-md text-primary mb-3 text-2xl">Calibrated</h3>
+              <p class="font-body-md text-on-surface-variant mb-6 line-clamp-2">Uniform thickness plywood for precision furniture and modular architectural work.</p>
+              <a class="inline-flex items-center gap-2 text-primary font-label-lg uppercase tracking-wider group/link border-b-2 border-transparent hover:border-primary transition-all" href="manufacturing.html">
+                Specifications <span class="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">trending_flat</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manufacturing Excellence -->
+    <section class="py-section-gap bg-primary text-on-primary overflow-hidden" id="manufacturing">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div>
+            <span class="font-label-lg text-primary-fixed-dim tracking-[0.2em] uppercase">Process Integrity</span>
+            <h2 class="font-headline-lg text-3xl md:text-headline-lg mt-4 mb-8">Manufacturing Excellence</h2>
+            <p class="font-body-lg text-on-primary-container leading-relaxed mb-12 opacity-80">
+              Inside our manufacturing unit on Madikeri Road, every plywood board goes through carefully controlled processes. From seasoning and bonding to pressing and finishing, precision is maintained at every stage.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div class="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-primary-fixed-dim">verified</span>
+                <div>
+                  <h4 class="font-label-lg text-white mb-1">Calibrated Precision</h4>
+                  <p class="text-xs text-on-primary/60">Uniform thickness guaranteed across all sheets.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-primary-fixed-dim">eco</span>
+                <div>
+                  <h4 class="font-label-lg text-white mb-1">Grade A Strength</h4>
+                  <p class="text-xs text-on-primary/60">Consistently superior bonding and core quality.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-primary-fixed-dim">factory</span>
+                <div>
+                  <h4 class="font-label-lg text-white mb-1">ISO Certified</h4>
+                  <p class="text-xs text-on-primary/60">Rigorous quality management standards.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-primary-fixed-dim">location_on</span>
+                <div>
+                  <h4 class="font-label-lg text-white mb-1">Made in Coorg</h4>
+                  <p class="text-xs text-on-primary/60">Sourced and manufactured locally with pride.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="absolute -inset-10 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-4">
+                <img class="rounded-sm shadow-lg w-full aspect-square object-cover" alt="Finished Coorg Ply board" src="board_texture.png"/>
+                <img class="rounded-sm shadow-lg w-full aspect-[4/5] object-cover" alt="Stack of plywood sheets inspection" src="plywood_inspection.png"/>
+              </div>
+              <div class="space-y-4 pt-12">
+                <img class="rounded-sm shadow-lg w-full aspect-[4/5] object-cover" alt="Coorg Ply manufacturing facility" src="manufacturing_facility.png"/>
+                <img class="rounded-sm shadow-lg w-full aspect-square object-cover" alt="Finished interior furniture installation" src="door_installation.png"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get In Touch Section -->
+    <section class="py-section-gap bg-surface" id="contact">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+        <div class="bg-surface-container-lowest shadow-2xl rounded-sm overflow-hidden border border-outline-variant/10">
+          <div class="grid grid-cols-1 lg:grid-cols-5">
+            <div class="lg:col-span-2 bg-primary p-6 sm:p-12 lg:p-16 text-on-primary flex flex-col justify-between">
+              <div>
+                <h2 class="font-headline-lg text-3xl md:text-headline-lg mb-6">Let's Build Together</h2>
+                <p class="font-body-md opacity-80 mb-12">Have a specific requirement or need a custom quote? Our technical experts are here to assist you.</p>
+                <div class="space-y-8">
+                  <div class="flex items-start gap-4">
+                    <span class="material-symbols-outlined text-primary-fixed-dim mt-1">mail</span>
+                    <div>
+                      <p class="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Email Us</p>
+                      <p class="font-body-md">coorgplyindustries@gmail.com</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <span class="material-symbols-outlined text-primary-fixed-dim mt-1">call</span>
+                    <div>
+                      <p class="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Call Us</p>
+                      <p class="font-body-md">+91 9353927123<br/>+91 9448057309</p>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-4">
+                    <span class="material-symbols-outlined text-primary-fixed-dim mt-1">location_on</span>
+                    <div>
+                      <p class="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Visit Us</p>
+                      <p class="font-body-md">Madikeri - Virajpet Rd, Virajpet,<br/>Kadanur, Karnataka 571218</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-12 border-t border-white/10 mt-12 lg:mt-0">
+                <p class="font-label-md text-on-primary/60 mb-2">OPERATING HOURS</p>
+                <p class="text-sm">Mon - Sat: 9:00 AM - 7:00 PM</p>
+              </div>
+            </div>
+            
+            <div class="lg:col-span-3 p-6 sm:p-12 lg:p-16">
+              <h2 class="font-headline-md text-headline-md text-primary mb-8">Send an Inquiry</h2>
+              <form action="#" class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div class="col-span-1">
+                  <label class="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">Full Name</label>
+                  <input class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all" type="text" required/>
+                </div>
+                <div class="col-span-1">
+                  <label class="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">Email Address</label>
+                  <input class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all" type="email" required/>
+                </div>
+                <div class="col-span-1 sm:col-span-2">
+                  <label class="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">Your Message</label>
+                  <textarea class="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all resize-none" rows="4" required></textarea>
+                </div>
+                <div class="col-span-1 sm:col-span-2 pt-4">
+                  <button class="bg-primary text-on-primary px-12 py-4 rounded-sm font-label-lg uppercase tracking-widest hover:bg-primary-container transition-all shadow-lg w-full sm:w-auto" type="submit">
+                    Send Message
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-on-primary mt-section-gap">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 md:grid-cols-4 gap-gutter">
+      <div class="col-span-1">
+        <div class="flex items-center gap-3 mb-6">
+          <img alt="Coorg Ply Logo" class="h-16 w-auto brightness-0 invert" src="logo.png"/>
+          <span class="font-headline-md text-on-primary">Coorg Ply</span>
+        </div>
+        <p class="font-body-md text-on-primary/70 mb-8 max-w-xs">
+          Premium Calibrated Plywood from the hills of Coorg. Built on trust and heritage since 1992.
+        </p>
+        <!-- Social Media Logos -->
+        <div class="flex items-center gap-6 text-on-primary/70">
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:text-white transition-colors">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:text-white transition-colors">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="hover:text-white transition-colors">
+            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Navigation</h4>
+        <ul class="space-y-4 font-body-md text-on-primary/70">
+          <li><a class="hover:text-on-primary transition-colors" href="index.html">Home</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="story.html">Our Story</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="products.html">Products</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="manufacturing.html">Manufacturing</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Products</h4>
+        <ul class="space-y-4 font-body-md text-on-primary/70">
+          <li><a class="hover:text-on-primary transition-colors" href="products.html">MR Grade Commercial</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="products.html">BWR Grade Waterproof</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="products.html">BWP Marine Grade</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="products.html">Calibrated Core</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Resources</h4>
+        <ul class="space-y-4 font-body-md text-on-primary/70">
+          <li><a class="hover:text-on-primary transition-colors" href="manufacturing.html">Sustainability Report</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="#">Terms &amp; Conditions</a></li>
+          <li><a class="hover:text-on-primary transition-colors" href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-on-primary/10 py-8 text-center">
+      <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-label-md text-on-primary/50">
+        <p>© 2026 Coorg Ply Industries. ISO 9001:2015 Certified. All Rights Reserved.</p>
+        <p>Hi Tech Wood Industries</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
