@@ -55,9 +55,9 @@ export default function Story() {
               </span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-white mb-8">The Architect of Vision</h2>
               <p className="font-headline-md text-xl md:text-headline-md text-primary-fixed mb-12">
-                <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded-sm">Mr. A. A. Chandy's</span><br />vision transformed a simple sawmill into a trusted name that resonates across the architecture and construction industry.
+                <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded-sm font-bold">Mr. A. A. Chandy's</span><br />vision transformed a simple sawmill into a trusted name that resonates across the architecture and construction industry.
               </p>
-              <div className="flex gap-12 border-t border-white/10 pt-12">
+              <div className="flex gap-6 sm:gap-12 border-t border-white/10 pt-12">
                 <div>
                   <div className="font-headline-md text-headline-md mb-2">40+</div>
                   <div className="font-label-md text-label-md text-on-primary-container uppercase">Years of Heritage</div>
@@ -75,7 +75,7 @@ export default function Story() {
                 <img
                   className="relative z-10 w-80 md:w-96 aspect-[3/4] object-cover object-top rounded-sm shadow-2xl grayscale"
                   alt="Mr. A. A. Chandy — Founder (1927–1981)"
-                  src="/founder.jpeg"
+                  src="/founder.png"
                 />
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function Story() {
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-8">Expansion & Innovation</h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6 text-justify">
+          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6 text-justify">
             Under the leadership of Mr. A. C. Anthony, Coorg Ply achieved a monumental shift. By introducing state-of-the-art veneer peeling units and specialized manufacturing processes, he bridged the gap between raw nature and refined engineering.
           </p>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">

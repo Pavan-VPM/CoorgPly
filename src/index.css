@@ -20,11 +20,18 @@
 }
 
 .nav-scrolled {
-  height: 5.4rem;
+  height: 4rem;
   background-color: rgba(252, 249, 248, 0.95);
   backdrop-filter: blur(12px);
   box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(194, 200, 195, 0.3);
+  transition: height 0.3s;
+}
+
+@media (min-width: 768px) {
+  .nav-scrolled {
+    height: 5.4rem;
+  }
 }
 
 .hero-img-mask {
@@ -38,12 +45,51 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Product marquee — slides right to left, seamless loop */
 @keyframes marquee-ltr {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Fade in animation for hero category slider */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Seamless looping horizontal marquee for veneer samples */
+@keyframes marquee-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-loop {
+  display: flex;
+  width: max-content;
+  animation: marquee-loop 30s linear infinite;
 }

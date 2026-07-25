@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-on-primary mt-section-gap">
+    <footer className="bg-primary text-on-primary">
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 md:grid-cols-4 gap-gutter">
         <div className="col-span-1">
           <div className="flex items-center gap-3 mb-6">
@@ -11,7 +11,7 @@ export default function Footer() {
             <span className="font-headline-md text-on-primary">Coorg Ply</span>
           </div>
           <p className="font-body-md text-on-primary/70 mb-8 max-w-xs">
-            Premium Calibrated Plywood from the hills of Coorg. Built on trust and heritage since 1992.
+            Premium Calibrated Plywood from the hills of Coorg. Built on trust and heritage since 1958.
           </p>
           {/* Social Media Logos */}
           <div className="flex items-center gap-6 text-on-primary/70">
@@ -32,8 +32,8 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <div>
-          <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Navigation</h4>
+        <div className="hidden md:block">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Navigation</h4>
           <ul className="space-y-4 font-body-md text-on-primary/70">
             <li><Link className="hover:text-on-primary transition-colors" to="/">Home</Link></li>
             <li><Link className="hover:text-on-primary transition-colors" to="/story">Our Story</Link></li>
@@ -42,8 +42,8 @@ export default function Footer() {
             <li><Link className="hover:text-on-primary transition-colors" to="/contact">Contact</Link></li>
           </ul>
         </div>
-        <div>
-          <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Products</h4>
+        <div className="hidden md:block">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Products</h4>
           <ul className="space-y-4 font-body-md text-on-primary/70">
             <li><Link className="hover:text-on-primary transition-colors" to="/products">MR Grade Commercial</Link></li>
             <li><Link className="hover:text-on-primary transition-colors" to="/products">BWR Grade Waterproof</Link></li>
@@ -51,9 +51,10 @@ export default function Footer() {
             <li><Link className="hover:text-on-primary transition-colors" to="/products">Calibrated Core</Link></li>
           </ul>
         </div>
-        <div>
-          <h4 class="font-label-lg uppercase tracking-[0.2em] mb-8">Resources</h4>
+        <div className="hidden md:block">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Resources</h4>
           <ul className="space-y-4 font-body-md text-on-primary/70">
+            <li><Link className="hover:text-on-primary transition-colors" to="/technical-specs">Technical Specs</Link></li>
             <li><Link className="hover:text-on-primary transition-colors" to="/manufacturing">Sustainability Report</Link></li>
             <li><a className="hover:text-on-primary transition-colors" href="#">Terms &amp; Conditions</a></li>
             <li><a className="hover:text-on-primary transition-colors" href="#">Privacy Policy</a></li>

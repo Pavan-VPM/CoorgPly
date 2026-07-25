@@ -5,6 +5,15 @@ import { filmFaceProduct, plywoodProducts } from '../data/plywoodProducts';
 export default function Products() {
   const [activeFilter, setActiveFilter] = useState('all');
 
+  const veneerSamples = [
+    { name: 'Natural Teak', type: 'Golden Crown', image: 'https://i.pinimg.com/736x/49/45/48/4945484357c905a068ec587af8051854.jpg' },
+    { name: 'American Walnut', type: 'Exotic Grain', image: 'https://i.pinimg.com/control1/1200x/83/29/a1/8329a1b7775eed6d00eb6de5b24d8253.jpg' },
+    { name: 'Smoked Oak', type: 'Dark Flitched', image: 'https://i.pinimg.com/control1/1200x/bc/72/3a/bc723a8097728ac28667dee640020d41.jpg' },
+    { name: 'Santos Rosewood', type: 'Exotic Stripe', image: 'https://i.pinimg.com/control1/736x/d0/78/d8/d078d856a929c17e5bf9f61fbcc826be.jpg' },
+    { name: 'Figured Maple', type: 'Fiddleback Wave', image: 'https://i.pinimg.com/736x/58/58/bf/5858bf712a8bef9650d9cb799c487518.jpg' },
+    { name: 'Ebonized Wenge', type: 'Linear Luxury', image: 'https://i.pinimg.com/control1/1200x/ff/52/a5/ff52a5de9d9d787e5199bc7c798fb8a2.jpg' },
+  ];
+
   const filterButtons = [
     { id: 'all', label: 'All Products' },
     { id: 'plywood', label: 'Plywood Grades' },
@@ -19,7 +28,7 @@ export default function Products() {
   return (
     <>
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
-        <img src="/hero_collection.png" alt="Coorg Ply - The Collection" className="w-full h-full object-cover object-center" />
+        <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000" alt="Coorg Ply - The Collection" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary/70"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
           <span className="font-label-lg text-primary-fixed-dim uppercase tracking-[0.3em] block mb-4">Coorg Ply</span>
@@ -30,7 +39,7 @@ export default function Products() {
         </div>
       </section>
 
-      <div className="sticky top-24 z-30 bg-surface border-b border-outline-variant/20 shadow-sm">
+      <div className="sticky top-16 md:top-24 z-30 bg-surface border-b border-outline-variant/20 shadow-sm">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="flex items-center gap-1 overflow-x-auto py-3 scrollbar-hide">
             {filterButtons.map((btn) => {
@@ -39,11 +48,10 @@ export default function Products() {
                 <button
                   key={btn.id}
                   onClick={() => setActiveFilter(btn.id)}
-                  className={`flex-shrink-0 px-5 py-2 rounded-full font-label-md text-label-md transition-all uppercase tracking-wider text-xs ${
-                    active
-                      ? 'bg-primary text-on-primary font-bold'
-                      : 'text-on-surface-variant hover:bg-surface-container'
-                  }`}
+                  className={`flex-shrink-0 px-5 py-2 rounded-full font-label-md text-label-md transition-all uppercase tracking-wider text-xs ${active
+                    ? 'bg-primary text-on-primary font-bold'
+                    : 'text-on-surface-variant hover:bg-surface-container'
+                    }`}
                 >
                   {btn.label}
                 </button>
@@ -94,6 +102,39 @@ export default function Products() {
                 </div>
               </div>
             </div>
+
+            {/* Seamless Auto-Rolling Veneer Showcase */}
+            <div className="mt-20">
+              <div className="mb-8">
+                <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2">Exotic Textures</span>
+                <h3 className="font-headline-md text-2xl text-primary font-bold">Veneer Texture Samples Showcase</h3>
+                <p className="font-body-md text-sm text-on-surface-variant/80 mt-2 max-w-xl">
+                  A rolling showcase of our most popular natural wood veneer grains. Hover over any sample to pause scrolling.
+                </p>
+              </div>
+              <div className="relative -mx-margin-mobile md:-mx-margin-desktop overflow-hidden border-y border-outline-variant/20 py-8 bg-surface-container-low/40">
+                <div className="flex w-full overflow-hidden relative">
+                  <div className="flex gap-6 animate-marquee-loop whitespace-nowrap hover:[animation-play-state:paused]">
+                    {veneerSamples.map((sample, idx) => (
+                      <div key={`sample-1-${idx}`} className="inline-block w-[230px] md:w-[270px] flex-shrink-0 bg-white border border-outline-variant/30 rounded-xl overflow-hidden p-3.5 shadow-sm hover:shadow-md transition-shadow group">
+                        <div className="h-[270px] w-full rounded-lg overflow-hidden relative">
+                          <img src={sample.image} alt={sample.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                        </div>
+                      </div>
+                    ))}
+                    {veneerSamples.map((sample, idx) => (
+                      <div key={`sample-2-${idx}`} className="inline-block w-[230px] md:w-[270px] flex-shrink-0 bg-white border border-outline-variant/30 rounded-xl overflow-hidden p-3.5 shadow-sm hover:shadow-md transition-shadow group">
+                        <div className="h-[270px] w-full rounded-lg overflow-hidden relative">
+                          <img src={sample.image} alt={sample.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                          <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300"></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}
@@ -109,70 +150,107 @@ export default function Products() {
               <span className="font-label-lg text-secondary tracking-[0.22em] uppercase block mb-3">Brochure Range 2026</span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Our Plywood Range</h2>
             </div>
+            {/* Plywood Sheet Showcase Block */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-12 mb-16 border-b border-outline-variant/20 pb-16">
+              <div className="lg:col-span-5">
+                <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-3">Material Authenticity</span>
+                <h3 className="font-headline-md text-3xl text-primary font-bold mb-6">Built on Genuine Hardwoods</h3>
+                <p className="font-body-md text-sm text-on-surface-variant/80 leading-relaxed mb-6">
+                  Every genuine Coorg Ply sheet is processed using premium hardwood species and calibrated cores. Our boards are characterized by their signature edge stamps, high-density cores, and uniform calibration to deliver flawless results for architectural projects, modular kitchens, and high-end cabinetry.
+                </p>
+                <div className="space-y-4 text-xs text-on-surface-variant">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-base">verified</span>
+                    <span><strong>Gurjan Face:</strong> Premium natural veneer facing for outstanding polish retention.</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-base">verified</span>
+                    <span><strong>100% Neem Wood:</strong> Solid, pesticide-treated core offering natural termite defiance.</span>
+                  </div>
+                </div>
+              </div>
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
+                    <img src="/coorg_plywood_sheet_1.png" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <span className="font-headline-md text-sm text-primary font-bold">Gurjan Face Veneer</span>
+                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">IS:710 Marine Grade</p>
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
+                    <img src="/coorg_plywood_sheet_2.png" alt="Coorg Ply Plywood Sheet - 100% Neem Wood" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood Core</span>
+                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">25-Year Guarantee</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
               {plywoodProducts.map((product) => (
                 <Link
                   key={product.id}
                   to={`/products/${product.id}`}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-[#1b332a] bg-[linear-gradient(180deg,#0a251c_0%,#051e16_100%)] shadow-[0_24px_60px_rgba(5,30,22,0.35)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_32px_75px_rgba(5,30,22,0.5)]"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
                 >
-                  <div className="absolute inset-x-0 top-0 h-2 bg-[linear-gradient(90deg,#0f4c3a_0%,#2c7d59_50%,#b9783e_100%)]"></div>
-                  <div className="absolute right-0 top-0 h-36 w-36 bg-[radial-gradient(circle_at_top_right,rgba(177,205,192,0.1),transparent_62%)]"></div>
+                  <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#0f4c3a_0%,#a35a1f_100%)]"></div>
 
-                  <div className="p-7 pb-6 relative z-10">
+                  <div className="p-6 relative z-10 flex-grow flex flex-col">
                     <div className="mb-5 flex items-start justify-between gap-4">
-                      <div className="flex items-start gap-4">
-                        <div>
-                          <span className="mb-2 inline-flex rounded-full bg-[#1b332a] px-3 py-1 font-label-md text-[11px] uppercase tracking-[0.22em] text-[#efe6db]">
-                            {product.series}
-                          </span>
-                          <h3 className="font-headline-md text-[28px] leading-[1.05] text-white">{product.name}</h3>
-                          <p className="mt-1 font-label-md text-xs uppercase tracking-[0.2em] text-[#efe6db]/60">{product.subtitle}</p>
-                        </div>
+                      <div>
+                        <span className="mb-2 inline-flex rounded-md bg-primary-fixed-dim text-primary px-3 py-1 font-label-md text-[10px] uppercase tracking-wider font-bold">
+                          {product.series}
+                        </span>
+                        <h3 className="font-headline-md text-2xl text-primary font-bold mt-1">{product.name}</h3>
+                        <p className="mt-1 font-label-md text-xs uppercase tracking-wider text-secondary">{product.subtitle}</p>
                       </div>
-                      <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-right shadow-sm">
-                        <p className="font-label-md text-[10px] uppercase tracking-[0.22em] text-[#efe6db]/60">Grade</p>
-                        <p className="font-headline-md text-2xl leading-none text-[#b9783e]">{product.grade}</p>
+                      <div className="rounded-xl border border-outline-variant/20 bg-surface-container-low px-4 py-2.5 text-right">
+                        <p className="font-label-md text-[9px] uppercase tracking-wider text-on-surface-variant/60">Grade</p>
+                        <p className="font-headline-md text-xl leading-none text-[#a35a1f] mt-1 font-bold">{product.grade}</p>
                       </div>
                     </div>
 
-                    <p className="mb-6 font-body-md text-sm leading-7 text-[#efe6db]/70">{product.summary}</p>
+                    <p className="mb-6 font-body-md text-sm text-on-surface-variant/80 leading-relaxed">{product.summary}</p>
 
-                    <div className="grid grid-cols-2 gap-x-5 gap-y-4 border-t border-white/10 pt-5 text-sm">
+                    <div className="mt-auto grid grid-cols-2 gap-x-4 gap-y-3 border-t border-outline-variant/30 pt-5 text-sm">
                       <div>
-                        <p className="font-label-md text-[11px] uppercase tracking-[0.2em] text-[#efe6db]/50">Price Band</p>
-                        <p className="mt-1 font-sans font-semibold text-lg text-[#52c48e]">{product.priceRange}</p>
+                        <p className="font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/60">Price Band</p>
+                        <p className="mt-1 font-sans font-bold text-[#2c7d59]">{product.priceRange}</p>
                       </div>
                       <div>
-                        <p className="font-label-md text-[11px] uppercase tracking-[0.2em] text-[#efe6db]/50">Thickness</p>
-                        <p className="mt-1 font-semibold text-white">{product.thickness}</p>
+                        <p className="font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/60">Thickness</p>
+                        <p className="mt-1 font-semibold text-primary">{product.thickness}</p>
                       </div>
                       <div>
-                        <p className="font-label-md text-[11px] uppercase tracking-[0.2em] text-[#efe6db]/50">Panel Type</p>
-                        <p className="mt-1 font-semibold text-white">{product.standard}</p>
+                        <p className="font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/60">Panel Type</p>
+                        <p className="mt-1 font-semibold text-primary">{product.standard}</p>
                       </div>
                       <div>
-                        <p className="font-label-md text-[11px] uppercase tracking-[0.2em] text-[#efe6db]/50">Face</p>
-                        <p className="mt-1 font-semibold text-[#b9783e]">{product.face}</p>
+                        <p className="font-label-md text-[10px] uppercase tracking-wider text-on-surface-variant/60">Face</p>
+                        <p className="mt-1 font-semibold text-[#a35a1f]">{product.face}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-auto border-t border-white/10 bg-black/25 px-7 py-5 relative z-10">
+                  <div className="border-t border-outline-variant/30 bg-surface-container-low/50 px-6 py-5">
                     <div className="mb-4 grid grid-cols-3 gap-2 text-center">
                       {product.prices.slice(0, 3).map(([size, price]) => (
-                        <div key={size} className="rounded-xl border border-white/10 bg-white/5 px-3 py-2.5">
-                          <p className="font-label-md text-[10px] uppercase tracking-[0.18em] text-[#efe6db]/60">{size}</p>
-                          <p className="mt-1 text-sm font-semibold text-white">{price}</p>
+                        <div key={size} className="rounded-lg border border-outline-variant/20 bg-white/70 px-2 py-2">
+                          <p className="font-label-md text-[9px] uppercase tracking-wider text-on-surface-variant/50">{size}</p>
+                          <p className="mt-0.5 text-xs font-bold text-primary">{price}</p>
                         </div>
                       ))}
                     </div>
                     <div className="flex gap-3">
-                      <span className="flex-1 rounded-2xl bg-white/10 border border-white/10 px-5 py-3.5 text-center font-label-lg text-sm uppercase tracking-[0.14em] text-white hover:bg-white/15 transition-colors">
+                      <span className="flex-1 rounded-xl bg-white border border-primary text-primary px-4 py-3 text-center font-label-lg text-xs uppercase tracking-wider font-bold hover:bg-primary/5 transition-colors">
                         Get Quote
                       </span>
-                      <span className="flex-1 rounded-2xl bg-[#a35a1f] px-5 py-3.5 text-center font-label-lg text-sm uppercase tracking-[0.14em] text-white hover:bg-[#bd6c2b] transition-colors">
+                      <span className="flex-1 rounded-xl bg-[#a35a1f] text-white px-4 py-3 text-center font-label-lg text-xs uppercase tracking-wider font-bold hover:bg-[#bd6c2b] transition-colors">
                         View Details
                       </span>
                     </div>
@@ -181,32 +259,32 @@ export default function Products() {
               ))}
             </div>
 
-            <div className="mt-10 overflow-hidden rounded-[32px] border border-[#d8cabd] bg-[linear-gradient(135deg,#143f31_0%,#0a241b_55%,#1f5844_100%)] shadow-[0_18px_50px_rgba(11,32,24,0.2)]">
+            <div className="mt-10 overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm">
               <div className="grid gap-8 px-8 py-9 md:grid-cols-[1.05fr_0.95fr] md:px-10">
-                <div className="text-white">
-                  <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 font-label-md text-[11px] uppercase tracking-[0.22em] text-primary-fixed-dim">
+                <div className="text-primary">
+                  <span className="inline-flex rounded-md bg-primary-fixed-dim text-primary px-3 py-1 font-label-md text-[10px] uppercase tracking-wider font-bold">
                     {filmFaceProduct.label}
                   </span>
-                  <h3 className="mt-4 font-headline-md text-3xl text-white">{filmFaceProduct.name}</h3>
-                  <p className="mt-4 max-w-xl font-body-md text-sm leading-7 text-white/74">{filmFaceProduct.summary}</p>
-                  <div className="mt-6 flex flex-wrap gap-3 text-xs uppercase tracking-[0.18em] text-primary-fixed-dim">
-                    <span className="rounded-full border border-white/10 px-3 py-2">Strong</span>
-                    <span className="rounded-full border border-white/10 px-3 py-2">Durable</span>
-                    <span className="rounded-full border border-white/10 px-3 py-2">Water Resistant</span>
-                    <span className="rounded-full border border-white/10 px-3 py-2">Eco Friendly</span>
+                  <h3 className="mt-4 font-headline-md text-3xl text-primary font-bold">{filmFaceProduct.name}</h3>
+                  <p className="mt-4 max-w-xl font-body-md text-sm leading-relaxed text-on-surface-variant/80">{filmFaceProduct.summary}</p>
+                  <div className="mt-6 flex flex-wrap gap-2.5 text-[10px] font-bold uppercase tracking-wider text-secondary">
+                    <span className="rounded-full bg-surface-container border border-outline-variant/20 px-3.5 py-1.5">Strong</span>
+                    <span className="rounded-full bg-surface-container border border-outline-variant/20 px-3.5 py-1.5">Durable</span>
+                    <span className="rounded-full bg-surface-container border border-outline-variant/20 px-3.5 py-1.5">Water Resistant</span>
+                    <span className="rounded-full bg-surface-container border border-outline-variant/20 px-3.5 py-1.5">Eco Friendly</span>
                   </div>
                 </div>
 
-                <div className="rounded-[28px] bg-[#f8f3ec] p-5 shadow-inner">
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="font-label-lg text-xs uppercase tracking-[0.22em] text-primary">Film Face Rate Card</p>
-                    <span className="rounded-full bg-[#efe3d1] px-3 py-1 font-label-md text-[10px] uppercase tracking-[0.18em] text-secondary">Shuttering</span>
+                <div className="rounded-2xl bg-surface-container-low p-6 border border-outline-variant/20">
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="font-label-lg text-xs uppercase tracking-wider text-primary font-bold">Film Face Rate Card</p>
+                    <span className="rounded-full bg-primary/10 px-3 py-1 font-label-md text-[10px] uppercase tracking-wider text-primary font-bold">Shuttering</span>
                   </div>
                   <div className="space-y-2.5">
                     {filmFaceProduct.weights.map(([weight, price]) => (
-                      <div key={`${weight}-${price}`} className="flex items-center justify-between rounded-2xl border border-[#dccfbe] bg-white px-4 py-3 text-sm">
-                        <span className="font-semibold text-primary">{weight}</span>
-                        <span className="font-semibold text-[#8d4b18]">{price}</span>
+                      <div key={`${weight}-${price}`} className="flex items-center justify-between rounded-xl border border-outline-variant/20 bg-white px-4 py-3 text-sm">
+                        <span className="font-bold text-primary">{weight}</span>
+                        <span className="font-bold text-[#a35a1f]">{price}</span>
                       </div>
                     ))}
                   </div>
@@ -226,48 +304,48 @@ export default function Products() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-              <div className="product-card group bg-white rounded shadow-sm border border-outline-variant/10 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                <div className="relative h-80 overflow-hidden">
-                  <img src="/flush_door.png" alt="Solid Core Flush Doors" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute top-4 left-4 bg-primary text-on-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">IS:2202</div>
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <div className="relative h-80 overflow-hidden rounded-t-2xl">
+                  <img src="https://images.unsplash.com/photo-1603673298820-40d77252226d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Solid Core Flush Doors" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <div className="absolute top-4 left-4 bg-primary-fixed-dim text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider border border-outline-variant/20 shadow-sm">IS:2202</div>
                 </div>
-                <div className="p-8 flex-grow flex flex-col justify-between">
+                <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
-                    <h3 className="font-headline-md text-2xl text-primary mb-3">Solid Core Flush Doors</h3>
-                    <p className="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                    <h3 className="font-headline-md text-2xl text-primary font-bold mb-3">Solid Core Flush Doors</h3>
+                    <p className="font-body-md text-sm text-on-surface-variant/80 mb-6 leading-relaxed">
                       Solid timber-core flush doors veneered with premium decorative faces. Built with internal bracing for warp-free performance across monsoon and summer climates.
                     </p>
-                    <ul className="space-y-2 mb-8 text-sm text-on-surface-variant">
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Core:</strong> Solid timber / Particle board / Hollow core variants</span></li>
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Face:</strong> Teak, rose wood, oak &amp; custom veneers</span></li>
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Sizes:</strong> Standard &amp; custom to order</span></li>
+                    <ul className="space-y-2 mb-8 text-sm text-on-surface-variant/85">
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Core:</strong> Solid timber / Particle board / Hollow core variants</span></li>
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Face:</strong> Teak, rose wood, oak &amp; custom veneers</span></li>
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Sizes:</strong> Standard &amp; custom to order</span></li>
                     </ul>
                   </div>
-                  <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-6 rounded-sm font-label-lg text-xs uppercase tracking-wider hover:bg-primary-container transition-all">
-                    Inquire Now <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+                  <Link to="/contact" className="w-full rounded-xl bg-[#a35a1f] text-white px-5 py-3.5 text-center font-label-lg text-xs uppercase tracking-wider font-bold hover:bg-[#bd6c2b] transition-colors mt-4">
+                    Inquire Now
                   </Link>
                 </div>
               </div>
 
-              <div className="product-card group bg-white rounded shadow-sm border border-outline-variant/10 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                <div className="relative h-80 overflow-hidden">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <div className="relative h-80 overflow-hidden rounded-t-2xl">
                   <img src="/block_boards.png" alt="Precision Block Boards" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute top-4 left-4 bg-primary text-on-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">IS:1659</div>
+                  <div className="absolute top-4 left-4 bg-primary-fixed-dim text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider border border-outline-variant/20 shadow-sm">IS:1659</div>
                 </div>
-                <div className="p-8 flex-grow flex flex-col justify-between">
+                <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
-                    <h3 className="font-headline-md text-2xl text-primary mb-3">Precision Block Boards</h3>
-                    <p className="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                    <h3 className="font-headline-md text-2xl text-primary font-bold mb-3">Precision Block Boards</h3>
+                    <p className="font-body-md text-sm text-on-surface-variant/80 mb-6 leading-relaxed">
                       Manufactured with a solid timber batten core bonded between thin veneer sheets. Excellent screw-holding ability and dimensional stability, perfect for shelving and heavy furniture.
                     </p>
-                    <ul className="space-y-2 mb-8 text-sm text-on-surface-variant">
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Core:</strong> Timber battens (softwood/hardwood)</span></li>
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Thickness:</strong> 19mm, 25mm, 32mm</span></li>
-                      <li className="flex items-start gap-2"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Best For:</strong> Shelves, table tops, workbenches</span></li>
+                    <ul className="space-y-2 mb-8 text-sm text-on-surface-variant/85">
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Core:</strong> Timber battens (softwood/hardwood)</span></li>
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Thickness:</strong> 19mm, 25mm, 32mm</span></li>
+                      <li className="flex items-start gap-2.5"><span className="material-symbols-outlined text-primary text-base mt-0.5">verified</span> <span><strong>Best For:</strong> Shelves, table tops, workbenches</span></li>
                     </ul>
                   </div>
-                  <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-primary text-on-primary py-3 px-6 rounded-sm font-label-lg text-xs uppercase tracking-wider hover:bg-primary-container transition-all">
-                    Inquire Now <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
+                  <Link to="/contact" className="w-full rounded-xl bg-[#a35a1f] text-white px-5 py-3.5 text-center font-label-lg text-xs uppercase tracking-wider font-bold hover:bg-[#bd6c2b] transition-colors mt-4">
+                    Inquire Now
                   </Link>
                 </div>
               </div>

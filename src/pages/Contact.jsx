@@ -12,6 +12,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('success'); // 'success' | 'error'
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,18 +22,66 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
       return;
     }
 
     setIsSubmitting(true);
+    setToastType('success');
 
-    // Simulate server submission
-    setTimeout(() => {
+    const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
+
+    if (!googleSheetsUrl) {
+      // Fallback to simulated server submission in development / when not configured
+      console.warn("VITE_GOOGLE_SHEETS_URL is not defined. Simulating local form submission.");
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSuccess(true);
+        setToastType('success');
+        setShowToast(true);
+
+        // Reset form fields
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          plyType: 'Select Requirement',
+          message: ''
+        });
+
+        // Clear success state and toast after timeout
+        setTimeout(() => {
+          setIsSuccess(false);
+          setShowToast(false);
+        }, 4000);
+      }, 1500);
+      return;
+    }
+
+    try {
+      // Using text/plain Content-Type avoids CORS preflight OPTIONS request
+      const response = await fetch(googleSheetsUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      if (data.status === 'error') {
+        throw new Error(data.message || 'Failed to submit form');
+      }
+
       setIsSubmitting(false);
       setIsSuccess(true);
+      setToastType('success');
       setShowToast(true);
 
       // Reset form fields
@@ -49,172 +98,212 @@ export default function Contact() {
         setIsSuccess(false);
         setShowToast(false);
       }, 4000);
-    }, 1500);
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      setToastType('error');
+      setShowToast(true);
+
+      // Clear error toast after timeout
+      setTimeout(() => {
+        setShowToast(false);
+      }, 5000);
+    }
   };
 
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 overflow-hidden">
-        <div className="absolute inset-0 perspective-grid opacity-10 -z-10"></div>
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-          <span className="inline-block px-4 py-1 mb-6 text-label-md font-label-md uppercase tracking-widest text-primary bg-primary-fixed/30 rounded-full">
+      <section className="relative pt-24 pb-16 overflow-hidden bg-[linear-gradient(180deg,#fcf9f8_0%,#f5f1ea_100%)]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%)] pointer-events-none"></div>
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10">
+          <span className="inline-block px-4 py-1.5 mb-6 text-label-md font-label-md uppercase tracking-widest text-primary bg-primary-fixed/30 rounded-full text-xs font-bold">
             Connectivity & Trust
           </span>
-          <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-primary max-w-4xl mx-auto mb-6">
+          <h1 className="font-headline-display text-4xl sm:text-5xl md:text-[60px] text-primary max-w-4xl mx-auto mb-6 leading-tight">
             Let's Build Something Great
           </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+          <p className="font-body-md text-sm text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
             Connecting tradition with modern architectural precision. Reach out to our Coorg-based manufacturing hub for inquiries on premium calibrated plywood.
           </p>
         </div>
       </section>
 
-      {/* Main Content Section: Bento Layout */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
-          {/* Contact Information Column */}
-          <div className="lg:col-span-5 flex flex-col gap-gutter">
-            <div className="p-6 sm:p-10 bg-white border border-outline-variant/10 shadow-sm rounded-lg flex flex-col gap-8 flex-grow">
-              <h2 className="font-headline-md text-2xl md:text-headline-md text-primary">Regional Headquarters</h2>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary-container text-on-primary-container rounded-lg shrink-0">
-                  <span className="material-symbols-outlined">location_on</span>
+      {/* Main Content Section */}
+      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+          {/* Contact Details Card (Left Column) */}
+          <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
+            
+            <div>
+              <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 font-label-md text-[10px] uppercase tracking-wider text-primary-fixed-dim font-bold mb-8">
+                Coorg Ply HQ
+              </span>
+              <h3 className="font-headline-md text-3xl text-white mb-6 font-bold leading-tight">Let's Build Together</h3>
+              <p className="font-body-md text-on-primary/85 mb-10 leading-relaxed text-sm">
+                Our technical advisors are available to guide you on standard compliance (IS:303, IS:710), calibration parameters, and customization limits.
+              </p>
+
+              <div className="space-y-6">
+                <a href="mailto:coorgplyindustries@gmail.com" className="flex items-start gap-4 group/item">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center group-hover/item:bg-white/20 transition-colors shrink-0">
+                    <span className="material-symbols-outlined text-white text-base">mail</span>
+                  </div>
+                  <div>
+                    <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Email Us</p>
+                    <p className="font-body-md text-sm text-white group-hover/item:text-primary-fixed-dim transition-colors mt-0.5">coorgplyindustries@gmail.com</p>
+                  </div>
+                </a>
+
+                <div className="flex items-start gap-4 group/item">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-white text-base">call</span>
+                  </div>
+                  <div>
+                    <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Call Us</p>
+                    <p className="font-body-md text-sm text-white mt-0.5">
+                      +91 9353927123<br />
+                      +91 9448057309
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-1">Visit Us</p>
-                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                    Madikeri - Virajpet Rd, Virajpet,
-                    <br />
-                    Kadanur, Karnataka 571218, India
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary-container text-on-primary-container rounded-lg shrink-0">
-                  <span className="material-symbols-outlined">mail</span>
-                </div>
-                <div>
-                  <p className="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-1">Direct Email</p>
-                  <a
-                    className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
-                    href="mailto:coorgplyindustries@gmail.com"
-                  >
-                    coorgplyindustries@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-primary-container text-on-primary-container rounded-lg shrink-0">
-                  <span className="material-symbols-outlined">phone_iphone</span>
-                </div>
-                <div>
-                  <p className="font-label-lg text-label-lg text-primary uppercase tracking-wider mb-1">Call Assistance</p>
-                  <p className="font-body-md text-body-md text-on-surface-variant mb-1">+91 9353927123</p>
-                  <p className="font-body-md text-body-md text-on-surface-variant">+91 9448057309</p>
-                </div>
+
+                <a href="https://maps.google.com/?q=Coorg+Ply+Industries+Kadanur+Karnataka" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group/item">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center group-hover/item:bg-white/20 transition-colors shrink-0">
+                    <span className="material-symbols-outlined text-white text-base">location_on</span>
+                  </div>
+                  <div>
+                    <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Visit Us</p>
+                    <p className="font-body-md text-sm text-white group-hover/item:text-primary-fixed-dim transition-colors mt-0.5">
+                      Madikeri - Virajpet Rd, Virajpet,<br />
+                      Kadanur, Karnataka 571218
+                    </p>
+                  </div>
+                </a>
               </div>
             </div>
 
-            {/* Business Hours */}
-            <div className="p-8 bg-primary text-on-primary rounded-lg">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  schedule
-                </span>
-                <p className="font-label-lg text-label-lg uppercase">Working Hours</p>
+            <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs">
+              <div>
+                <p className="font-label-md text-on-primary/60 uppercase tracking-widest mb-1.5">OPERATING HOURS</p>
+                <p className="text-white">Mon - Sat: 9:00 AM - 7:00 PM</p>
               </div>
-              <div className="flex justify-between border-b border-on-primary/10 py-3">
-                <span className="opacity-70">Mon — Sat</span>
-                <span>09:00 AM — 07:00 PM</span>
-              </div>
-              <div className="flex justify-between pt-3">
-                <span className="opacity-70">Sunday</span>
-                <span className="font-bold">Closed</span>
+              <div>
+                <p className="font-label-md text-on-primary/60 uppercase tracking-widest mb-1.5">SUNDAY</p>
+                <p className="text-primary-fixed-dim font-bold">Closed</p>
               </div>
             </div>
           </div>
 
-          {/* Inquiry Form Column */}
-          <div className="lg:col-span-7">
-            <div className="bg-white border border-outline-variant/10 shadow-sm rounded-lg p-6 sm:p-10 h-full">
-              <h2 className="font-headline-md text-2xl md:text-headline-md text-primary mb-8">Send an Inquiry</h2>
+          {/* Redesigned Inquiry Form Card (Right Column) */}
+          <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between">
+            <div>
+              <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2 text-xs">Direct Channel</span>
+              <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>
+              
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="relative">
-                    <label className="block text-label-md font-label-md text-primary uppercase mb-2">Full Name</label>
-                    <input
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full bg-background border-0 border-b border-outline-variant focus:border-primary focus:ring-0 transition-all px-0 py-3 font-body-md text-body-md placeholder:text-outline-variant"
-                      placeholder="Your Name"
-                      type="text"
-                      required
-                    />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                      Full Name
+                    </label>
+                    <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                        type="text"
+                        placeholder="Your full name"
+                        required
+                      />
+                    </div>
                   </div>
-                  <div className="relative">
-                    <label className="block text-label-md font-label-md text-primary uppercase mb-2">Email Address</label>
-                    <input
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full bg-background border-0 border-b border-outline-variant focus:border-primary focus:ring-0 transition-all px-0 py-3 font-body-md text-body-md placeholder:text-outline-variant"
-                      placeholder="example@email.com"
-                      type="email"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="relative">
-                    <label className="block text-label-md font-label-md text-primary uppercase mb-2">Phone Number</label>
-                    <input
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full bg-background border-0 border-b border-outline-variant focus:border-primary focus:ring-0 transition-all px-0 py-3 font-body-md text-body-md placeholder:text-outline-variant"
-                      placeholder="+91 00000 00000"
-                      type="tel"
-                      required
-                    />
-                  </div>
-                  <div className="relative">
-                    <label className="block text-label-md font-label-md text-primary uppercase mb-2">Plywood Type</label>
-                    <select
-                      name="plyType"
-                      value={formData.plyType}
-                      onChange={handleInputChange}
-                      className="w-full bg-background border-0 border-b border-outline-variant focus:border-primary focus:ring-0 transition-all px-0 py-3 font-body-md text-body-md"
-                    >
-                      <option>Select Requirement</option>
-                      <option>Marine Grade (BWP)</option>
-                      <option>Commercial (MR)</option>
-                      <option>Calibrated Core</option>
-                      <option>Architectural Grade</option>
-                    </select>
+
+                  <div className="flex flex-col">
+                    <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                      Email Address
+                    </label>
+                    <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                      <input
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                        type="email"
+                        placeholder="name@company.com"
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="relative">
-                  <label className="block text-label-md font-label-md text-primary uppercase mb-2">Your Requirements</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    className="w-full bg-background border-0 border-b border-outline-variant focus:border-primary focus:ring-0 transition-all px-0 py-3 font-body-md text-body-md placeholder:text-outline-variant resize-none"
-                    placeholder="Describe your project, thickness requirements, and quantity..."
-                    rows="4"
-                    required
-                  ></textarea>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                      Phone Number
+                    </label>
+                    <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                      <input
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                        type="tel"
+                        placeholder="e.g. +91 9876543210"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                      Requirement Type
+                    </label>
+                    <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                      <select
+                        name="plyType"
+                        value={formData.plyType}
+                        onChange={handleInputChange}
+                        className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md cursor-pointer"
+                      >
+                        <option>Plywood Grades</option>
+                        <option>Decorative Veneers</option>
+                        <option>Blockboards & Doors</option>
+                        <option>Custom Contract Order</option>
+                        <option>General Inquiry</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div className="pt-6">
+
+                <div className="flex flex-col">
+                  <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                    Your Message
+                  </label>
+                  <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-3 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className="w-full bg-transparent border-none outline-none text-sm text-on-surface font-body-md resize-none"
+                      rows="4"
+                      placeholder="Detail your requirements (dimensions, grade, quantity, etc.)..."
+                      required
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isSubmitting || isSuccess}
-                    className={`w-full py-5 font-label-lg text-label-lg uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-xl transition-all active:scale-[0.98] ${
+                    className={`w-full py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-[0.98] font-bold ${
                       isSuccess
                         ? 'bg-emerald-700 text-white'
-                        : 'bg-primary text-on-primary'
+                        : 'bg-primary text-on-primary hover:bg-[#0b382b]'
                     }`}
                   >
                     {isSubmitting ? (
@@ -229,12 +318,12 @@ export default function Contact() {
                       'Success!'
                     ) : (
                       <>
-                        Submit Requirement
+                        Submit Inquiry
                         <span className="material-symbols-outlined text-lg">arrow_forward</span>
                       </>
                     )}
                   </button>
-                  <p className="text-label-md font-label-md text-center mt-4 opacity-60 italic">
+                  <p className="text-[10px] font-label-md text-center mt-3 text-on-surface-variant/60 italic">
                     Our technical team will respond within 24 business hours.
                   </p>
                 </div>
@@ -242,83 +331,40 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Map Section: Immersive Layout */}
-      <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-section-gap">
-        <div className="relative overflow-hidden rounded-lg border border-outline-variant/10 shadow-lg">
-          <div className="w-full relative bg-surface-container overflow-hidden" style={{ height: '480px' }}>
-            <iframe
-              src="https://maps.google.com/maps?q=Coorg+Ply,+Madikeri+Virajpet+Rd,+Kadanur,+Virajpet,+Karnataka+571218&t=k&z=16&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="100%"
-              style={{ border: 0, position: 'absolute', inset: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Coorg Ply Location Map"
-            ></iframe>
-
-            {/* Information Card Overlay */}
-            <div className="absolute bottom-10 right-10 z-30 bg-white p-8 shadow-2xl border-l-[6px] border-primary max-w-sm hidden md:block">
-              <h3 className="font-headline-md text-xl md:text-headline-md text-primary mb-3">Our Facility</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant mb-2">Coorg Ply</p>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mb-8">
-                Madikeri - Virajpet Rd, Virajpet,
-                <br />
-                Kadanur, Karnataka 571218
-              </p>
-              <div className="flex flex-col gap-3">
-                <a
-                  href="https://www.google.com/maps/dir/?api=1&destination=Coorg+Ply,+Madikeri+-+Virajpet+Rd,+Virajpet,+Kadanur,+Karnataka+571218"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-primary text-on-primary py-3.5 px-6 font-label-lg text-label-lg flex items-center justify-center gap-3 hover:bg-primary/90 transition-all shadow-md"
-                >
-                  <span className="material-symbols-outlined text-lg">directions</span>
-                  Get Directions
-                </a>
-                <a
-                  href="https://www.google.com/maps/search/Coorg+Ply,+Madikeri+-+Virajpet+Rd,+Virajpet,+Kadanur,+Karnataka+571218"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full border border-primary text-primary py-3.5 px-6 font-label-lg text-label-lg flex items-center justify-center gap-3 hover:bg-primary/5 transition-all text-center"
-                >
-                  View on Google Maps
-                  <span className="material-symbols-outlined text-sm">open_in_new</span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile version of the card */}
-          <div className="md:hidden bg-white p-6 border-t border-outline-variant/10">
-            <h3 className="font-headline-md text-xl md:text-headline-md text-primary mb-2">Our Facility</h3>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mb-6">
-              Madikeri - Virajpet Rd, Virajpet, Kadanur, Karnataka 571218
-            </p>
-            <div className="flex flex-col gap-3">
-              <a
-                href="https://www.google.com/maps/dir/?api=1&destination=Coorg+Ply,+Madikeri+-+Virajpet+Rd,+Virajpet,+Kadanur,+Karnataka+571218"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full bg-primary text-on-primary py-3 px-4 font-label-lg text-label-lg flex items-center justify-center gap-2 text-center"
-              >
-                <span className="material-symbols-outlined text-lg">directions</span>
-                Get Directions
-              </a>
-            </div>
-          </div>
+        
+        {/* Embedded Google Map */}
+        <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative">
+          <iframe 
+            src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
+            className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </section>
 
-      {/* Success Toast */}
+      {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-8 right-8 z-50 bg-emerald-800 text-white px-6 py-4 rounded shadow-2xl flex items-center gap-3 transition-transform duration-300">
-          <span className="material-symbols-outlined text-emerald-300">verified</span>
+        <div className={`fixed bottom-8 right-8 z-50 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 ${
+          toastType === 'success' ? 'bg-emerald-800' : 'bg-rose-800'
+        }`}>
+          <span className={`material-symbols-outlined ${
+            toastType === 'success' ? 'text-emerald-300' : 'text-rose-300'
+          }`}>
+            {toastType === 'success' ? 'verified' : 'error'}
+          </span>
           <div>
-            <p className="font-bold">Inquiry Sent Successfully</p>
-            <p className="text-xs text-emerald-100">Thank you! We will get back to you shortly.</p>
+            <p className="font-bold text-sm">
+              {toastType === 'success' ? 'Inquiry Sent Successfully' : 'Submission Failed'}
+            </p>
+            <p className={`text-[11px] mt-0.5 ${
+              toastType === 'success' ? 'text-emerald-100/80' : 'text-rose-100/80'
+            }`}>
+              {toastType === 'success' 
+                ? 'Thank you! We will get back to you shortly.' 
+                : 'Could not submit your inquiry. Please try again or call us directly.'}
+            </p>
           </div>
         </div>
       )}

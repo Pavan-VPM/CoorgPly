@@ -297,21 +297,19 @@ export default function ProductDetail() {
               <Link
                 key={item.id}
                 to={`/products/${item.id}`}
-                className="group overflow-hidden rounded-[30px] border border-[#ded2c5] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
               >
-                <div className="relative h-60 overflow-hidden">
-                  <img src={item.image} alt={item.name} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#071812]/30 via-transparent to-transparent"></div>
-                </div>
-                <div className="p-7">
-                  <div className="mb-4 flex items-center justify-between gap-3">
+                <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#0f4c3a_0%,#a35a1f_100%)]"></div>
+
+                <div className="p-7 relative z-10 flex-grow flex flex-col pt-8">
+                  <div className="mb-4 flex items-center justify-between gap-3 font-bold">
                     <span className="inline-flex rounded-full bg-[#efe6db] px-3 py-1 font-label-md text-[10px] uppercase tracking-[0.18em] text-secondary">
                       {item.series}
                     </span>
-                    <span className="text-sm font-semibold text-[#17643e]">{item.priceRange}</span>
+                    <span className="text-sm text-[#17643e]">{item.priceRange}</span>
                   </div>
-                  <h3 className="font-headline-md text-2xl text-primary">{item.name}</h3>
-                  <p className="mt-4 text-sm leading-8 text-on-surface-variant">{item.summary}</p>
+                  <h3 className="font-headline-md text-2xl text-primary font-bold">{item.name}</h3>
+                  <p className="mt-4 text-sm leading-relaxed text-on-surface-variant/85">{item.summary}</p>
                 </div>
               </Link>
             ))}

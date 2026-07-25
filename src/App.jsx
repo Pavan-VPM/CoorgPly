@@ -9,6 +9,7 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Manufacturing from './pages/Manufacturing';
 import Contact from './pages/Contact';
+import TechnicalSpecs from './pages/TechnicalSpecs';
 
 export default function App() {
   const { pathname } = useLocation();
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/manufacturing" element={<Manufacturing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/technical-specs" element={<TechnicalSpecs />} />
         </Routes>
       </main>
       

@@ -78,16 +78,16 @@ export default function Manufacturing() {
   return (
     <>
       {/* Hero Section / Immersive Manufacturing Experience */}
-      <section className="relative h-[90vh] flex items-center pt-24 overflow-hidden">
+      <section className="relative h-[80vh] md:h-[90vh] flex items-center pt-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img alt="Manufacturing process hero image" className="w-full h-full object-cover" src="/manufacturing_facility.png" />
           <div className="absolute inset-0 bg-primary/50 mix-blend-multiply z-10"></div>
           <div className="absolute inset-0 bg-black/30 z-10"></div>
         </div>
-        <div className="relative z-20 px-margin-desktop max-w-container-max mx-auto w-full text-surface-container-lowest">
+        <div className="relative z-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full text-surface-container-lowest">
           <div className="max-w-4xl">
             <span className="font-label-lg text-label-lg tracking-[0.2em] mb-6 block uppercase opacity-80">Precision Crafted. Quality Assured.</span>
-            <h1 className="font-headline-display text-headline-display mb-8 leading-tight">Our Manufacturing Process</h1>
+            <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display mb-8 leading-tight">Our Manufacturing Process</h1>
             <p className="font-body-lg text-body-lg mb-10 opacity-90 leading-relaxed max-w-2xl">
               At Coorg Ply, every sheet of plywood is manufactured using advanced technology, premium raw materials, and stringent quality control measures. From carefully selected timber to the final finished panel, each stage of our manufacturing process is designed to ensure exceptional strength, durability, and long-lasting performance.
             </p>
@@ -102,9 +102,9 @@ export default function Manufacturing() {
       {/* The Process Journey */}
       <section className="bg-surface pb-section-gap" id="process-start">
         {/* Journey Narrative Start */}
-        <div className="max-w-container-max mx-auto px-margin-desktop pt-24 pb-12">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-16 md:pt-24 pb-12">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20 border-b border-outline-variant/30 pb-12">
-            <h2 className="font-headline-lg text-headline-lg text-primary max-w-xl">A Master Journey from Timber to Surface</h2>
+            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary max-w-xl">A Master Journey from Timber to Surface</h2>
             <div className="text-on-surface-variant font-label-lg max-w-xs md:text-right">
               CHRONOLOGY OF CRAFTSMANSHIP<br />
               EST. 1982
@@ -114,13 +114,13 @@ export default function Manufacturing() {
 
         {/* 10 Step Journey */}
         <div className="flex flex-col space-y-0">
-          
+
           {/* Step 1: Split Dynamic */}
           <div className="grid grid-cols-1 md:grid-cols-12 items-center">
-            <div className="md:col-span-7 relative h-[500px]">
+            <div className="md:col-span-7 relative h-[300px] md:h-[500px]">
               <img alt={steps[0].title} className="w-full h-full object-cover" src={steps[0].image} />
             </div>
-            <div className="md:col-span-5 px-margin-desktop py-16 md:pl-16">
+            <div className="md:col-span-5 px-margin-mobile md:px-margin-desktop py-12 md:py-16 md:pl-16">
               <span className="text-primary/60 font-label-lg mb-4 block">{steps[0].tag}</span>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">{steps[0].title}</h3>
               <p className="font-body-md text-on-surface-variant leading-relaxed">{steps[0].text}</p>
@@ -128,7 +128,7 @@ export default function Manufacturing() {
           </div>
 
           {/* Step 2: Inset Content */}
-          <div className="bg-surface-container-low py-20 px-margin-desktop">
+          <div className="bg-surface-container-low py-12 md:py-20 px-margin-mobile md:px-margin-desktop">
             <div className="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
               <div className="order-2 md:order-1">
                 <div className="flex items-center gap-6 mb-8">
@@ -145,12 +145,12 @@ export default function Manufacturing() {
 
           {/* Step 3 & 4: Compact Grid Split */}
           <div className="grid grid-cols-1 md:grid-cols-2 border-y border-outline-variant/20">
-            <div className="p-16 border-r border-outline-variant/20 flex flex-col justify-center bg-surface-container-lowest">
+            <div className="p-8 sm:p-16 border-r border-outline-variant/20 flex flex-col justify-center bg-surface-container-lowest">
               <span className="text-primary font-bold text-5xl mb-8 opacity-20">{steps[2].num}</span>
               <h3 className="font-headline-md text-headline-md text-primary mb-6">{steps[2].title}</h3>
               <p className="font-body-md text-on-surface-variant">{steps[2].text}</p>
             </div>
-            <div className="p-16 flex flex-col justify-center bg-primary text-surface-container-lowest">
+            <div className="p-8 sm:p-16 flex flex-col justify-center bg-primary text-surface-container-lowest">
               <span className="text-primary-fixed-dim font-bold text-5xl mb-8 opacity-40">{steps[3].num}</span>
               <h3 className="font-headline-md text-headline-md mb-6">{steps[3].title}</h3>
               <p className="font-body-md opacity-80">{steps[3].text}</p>
@@ -158,17 +158,17 @@ export default function Manufacturing() {
           </div>
 
           {/* Step 5: Full Bleed Storytelling */}
-          <div className="relative h-[700px] flex items-center justify-center overflow-hidden">
+          <div className="relative h-[450px] md:h-[600px] lg:h-[700px] flex items-center justify-center overflow-hidden">
             <img alt={steps[4].title} className="absolute inset-0 w-full h-full object-cover grayscale brightness-50" src={steps[4].image} />
             <div className="relative z-10 text-center max-w-2xl px-margin-mobile">
               <div className="mb-8 inline-block border-2 border-surface-container-lowest/30 px-6 py-2 text-surface-container-lowest font-label-lg tracking-[0.4em]">{steps[4].num}</div>
-              <h3 className="font-headline-lg text-headline-lg text-surface-container-lowest mb-8">{steps[4].title}</h3>
+              <h3 className="font-headline-lg text-3xl md:text-headline-lg text-surface-container-lowest mb-8">{steps[4].title}</h3>
               <p className="font-body-lg text-surface-container-lowest/80">{steps[4].text}</p>
             </div>
           </div>
 
           {/* Step 6 & 7: Alternating Textured Layout */}
-          <div className="max-w-container-max mx-auto px-margin-desktop py-24 space-y-24">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24 space-y-16 md:space-y-24">
             <div className="flex flex-col md:flex-row items-center gap-16">
               <div className="md:w-1/2">
                 <span className="text-secondary font-bold text-lg mb-4 block">{steps[5].stepLabel}</span>
@@ -200,10 +200,10 @@ export default function Manufacturing() {
 
           {/* Step 8: Power Phase Full Bleed Split */}
           <div className="grid grid-cols-1 md:grid-cols-2 bg-primary-container text-surface">
-            <div className="h-[600px] overflow-hidden">
+            <div className="h-[300px] md:h-[600px] overflow-hidden">
               <img alt={steps[7].title} className="w-full h-full object-cover opacity-60 hover:scale-105 transition-transform duration-[3s]" src={steps[7].image} />
             </div>
-            <div className="flex flex-col justify-center p-16 md:p-24 relative">
+            <div className="flex flex-col justify-center p-8 sm:p-16 md:p-24 relative">
               <span className="step-number-outline text-9xl font-bold absolute top-12 right-12 opacity-10">{steps[7].num}</span>
               <span className="font-label-lg tracking-widest text-primary-fixed-dim mb-8">{steps[7].tag}</span>
               <h3 className="font-headline-md text-headline-md mb-8">{steps[7].title}</h3>
@@ -212,16 +212,16 @@ export default function Manufacturing() {
           </div>
 
           {/* Step 9 & 10: Final Precision Conclusion */}
-          <div className="max-w-container-max mx-auto px-margin-desktop py-24">
+          <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="bg-surface-container-low p-12 border-t-4 border-primary">
+              <div className="bg-surface-container-low p-6 sm:p-12 border-t-4 border-primary">
                 <div className="flex items-start gap-6 mb-8">
                   <span className="font-headline-md text-3xl text-primary/40">{steps[8].num}</span>
                   <h3 className="font-headline-md text-headline-md text-primary">{steps[8].title}</h3>
                 </div>
                 <p className="font-body-md text-on-surface-variant">{steps[8].text}</p>
               </div>
-              <div className="bg-surface-container-high p-12 border-t-4 border-secondary">
+              <div className="bg-surface-container-high p-6 sm:p-12 border-t-4 border-secondary">
                 <div className="flex items-start gap-6 mb-8">
                   <span className="font-headline-md text-3xl text-primary/40">{steps[9].num}</span>
                   <h3 className="font-headline-md text-headline-md text-primary">{steps[9].title}</h3>
@@ -236,10 +236,10 @@ export default function Manufacturing() {
 
       {/* Crafted for Performance Callout */}
       <section className="bg-primary-container text-surface-container-lowest py-section-gap">
-        <div className="px-margin-desktop max-w-container-max mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
+        <div className="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
             <div>
-              <h2 className="font-headline-lg text-headline-lg mb-8">Crafted for Performance</h2>
+              <h2 className="font-headline-lg text-3xl md:text-headline-lg mb-8">Crafted for Performance</h2>
               <p className="font-body-lg text-body-lg opacity-80 mb-12 leading-relaxed">
                 Our commitment to innovation, precision manufacturing, and uncompromising quality enables us to produce plywood that meets the expectations of architects, designers, contractors, furniture manufacturers, and homeowners alike. Every sheet of Coorg Ply reflects our dedication to excellence, delivering exceptional strength, reliability, and lasting value for every project.
               </p>
@@ -305,41 +305,6 @@ export default function Manufacturing() {
         </div>
       </section>
 
-      {/* Location Map Section */}
-      <section className="py-section-gap overflow-hidden bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-stretch">
-            <div className="md:col-span-4 py-12 flex flex-col justify-center">
-              <span className="font-label-lg text-primary mb-4 block uppercase tracking-widest">Our Facility</span>
-              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-6">The Heart of Production</h2>
-              <p className="font-body-md text-on-surface-variant mb-8">
-                Our Madikeri facility is strategically located to minimize carbon footprint, utilizing locally sourced logs and benefitting from the unique humidity profile of the Western Ghats for optimal seasoning.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <span className="material-symbols-outlined text-primary mt-1">location_on</span>
-                  <div>
-                    <p className="font-bold text-primary">Coorg Ply</p>
-                    <p className="text-on-surface-variant text-sm">Madikeri - Virajpet Rd, Virajpet,<br />Kadanur, Karnataka 571218</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="md:col-span-8 relative min-h-[500px] rounded-2xl overflow-hidden border border-outline-variant/30 group shadow-lg">
-              <iframe
-                src="https://maps.google.com/maps?q=Coorg+Ply,+Madikeri+Virajpet+Rd,+Kadanur,+Virajpet,+Karnataka+571218&t=k&z=16&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0, position: 'absolute', inset: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Coorg Ply Facility Location"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="relative bg-primary py-24 overflow-hidden">
@@ -353,8 +318,8 @@ export default function Manufacturing() {
             <Link to="/contact" className="bg-on-primary text-primary px-10 py-4 font-label-lg rounded-DEFAULT hover:bg-primary-fixed transition-colors shadow-lg text-center">
               Request Samples
             </Link>
-            <Link to="/contact" className="border border-on-primary/30 text-on-primary px-10 py-4 font-label-lg rounded-DEFAULT hover:bg-on-primary/10 transition-colors text-center">
-              Download Technical Specs
+            <Link to="/technical-specs" className="border border-on-primary/30 text-on-primary px-10 py-4 font-label-lg rounded-DEFAULT hover:bg-on-primary/10 transition-colors text-center">
+              View Technical Specs
             </Link>
           </div>
         </div>

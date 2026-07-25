@@ -47,11 +47,11 @@ export default function Header() {
   // Determine header classes
   let headerClass = "fixed top-0 left-0 right-0 z-50 flex items-center transition-all duration-300 ";
   if (isHome && !scrolled) {
-    headerClass += "bg-transparent h-28";
+    headerClass += "bg-transparent h-20 md:h-28";
   } else if (scrolled) {
     headerClass += "nav-scrolled";
   } else {
-    headerClass += "h-24 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30";
+    headerClass += "h-16 md:h-24 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30";
   }
 
   return (
@@ -59,8 +59,8 @@ export default function Header() {
       <header className={headerClass} id="main-header">
         <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-full">
           <Link to="/" className="flex items-center gap-3">
-            <img alt="Coorg Ply Logo" className="h-20 w-auto" src="/logo.png" />
-            <span className="font-headline-md text-3xl font-bold text-primary tracking-tight">Coorg Ply</span>
+            <img alt="Coorg Ply Logo" className="h-12 md:h-20 w-auto" src="/logo.png" />
+            <span className="font-headline-md text-2xl md:text-3xl font-bold text-primary tracking-tight">Coorg Ply</span>
           </Link>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => {

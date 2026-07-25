@@ -1,8 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { plywoodProducts } from '../data/plywoodProducts';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState('plywood');
+
+  const heroSlides = {
+    plywood: {
+      tag: "Est. in the Hills",
+      title: (
+        <>
+          Nature's <span className="italic font-normal serif">Resilience,</span> <br />
+          Crafted.
+        </>
+      ),
+      description: "Premium calibrated plywood engineered for lasting architectural integrity. Sourced responsibly from the heart of Coorg's misty landscapes.",
+      image: "/hero_plywood.png",
+      primaryLink: "/products",
+      primaryLabel: "Explore Plywood",
+      secondaryLink: "/story",
+      secondaryLabel: "Our Heritage"
+    },
+    veneers: {
+      tag: "Decorative Elegance",
+      title: (
+        <>
+          Fingerprints of <span className="italic font-normal serif">Forests,</span> <br />
+          Unveiled.
+        </>
+      ),
+      description: "Luxurious wood veneers sliced from choice timber grains. Bringing organic depth, warmth, and textured character to sophisticated architectural interiors.",
+      image: "/veneer_interior.png",
+      primaryLink: "/products",
+      primaryLabel: "View Veneers",
+      secondaryLink: "/contact",
+      secondaryLabel: "Request Samples"
+    },
+    doors: {
+      tag: "Structural Defiance",
+      title: (
+        <>
+          Moisture <span className="italic font-normal serif">Warp-Free,</span> <br />
+          Guaranteed.
+        </>
+      ),
+      description: "Solid core flush doors built with internal bracing and block boards designed to survive severe monsoon dampness while holding perfect lines.",
+      image: "/flush_door.png",
+      primaryLink: "/products",
+      primaryLabel: "Browse Doors",
+      secondaryLink: "/contact",
+      secondaryLabel: "Get in Touch"
+    }
+  };
+
+  const currentSlide = heroSlides[activeTab];
+
   return (
     <>
       {/* Hero Section */}
@@ -11,50 +63,71 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Typographic Content */}
             <div className="lg:col-span-7 flex flex-col items-start order-2 lg:order-1">
-              <div className="overflow-hidden mb-2">
-                <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block">Est. in the Hills</span>
+              
+              {/* Tab Selector */}
+              <div className="flex gap-1.5 mb-8 bg-surface-container p-1 rounded-full border border-outline-variant/20 self-start shadow-sm">
+                {Object.keys(heroSlides).map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveTab(key)}
+                    className={`px-5 py-2.5 rounded-full font-label-md text-xs uppercase tracking-wider transition-all duration-300 ${
+                      activeTab === key
+                        ? 'bg-primary text-on-primary font-bold shadow-md'
+                        : 'text-on-surface-variant hover:text-primary hover:bg-surface/50'
+                    }`}
+                  >
+                    {key}
+                  </button>
+                ))}
               </div>
-              <h1 className="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
-                Nature's <span className="italic font-normal serif">Resilience,</span> <br />
-                Crafted.
-              </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">
-                Premium calibrated plywood engineered for lasting architectural integrity. Sourced responsibly from the heart of Coorg's misty landscapes.
-              </p>
-              <div className="flex flex-wrap gap-6 items-center">
-                <Link
-                  className="bg-primary text-on-primary px-10 py-5 rounded-sm font-label-lg text-label-lg uppercase tracking-[0.15em] hover:bg-primary-container transition-all shadow-2xl flex items-center gap-3 group"
-                  to="/products"
-                >
-                  Explore Collection
-                  <span className="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">
-                    arrow_right_alt
+
+              <div key={activeTab} className="animate-fade-in flex flex-col items-start">
+                <div className="overflow-hidden mb-2">
+                  <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block">
+                    {currentSlide.tag}
                   </span>
-                </Link>
-                <Link
-                  className="group flex items-center gap-4 font-label-lg text-label-lg uppercase tracking-widest text-secondary hover:text-primary transition-colors"
-                  to="/story"
-                >
-                  <span className="w-12 h-[1px] bg-secondary group-hover:w-16 group-hover:bg-primary transition-all"></span>
-                  Our Heritage
-                </Link>
+                </div>
+                <h1 className="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
+                  {currentSlide.title}
+                </h1>
+                <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">
+                  {currentSlide.description}
+                </p>
+                <div className="flex flex-wrap gap-6 items-center">
+                  <Link
+                    className="bg-primary text-on-primary px-10 py-5 rounded-sm font-label-lg text-label-lg uppercase tracking-[0.15em] hover:bg-primary-container transition-all shadow-2xl flex items-center gap-3 group"
+                    to={currentSlide.primaryLink}
+                  >
+                    {currentSlide.primaryLabel}
+                    <span className="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">
+                      arrow_right_alt
+                    </span>
+                  </Link>
+                  <Link
+                    className="group flex items-center gap-4 font-label-lg text-label-lg uppercase tracking-widest text-secondary hover:text-primary transition-colors"
+                    to={currentSlide.secondaryLink}
+                  >
+                    <span className="w-12 h-[1px] bg-secondary group-hover:w-16 group-hover:bg-primary transition-all"></span>
+                    {currentSlide.secondaryLabel}
+                  </Link>
+                </div>
               </div>
             </div>
 
             {/* Asymmetrical Image Integration */}
             <div className="lg:col-span-5 relative order-1 lg:order-2">
-              <div className="relative z-20 hero-img-mask overflow-hidden shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] aspect-[4/5] lg:aspect-auto lg:h-[700px]">
+              <div key={activeTab} className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]">
                 <img
-                  alt="Premium Coorg Plywood Craftsmanship"
+                  alt={currentSlide.tag}
                   className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-[3s] ease-out"
-                  src="/hero_plywood.png"
+                  src={currentSlide.image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
               </div>
               {/* Decorative Elements */}
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-secondary-container/30 -z-10 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-40">
-                PLY
+              <div className="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-30 uppercase tracking-widest">
+                {activeTab}
               </div>
             </div>
           </div>
@@ -160,58 +233,35 @@ export default function Home() {
           >
             {/* Render twice for seamless loop */}
             {[...plywoodProducts, ...plywoodProducts].map((product, idx) => (
-              <div
+              <Link
                 key={`${product.id}-${idx}`}
-                className="group bg-surface-container-lowest p-1 rounded-sm shadow-sm border border-outline-variant/10 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 overflow-hidden flex flex-col flex-shrink-0"
+                to={`/products/${product.id}`}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1.5 hover:shadow-lg transition-all duration-300 flex-shrink-0"
                 style={{ width: '320px' }}
               >
-                <div className="relative overflow-hidden" style={{ height: '280px' }}>
-                  <img
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    alt={product.name}
-                    src={product.image}
-                  />
-                  <div className="absolute top-4 right-4 bg-primary/90 text-on-primary px-3 py-1 rounded-full font-label-md z-10 text-xs uppercase tracking-wider">
-                    {product.grade} GRADE
-                  </div>
-                  <div className="absolute inset-0 bg-primary/40 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex flex-wrap justify-center gap-2 px-4">
-                      {product.features.slice(0, 2).map((f, i) => (
-                        <span
-                          key={i}
-                          className="bg-surface/90 text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider"
-                        >
-                          {f.split(' ').slice(0, 3).join(' ')}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#0f4c3a_0%,#a35a1f_100%)]"></div>
+
                 <div className="px-6 py-6 flex flex-col flex-1">
                   <div className="flex-1">
-                    <h3 className="font-headline-md text-primary mb-1 text-xl">{product.name}</h3>
-                    <p className="font-label-sm text-secondary uppercase tracking-wider text-xs mb-3">{product.series} Series · {product.thickness}</p>
-                    <p className="font-body-md text-on-surface-variant mb-4 line-clamp-2 text-sm">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="rounded-md bg-primary-fixed-dim text-primary px-3 py-1.5 font-label-md text-[10px] uppercase tracking-wider font-bold">
+                        {product.grade} GRADE
+                      </span>
+                      <span className="text-secondary font-label-md text-[10px] uppercase tracking-wider font-bold">{product.series}</span>
+                    </div>
+                    <h3 className="font-headline-md text-primary mb-2 text-xl font-bold">{product.name}</h3>
+                    <p className="font-label-sm text-secondary uppercase tracking-wider text-xs mb-3">{product.thickness}</p>
+                    <p className="font-body-md text-on-surface-variant/80 mb-4 line-clamp-3 text-sm leading-relaxed">
                       {product.summary}
                     </p>
-                    <p className="font-body-lg text-primary font-bold text-lg mb-6">{product.priceRange} <span className="font-body-sm text-on-surface-variant text-xs font-normal">per sq ft</span></p>
+                    <p className="font-body-lg text-[#2c7d59] font-bold text-lg">{product.priceRange} <span className="font-body-sm text-on-surface-variant/60 text-xs font-normal">per sq ft</span></p>
                   </div>
-                  <Link
-                    className="inline-flex items-center gap-2 text-primary font-label-lg uppercase tracking-wider group/link border-b-2 border-transparent hover:border-primary transition-all text-sm"
-                    to={`/products/${product.id}`}
-                  >
-                    Specifications{' '}
-                    <span className="material-symbols-outlined text-sm group-hover/link:translate-x-2 transition-transform">
-                      trending_flat
-                    </span>
-                  </Link>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
-
 
       {/* Manufacturing Excellence */}
 
@@ -256,7 +306,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div className="relative hidden lg:block">
               <div className="absolute -inset-10 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -289,98 +339,177 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Get In Touch Banner Section */}
-      <section className="py-section-gap bg-surface" id="contact">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="bg-surface-container-lowest shadow-2xl rounded-sm overflow-hidden border border-outline-variant/10">
-            <div className="grid grid-cols-1 lg:grid-cols-5">
-              <div className="lg:col-span-2 bg-primary p-6 sm:p-12 lg:p-16 text-on-primary flex flex-col justify-between">
-                <div>
-                  <h2 className="font-headline-lg text-3xl md:text-headline-lg mb-6">Let's Build Together</h2>
-                  <p className="font-body-md opacity-80 mb-12">
-                    Have a specific requirement or need a custom quote? Our technical experts are here to assist you.
-                  </p>
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-primary-fixed-dim mt-1">mail</span>
-                      <div>
-                        <p className="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Email Us</p>
-                        <p className="font-body-md">coorgplyindustries@gmail.com</p>
-                      </div>
+
+      {/* Redesigned Premium Contact Section */}
+      <section className="py-24 bg-[linear-gradient(180deg,#fcf9f8_0%,#f5f1ea_100%)] relative overflow-hidden border-t border-outline-variant/10" id="contact">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(163,90,31,0.05),transparent_45%)] pointer-events-none"></div>
+        
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
+          <div className="text-center mb-16">
+            <span className="font-label-lg text-secondary tracking-[0.25em] uppercase block mb-3">Get in Touch</span>
+            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Connect With Coorg Ply</h2>
+            <p className="font-body-md text-sm text-on-surface-variant/80 mt-4 max-w-xl mx-auto leading-relaxed">
+              Reach out to our regional headquarters and state-of-the-art manufacturing plant. Let's discuss your architectural projects, volume order requirements, or custom configurations.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+            {/* Contact Details Card (Left Column) */}
+            <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
+              
+              <div>
+                <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 font-label-md text-[10px] uppercase tracking-wider text-primary-fixed-dim font-bold mb-8">
+                  Coorg Ply HQ
+                </span>
+                <h3 className="font-headline-md text-3xl text-white mb-6 font-bold leading-tight">Let's Build Together</h3>
+                <p className="font-body-md text-on-primary/85 mb-10 leading-relaxed text-sm">
+                  Our technical advisors are available to guide you on standard compliance (IS:303, IS:710), calibration parameters, and customization limits.
+                </p>
+
+                <div className="space-y-6">
+                  <a href="mailto:coorgplyindustries@gmail.com" className="flex items-start gap-4 group/item">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center group-hover/item:bg-white/20 transition-colors shrink-0">
+                      <span className="material-symbols-outlined text-white text-base">mail</span>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-primary-fixed-dim mt-1">call</span>
-                      <div>
-                        <p className="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Call Us</p>
-                        <p className="font-body-md">
-                          +91 9353927123
-                          <br />
-                          +91 9448057309
-                        </p>
-                      </div>
+                    <div>
+                      <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Email Us</p>
+                      <p className="font-body-md text-sm text-white group-hover/item:text-primary-fixed-dim transition-colors mt-0.5">coorgplyindustries@gmail.com</p>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <span className="material-symbols-outlined text-primary-fixed-dim mt-1">location_on</span>
-                      <div>
-                        <p className="font-label-lg uppercase tracking-widest text-primary-fixed-dim">Visit Us</p>
-                        <p className="font-body-md">
-                          Madikeri - Virajpet Rd, Virajpet,
-                          <br />
-                          Kadanur, Karnataka 571218
-                        </p>
-                      </div>
+                  </a>
+
+                  <div className="flex items-start gap-4 group/item">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-white text-base">call</span>
+                    </div>
+                    <div>
+                      <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Call Us</p>
+                      <p className="font-body-md text-sm text-white mt-0.5">
+                        +91 9353927123<br />
+                        +91 9448057309
+                      </p>
                     </div>
                   </div>
-                </div>
-                <div className="pt-12 border-t border-white/10 mt-12 lg:mt-0">
-                  <p className="font-label-md text-on-primary/60 mb-2">OPERATING HOURS</p>
-                  <p className="text-sm">Mon - Sat: 9:00 AM - 7:00 PM</p>
+
+                  <a href="https://maps.google.com/?q=Coorg+Ply+Industries+Kadanur+Karnataka" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group/item">
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center group-hover/item:bg-white/20 transition-colors shrink-0">
+                      <span className="material-symbols-outlined text-white text-base">location_on</span>
+                    </div>
+                    <div>
+                      <p className="font-label-lg text-[10px] uppercase tracking-wider text-primary-fixed-dim">Visit Us</p>
+                      <p className="font-body-md text-sm text-white group-hover/item:text-primary-fixed-dim transition-colors mt-0.5">
+                        Madikeri - Virajpet Rd, Virajpet,<br />
+                        Kadanur, Karnataka 571218
+                      </p>
+                    </div>
+                  </a>
                 </div>
               </div>
 
-              <div className="lg:col-span-3 p-6 sm:p-12 lg:p-16">
-                <h2 className="font-headline-md text-headline-md text-primary mb-8">Send an Inquiry</h2>
+              <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-4 text-xs">
+                <div>
+                  <p className="font-label-md text-on-primary/60 uppercase tracking-widest mb-1.5">OPERATING HOURS</p>
+                  <p className="text-white">Mon - Sat: 9:00 AM - 7:00 PM</p>
+                </div>
+                <div>
+                  <p className="font-label-md text-on-primary/60 uppercase tracking-widest mb-1.5">SUNDAY</p>
+                  <p className="text-primary-fixed-dim font-bold">Closed</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Redesigned Inquiry Form Card (Right Column) */}
+            <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between">
+              <div>
+                <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2 text-xs">Direct Channel</span>
+                <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>
+                
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     alert("Thank you! Your inquiry has been sent successfully.");
                     e.target.reset();
                   }}
-                  className="grid grid-cols-1 sm:grid-cols-2 gap-8"
+                  className="space-y-6"
                 >
-                  <div className="col-span-1">
-                    <label className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">
-                      Full Name
-                    </label>
-                    <input
-                      className="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all"
-                      type="text"
-                      required
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col">
+                      <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                        Full Name
+                      </label>
+                      <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                        <input
+                          className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                          type="text"
+                          placeholder="Your full name"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                        Email Address
+                      </label>
+                      <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                        <input
+                          className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                          type="email"
+                          placeholder="name@company.com"
+                          required
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-span-1">
-                    <label className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">
-                      Email Address
-                    </label>
-                    <input
-                      className="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all"
-                      type="email"
-                      required
-                    />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col">
+                      <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                        Phone Number
+                      </label>
+                      <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                        <input
+                          className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
+                          type="tel"
+                          placeholder="e.g. +91 9876543210"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col">
+                      <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
+                        Requirement Type
+                      </label>
+                      <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                        <select className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md cursor-pointer">
+                          <option>Plywood Grades</option>
+                          <option>Decorative Veneers</option>
+                          <option>Blockboards & Doors</option>
+                          <option>Custom Contract Order</option>
+                          <option>General Inquiry</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-span-1 sm:col-span-2">
-                    <label className="font-label-md text-on-surface-variant uppercase tracking-wider mb-2 block">
+
+                  <div className="flex flex-col">
+                    <label className="font-label-md text-primary text-[10px] uppercase tracking-wider mb-2 font-bold">
                       Your Message
                     </label>
-                    <textarea
-                      className="w-full bg-surface-container-low border-b border-outline-variant focus:border-primary outline-none py-3 transition-all resize-none"
-                      rows="4"
-                      required
-                    ></textarea>
+                    <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-3 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+                      <textarea
+                        className="w-full bg-transparent border-none outline-none text-sm text-on-surface font-body-md resize-none"
+                        rows="4"
+                        placeholder="Detail your requirements (dimensions, grade, quantity, etc.)..."
+                        required
+                      ></textarea>
+                    </div>
                   </div>
-                  <div className="col-span-1 sm:col-span-2 pt-4">
+
+                  <div className="pt-2">
                     <button
-                      className="bg-primary text-on-primary px-12 py-4 rounded-sm font-label-lg uppercase tracking-widest hover:bg-primary-container transition-all shadow-lg w-full sm:w-auto"
+                      className="bg-primary text-on-primary py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest hover:bg-[#0b382b] hover:shadow-lg transition-all duration-300 w-full font-bold"
                       type="submit"
                     >
                       Send Message
@@ -389,6 +518,17 @@ export default function Home() {
                 </form>
               </div>
             </div>
+          </div>
+          
+          {/* Embedded Google Map */}
+          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative hidden md:block">
+            <iframe 
+              src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
+              className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </section>
