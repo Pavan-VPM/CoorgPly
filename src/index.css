@@ -93,3 +93,24 @@
   width: max-content;
   animation: marquee-loop 30s linear infinite;
 }
+
+/* Continuous Left-to-Right Marquee for Image Gallery */
+@keyframes slide-ltr {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-ltr {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: slide-ltr 30s linear infinite;
+}
+
+.animate-marquee-ltr:hover {
+  animation-play-state: paused;
+}

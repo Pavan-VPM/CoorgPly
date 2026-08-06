@@ -318,7 +318,7 @@ export default function Home() {
                   <img
                     className="rounded-sm shadow-lg w-full aspect-[4/5] object-cover"
                     alt="Stack of plywood sheets inspection"
-                    src="/plywood_inspection.png"
+                    src="/quality_assurance.jpg"
                   />
                 </div>
                 <div className="space-y-4 pt-12">
