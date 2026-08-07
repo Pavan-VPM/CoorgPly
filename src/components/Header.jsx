@@ -59,7 +59,7 @@ export default function Header() {
       <header className={headerClass} id="main-header">
         <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex justify-between items-center h-full">
           <Link to="/" className="flex items-center gap-3">
-            <img alt="Coorg Ply Logo" className="h-12 md:h-20 w-auto" src="/logo.png" />
+            <img alt="Coorg Ply Logo" className="h-12 md:h-20 w-auto" src="/logo.webp" />
             <span className="font-headline-md text-2xl md:text-3xl font-bold text-primary tracking-tight">Coorg Ply</span>
           </Link>
           <nav className="hidden lg:flex items-center gap-10">

@@ -66,49 +66,49 @@ const steps = [
     title: 'Premium Timber Selection',
     tag: 'ORIGIN',
     text: 'Our manufacturing journey begins with the careful selection of high-quality timber sourced from trusted suppliers. Every log is inspected to ensure it meets our strict standards for strength, density, and durability.',
-    image: '/timber_selection.jpg',
+    image: '/timber_selection.webp',
     icon: 'park',
   },
   {
     num: '02',
     title: 'Log Preparation',
     text: 'The selected logs are debarked. This process makes it ideal for producing smooth, uniform veneers while preserving the natural strength of the wood.',
-    image: '/log_prep.png',
+    image: '/log_prep.webp',
     icon: 'carpenter',
   },
   {
     num: '03',
     title: 'Precision Veneer Peeling',
     text: 'Using state-of-the-art rotary peeling technology, the logs are converted into continuous veneer sheets of consistent thickness. This ensures excellent dimensional accuracy and optimal material utilization.',
-    image: '/veneer_peeling.jpg',
+    image: '/veneer_peeling.webp',
     icon: 'layers',
   },
   {
     num: '04',
     title: 'Controlled Veneer Drying',
     text: 'The veneers are dried under carefully monitored temperatures to achieve the ideal moisture content. Proper drying enhances adhesive bonding, improves stability, and contributes to the overall durability of the finished plywood.',
-    image: '/veneer_drying.jpg',
+    image: '/veneer_drying.webp',
     icon: 'local_fire_department',
   },
   {
     num: '05',
     title: 'Quality Grading & Inspection',
     text: 'Each veneer is individually inspected and graded based on its appearance, strength, and structural integrity. Only veneers that meet our quality standards move forward in the production process.',
-    image: '/quality_grading.jpg',
+    image: '/quality_grading.webp',
     icon: 'verified',
   },
   {
     num: '06',
     title: 'Advanced Adhesive Application',
     text: 'High-performance resin systems are evenly applied using precision glue spreaders to ensure superior bonding between every layer. The choice of adhesive is tailored to the intended application.',
-    image: '/adhesive_application.jpg',
+    image: '/adhesive_application.webp',
     icon: 'water_drop',
   },
   {
     num: '07',
     title: 'Cross-Laminated Panel Assembly',
     text: 'The veneers are carefully arranged with alternating grain directions. This cross-laminated construction significantly enhances strength, dimensional stability, and resistance to warping or cracking.',
-    image: '/cross_lamination.jpg',
+    image: '/cross_lamination.webp',
     icon: 'grid_view',
   },
   {
@@ -116,21 +116,21 @@ const steps = [
     title: 'High-Pressure Hot Pressing',
     tag: 'THE TRANSFORMATION',
     text: 'The assembled panels are compressed under precisely controlled heat and pressure. This process permanently bonds the veneers into a solid, high-strength plywood panel capable of withstanding demanding applications.',
-    image: '/hot_pressing.jpg',
+    image: '/hot_pressing.webp',
     icon: 'compress',
   },
   {
     num: '09',
     title: 'Precision Finishing',
     text: 'After pressing, each panel is trimmed, calibrated, and sanded to achieve accurate dimensions, consistent thickness, and a smooth surface suitable for furniture, interiors, and construction.',
-    image: '/precision_finishing.jpg',
+    image: '/precision_finishing.webp',
     icon: 'straighten',
   },
   {
     num: '10',
     title: 'Rigorous Quality Assurance',
     text: 'Every finished panel undergoes comprehensive quality inspections to verify strength, bonding performance, dimensional accuracy, and overall finish. Only products that meet our stringent quality standards are approved for dispatch.',
-    image: '/quality_assurance.jpg',
+    image: '/quality_assurance.webp',
     icon: 'task_alt',
   },
 ];
@@ -175,7 +175,7 @@ export default function Manufacturing() {
           <img
             alt="Coorg Ply manufacturing facility"
             className="w-full h-full object-cover scale-105"
-            src="/manufacturing_facility.png"
+            src="/manufacturing_facility.webp"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-primary/30 z-10" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10" />
@@ -367,36 +367,32 @@ export default function Manufacturing() {
           <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-surface-container-lowest to-transparent z-10 pointer-events-none" />
           <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none" />
 
-          {/* Marquee Track */}
-          <div className="animate-marquee-ltr flex">
-            {[1, 2].map((set) => (
-              <div key={set} className="flex gap-4 sm:gap-5 pr-4 sm:pr-5">
-                {[
-                  '/timber_selection.jpg',
-                  '/timber_transport.jpg',
-                  '/veneer_peeling.jpg',
-                  '/wood_loading.jpg',
-                  '/veneer_drying.jpg',
-                  '/facility_machine.jpg',
-                  '/quality_grading.jpg',
-                  '/adhesive_application.jpg',
-                  '/cross_lamination.jpg',
-                  '/hot_pressing.jpg',
-                  '/heavy_press.jpg',
-                  '/precision_finishing.jpg',
-                  '/quality_assurance.jpg',
-                ].map((src, idx) => (
-                  <div
-                    key={idx}
-                    className="flex-shrink-0 p-1 sm:p-1.5 bg-white border border-outline-variant/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                  >
-                    <img
-                      src={src}
-                      alt={`Manufacturing step ${idx + 1}`}
-                      className="w-48 h-32 sm:w-64 sm:h-40 object-cover rounded-md sm:rounded-lg"
-                    />
-                  </div>
-                ))}
+          {/* Scrollable Gallery Track */}
+          <div className="flex gap-4 sm:gap-5 px-4 sm:px-16 overflow-x-auto py-4 scrollbar-thin scroll-smooth">
+            {[
+              '/timber_selection.webp',
+              '/timber_transport.webp',
+              '/veneer_peeling.webp',
+              '/wood_loading.webp',
+              '/veneer_drying.webp',
+              '/facility_machine.webp',
+              '/quality_grading.webp',
+              '/adhesive_application.webp',
+              '/cross_lamination.webp',
+              '/hot_pressing.webp',
+              '/heavy_press.webp',
+              '/precision_finishing.webp',
+              '/quality_assurance.webp',
+            ].map((src, idx) => (
+              <div
+                key={idx}
+                className="flex-shrink-0 p-1 sm:p-1.5 bg-white border border-outline-variant/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow"
+              >
+                <img
+                  src={src}
+                  alt={`Manufacturing step ${idx + 1}`}
+                  className="w-48 h-32 sm:w-64 sm:h-40 object-cover rounded-md sm:rounded-lg"
+                />
               </div>
             ))}
           </div>
@@ -486,7 +482,7 @@ export default function Manufacturing() {
           <img
             alt="Finished plywood application"
             className="w-full h-full object-cover"
-            src="/finished_showcase.png"
+            src="/finished_showcase.webp"
           />
           <div className="absolute inset-0 bg-primary/90 z-10" />
         </div>
@@ -528,22 +524,22 @@ export default function Manufacturing() {
                   <img
                     alt="Board texture close-up"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover"
-                    src="/board_texture.png"
+                    src="/board_texture.webp"
                   />
                   <img
                     alt="Manufacturing facility"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover mt-4 sm:mt-8"
-                    src="/coorg_plywood_sheet_1.png"
+                    src="/coorg_plywood_sheet_1.webp"
                   />
                   <img
                     alt="Plywood quality inspection"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover -mt-4 sm:-mt-8"
-                    src="/quality_assurance.jpg"
+                    src="/quality_assurance.webp"
                   />
                   <img
                     alt="Cross lamination"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover"
-                    src="/coorg_plywood_sheet_2.png"
+                    src="/coorg_plywood_sheet_2.webp"
                   />
                 </div>
               </div>

@@ -94,7 +94,7 @@ export default function Products() {
                 </Link>
               </div>
               <div className="relative group overflow-hidden rounded shadow-2xl aspect-[4/3] lg:aspect-auto lg:h-[500px]">
-                <img src="/veneer_interior.png" alt="Luxury wood veneer interior" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src="/veneer_interior.webp" alt="Luxury wood veneer interior" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
                   <span className="font-label-md uppercase tracking-wider text-primary-fixed-dim text-xs block mb-1">Application</span>
@@ -172,7 +172,7 @@ export default function Products() {
               <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
                   <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/coorg_plywood_sheet_1.png" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <img src="/coorg_plywood_sheet_1.webp" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                   <div className="mt-3 text-center">
                     <span className="font-headline-md text-sm text-primary font-bold">Gurjan Face Veneer</span>
@@ -181,7 +181,7 @@ export default function Products() {
                 </div>
                 <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
                   <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/coorg_plywood_sheet_2.png" alt="Coorg Ply Plywood Sheet - 100% Neem Wood" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <img src="/coorg_plywood_sheet_2.webp" alt="Coorg Ply Plywood Sheet - 100% Neem Wood" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                   <div className="mt-3 text-center">
                     <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood Core</span>
@@ -329,7 +329,7 @@ export default function Products() {
 
               <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 <div className="relative h-80 overflow-hidden rounded-t-2xl">
-                  <img src="/block_boards.png" alt="Precision Block Boards" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src="/block_boards.webp" alt="Precision Block Boards" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-4 left-4 bg-primary-fixed-dim text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider border border-outline-variant/20 shadow-sm">IS:1659</div>
                 </div>
                 <div className="p-6 flex-grow flex flex-col justify-between">

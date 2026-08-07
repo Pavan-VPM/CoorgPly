@@ -2,68 +2,131 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <footer className="bg-primary text-on-primary">
-      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 md:grid-cols-4 gap-gutter">
-        <div className="col-span-1">
+    <footer className="bg-gradient-to-b from-[#0b2b20] to-[#04120d] text-white border-t border-white/5 relative overflow-hidden">
+      {/* Background Decorative Glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(circle_at_center,rgba(163,90,31,0.05),transparent_65%)] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[radial-gradient(circle_at_center,rgba(15,76,58,0.1),transparent_60%)] pointer-events-none" />
+
+      {/* Main Links Grid */}
+      <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 md:gap-12 relative z-10">
+        {/* Brand info */}
+        <div className="md:col-span-4">
           <div className="flex items-center gap-3 mb-6">
-            <img alt="Coorg Ply Logo" className="h-16 w-auto brightness-0 invert" src="/logo.png" />
-            <span className="font-headline-md text-on-primary">Coorg Ply</span>
+            <img alt="Coorg Ply Logo" className="h-14 w-auto brightness-0 invert" src="/logo.webp" />
+            <span className="font-headline-md text-xl font-bold tracking-tight">Coorg Ply</span>
           </div>
-          <p className="font-body-md text-on-primary/70 mb-8 max-w-xs">
-            Premium Calibrated Plywood from the hills of Coorg. Built on trust and heritage since 1958.
+          <p className="font-body-md text-sm text-white/60 mb-8 max-w-sm leading-relaxed">
+            Premium Calibrated Plywood engineered with architectural precision. Built on tradition and structural trust since 1958.
           </p>
-          {/* Social Media Logos */}
-          <div className="flex items-center gap-6 text-on-primary/70">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="hover:text-white transition-colors">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="hover:text-white transition-colors">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="hover:text-white transition-colors">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-              </svg>
-            </a>
+          {/* Social Links */}
+          <div className="flex items-center gap-4">
+            {[
+              { label: 'Facebook', icon: 'facebook', href: 'https://facebook.com' },
+              { label: 'Instagram', icon: 'photo_camera', href: 'https://instagram.com' },
+              { label: 'LinkedIn', icon: 'work', href: 'https://linkedin.com' }
+            ].map((social, idx) => (
+              <a
+                key={idx}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-[#a35a1f] hover:border-[#a35a1f] hover:text-white transition-all duration-300 hover:scale-110"
+              >
+                <span className="material-symbols-outlined text-lg">{social.icon}</span>
+              </a>
+            ))}
           </div>
         </div>
-        <div className="hidden md:block">
-          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Navigation</h4>
-          <ul className="space-y-4 font-body-md text-on-primary/70">
-            <li><Link className="hover:text-on-primary transition-colors" to="/">Home</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/story">Our Story</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/products">Products</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/manufacturing">Manufacturing</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/contact">Contact</Link></li>
+
+        {/* Navigation */}
+        <div className="md:col-span-2">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] text-xs font-bold text-[#a35a1f] mb-6">Explore</h4>
+          <ul className="space-y-4 text-sm font-body-md text-white/60">
+            {['Home', 'Our Story', 'Products', 'Manufacturing', 'Contact'].map((link, idx) => {
+              const paths = ['/', '/story', '/products', '/manufacturing', '/contact'];
+              return (
+                <li key={idx}>
+                  <Link to={paths[idx]} className="hover:text-white transition-colors relative group block py-0.5">
+                    {link}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#a35a1f] transition-all duration-300 group-hover:w-8" />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
-        <div className="hidden md:block">
-          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Products</h4>
-          <ul className="space-y-4 font-body-md text-on-primary/70">
-            <li><Link className="hover:text-on-primary transition-colors" to="/products">MR Grade Commercial</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/products">BWR Grade Waterproof</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/products">BWP Marine Grade</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/products">Calibrated Core</Link></li>
+
+        {/* Products */}
+        <div className="md:col-span-3">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] text-xs font-bold text-[#a35a1f] mb-6">Our Products</h4>
+          <ul className="space-y-4 text-sm font-body-md text-white/60">
+            {[
+              { label: 'MR Commercial Plywood', path: '/products' },
+              { label: 'BWR Waterproof Plywood', path: '/products' },
+              { label: 'BWP Marine Grade Plywood', path: '/products' },
+              { label: 'Premium Veneers & Doors', path: '/products' }
+            ].map((prod, idx) => (
+              <li key={idx}>
+                <Link to={prod.path} className="hover:text-white transition-colors relative group block py-0.5">
+                  {prod.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#a35a1f] transition-all duration-300 group-hover:w-8" />
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
-        <div className="hidden md:block">
-          <h4 className="font-label-lg uppercase tracking-[0.2em] mb-8">Resources</h4>
-          <ul className="space-y-4 font-body-md text-on-primary/70">
-            <li><Link className="hover:text-on-primary transition-colors" to="/technical-specs">Technical Specs</Link></li>
-            <li><Link className="hover:text-on-primary transition-colors" to="/manufacturing">Sustainability Report</Link></li>
-            <li><a className="hover:text-on-primary transition-colors" href="#">Terms &amp; Conditions</a></li>
-            <li><a className="hover:text-on-primary transition-colors" href="#">Privacy Policy</a></li>
+
+        {/* HQ Contact Info */}
+        <div className="md:col-span-3">
+          <h4 className="font-label-lg uppercase tracking-[0.2em] text-xs font-bold text-[#a35a1f] mb-6">Headquarters</h4>
+          <ul className="space-y-4 text-sm font-body-md text-white/60">
+            <li className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-[#a35a1f] text-base shrink-0 mt-0.5">location_on</span>
+              <span>Madikeri - Virajpet Rd, Kadanur, Virajpet, Karnataka 571218</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-[#a35a1f] text-base shrink-0">mail</span>
+              <a href="mailto:coorgplyindustries@gmail.com" className="hover:text-white transition-colors">coorgplyindustries@gmail.com</a>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-[#a35a1f] text-base shrink-0 mt-0.5">call</span>
+              <div>
+                <p>+91 9353927123</p>
+                <p>+91 9448057309</p>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-on-primary/10 py-8 text-center">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-label-md text-on-primary/50">
-          <p>© 2026 Coorg Ply Industries. ISO 9001:2015 Certified. All Rights Reserved.</p>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-white/10 py-8 relative z-10">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex flex-col sm:flex-row justify-between items-center gap-6 text-xs font-label-md text-white/40">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-center sm:text-left">
+            <p>© 2026 Coorg Ply Industries. ISO 9001:2015 Certified.</p>
+            <div className="flex gap-4">
+              <Link to="/technical-specs" className="hover:text-white transition-colors">Technical Specs</Link>
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Terms</a>
+            </div>
+          </div>
+          {/* Back to Top */}
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all group shrink-0 active:scale-95"
+          >
+            <span>Back to Top</span>
+            <span className="material-symbols-outlined text-sm transform transition-transform group-hover:-translate-y-0.5">arrow_upward</span>
+          </button>
         </div>
       </div>
     </footer>

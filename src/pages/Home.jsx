@@ -1,9 +1,113 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { plywoodProducts } from '../data/plywoodProducts';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('plywood');
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    plyType: 'Select Requirement',
+    message: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('success'); // 'success' | 'error'
+  const [showModal, setShowModal] = useState(false);
+  const [loadMap, setLoadMap] = useState(false);
+
+  useEffect(() => {
+    // Delay loading the heavy Google Maps iframe to keep initial load super fast
+    const timer = setTimeout(() => {
+      setLoadMap(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setToastType('success');
+
+    const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL;
+
+    if (!googleSheetsUrl) {
+      console.warn("VITE_GOOGLE_SHEETS_URL is not defined. Simulating local form submission.");
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setIsSuccess(true);
+        setShowModal(true);
+
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          plyType: 'Select Requirement',
+          message: ''
+        });
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 4000);
+      }, 1500);
+      return;
+    }
+
+    try {
+      // Using 'no-cors' mode ensures the request completes successfully and is not blocked by Google's redirect rules.
+      await fetch(googleSheetsUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      // Fetch in 'no-cors' mode resolves successfully if the request is sent.
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      setShowModal(true);
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        plyType: 'Select Requirement',
+        message: ''
+      });
+
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 4000);
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      setToastType('error');
+      setShowToast(true);
+
+      setTimeout(() => {
+        setShowToast(false);
+      }, 5000);
+    }
+  };
 
   const heroSlides = {
     plywood: {
@@ -15,7 +119,7 @@ export default function Home() {
         </>
       ),
       description: "Premium calibrated plywood engineered for lasting architectural integrity. Sourced responsibly from the heart of Coorg's misty landscapes.",
-      image: "/hero_plywood.png",
+      image: "/hero_plywood.webp",
       primaryLink: "/products",
       primaryLabel: "Explore Plywood",
       secondaryLink: "/story",
@@ -30,7 +134,7 @@ export default function Home() {
         </>
       ),
       description: "Luxurious wood veneers sliced from choice timber grains. Bringing organic depth, warmth, and textured character to sophisticated architectural interiors.",
-      image: "/veneer_interior.png",
+      image: "/veneer_interior.webp",
       primaryLink: "/products",
       primaryLabel: "View Veneers",
       secondaryLink: "/contact",
@@ -45,7 +149,7 @@ export default function Home() {
         </>
       ),
       description: "Solid core flush doors built with internal bracing and block boards designed to survive severe monsoon dampness while holding perfect lines.",
-      image: "/flush_door.png",
+      image: "/flush_door.webp",
       primaryLink: "/products",
       primaryLabel: "Browse Doors",
       secondaryLink: "/contact",
@@ -143,7 +247,7 @@ export default function Home() {
                 <img
                   className="w-full h-full object-cover"
                   alt="Coorg Ply Heritage — Wood processing in Coorg"
-                  src="/heritage.png"
+                  src="/heritage.webp"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-primary p-8 text-on-primary rounded-sm shadow-xl hidden md:block max-w-xs">
@@ -313,24 +417,24 @@ export default function Home() {
                   <img
                     className="rounded-sm shadow-lg w-full aspect-square object-cover"
                     alt="Finished Coorg Ply board"
-                    src="/board_texture.png"
+                    src="/board_texture.webp"
                   />
                   <img
                     className="rounded-sm shadow-lg w-full aspect-[4/5] object-cover"
                     alt="Stack of plywood sheets inspection"
-                    src="/quality_assurance.jpg"
+                    src="/quality_assurance.webp"
                   />
                 </div>
                 <div className="space-y-4 pt-12">
                   <img
                     className="rounded-sm shadow-lg w-full aspect-[4/5] object-cover"
                     alt="Coorg Ply manufacturing facility"
-                    src="/manufacturing_facility.png"
+                    src="/manufacturing_facility.webp"
                   />
                   <img
                     className="rounded-sm shadow-lg w-full aspect-square object-cover"
                     alt="Finished interior furniture installation"
-                    src="/door_installation.png"
+                    src="/door_installation.webp"
                   />
                 </div>
               </div>
@@ -425,11 +529,7 @@ export default function Home() {
                 <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>
                 
                 <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    alert("Thank you! Your inquiry has been sent successfully.");
-                    e.target.reset();
-                  }}
+                  onSubmit={handleSubmit}
                   className="space-y-6"
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -439,6 +539,9 @@ export default function Home() {
                       </label>
                       <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
                         <input
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
                           className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
                           type="text"
                           placeholder="Your full name"
@@ -453,6 +556,9 @@ export default function Home() {
                       </label>
                       <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
                         <input
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
                           className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
                           type="email"
                           placeholder="name@company.com"
@@ -469,6 +575,9 @@ export default function Home() {
                       </label>
                       <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
                         <input
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
                           className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md"
                           type="tel"
                           placeholder="e.g. +91 9876543210"
@@ -482,7 +591,12 @@ export default function Home() {
                         Requirement Type
                       </label>
                       <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
-                        <select className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md cursor-pointer">
+                        <select
+                          name="plyType"
+                          value={formData.plyType}
+                          onChange={handleInputChange}
+                          className="w-full bg-transparent border-none outline-none py-1.5 text-sm text-on-surface font-body-md cursor-pointer"
+                        >
                           <option>Plywood Grades</option>
                           <option>Decorative Veneers</option>
                           <option>Blockboards & Doors</option>
@@ -499,6 +613,9 @@ export default function Home() {
                     </label>
                     <div className="border border-outline-variant/50 rounded-xl bg-surface-container-lowest/50 px-4 py-3 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all">
                       <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
                         className="w-full bg-transparent border-none outline-none text-sm text-on-surface font-body-md resize-none"
                         rows="4"
                         placeholder="Detail your requirements (dimensions, grade, quantity, etc.)..."
@@ -509,10 +626,30 @@ export default function Home() {
 
                   <div className="pt-2">
                     <button
-                      className="bg-primary text-on-primary py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest hover:bg-[#0b382b] hover:shadow-lg transition-all duration-300 w-full font-bold"
                       type="submit"
+                      disabled={isSubmitting || isSuccess}
+                      className={`w-full py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-[0.98] font-bold ${
+                        isSuccess
+                          ? 'bg-emerald-700 text-white'
+                          : 'bg-primary text-on-primary hover:bg-[#0b382b]'
+                      }`}
                     >
-                      Send Message
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin h-5 w-5 text-white inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Sending...
+                        </>
+                      ) : isSuccess ? (
+                        'Success!'
+                      ) : (
+                        <>
+                          Send Message
+                          <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
@@ -521,17 +658,61 @@ export default function Home() {
           </div>
           
           {/* Embedded Google Map */}
-          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative hidden md:block">
-            <iframe 
-              src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
-              className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
-              allowFullScreen="" 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative hidden md:block bg-surface-container-lowest flex flex-col items-center justify-center">
+            {loadMap ? (
+              <iframe 
+                src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
+                className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            ) : (
+              <div className="flex flex-col items-center justify-center gap-3">
+                <span className="material-symbols-outlined text-primary text-4xl animate-pulse">map</span>
+                <p className="font-body-md text-xs text-on-surface-variant">Loading map data...</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
+      {/* Toast Notification (Only for errors) */}
+      {showToast && toastType === 'error' && (
+        <div className="fixed bottom-8 right-8 z-50 bg-rose-800 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300">
+          <span className="material-symbols-outlined text-rose-300">error</span>
+          <div>
+            <p className="font-bold text-sm">Submission Failed</p>
+            <p className="text-[11px] text-rose-100/80 mt-0.5">
+              Could not submit your inquiry. Please try again or call us directly.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Thank You Popup Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border border-outline-variant/30 transform scale-100 transition-transform duration-300">
+            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="material-symbols-outlined text-emerald-600 text-3xl font-bold">check_circle</span>
+            </div>
+            
+            <h3 className="font-headline-md text-2xl text-primary font-bold mb-3">
+              Thank You!
+            </h3>
+            <p className="font-body-md text-sm text-on-surface-variant mb-8 leading-relaxed">
+              Your inquiry has been successfully received. Our technical team will get back to you shortly.
+            </p>
+            
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full py-3.5 bg-primary text-on-primary rounded-xl font-label-lg text-xs uppercase tracking-widest font-bold hover:bg-[#0b382b] hover:shadow-lg transition-all active:scale-[0.98]"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

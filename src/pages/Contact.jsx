@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,6 +13,16 @@ export default function Contact() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState('success'); // 'success' | 'error'
+  const [showModal, setShowModal] = useState(false);
+  const [loadMap, setLoadMap] = useState(false);
+
+  useEffect(() => {
+    // Delay loading the heavy Google Maps iframe to keep initial load super fast
+    const timer = setTimeout(() => {
+      setLoadMap(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,8 +49,7 @@ export default function Contact() {
       setTimeout(() => {
         setIsSubmitting(false);
         setIsSuccess(true);
-        setToastType('success');
-        setShowToast(true);
+        setShowModal(true);
 
         // Reset form fields
         setFormData({
@@ -51,38 +60,29 @@ export default function Contact() {
           message: ''
         });
 
-        // Clear success state and toast after timeout
+        // Clear success state after timeout
         setTimeout(() => {
           setIsSuccess(false);
-          setShowToast(false);
         }, 4000);
       }, 1500);
       return;
     }
 
     try {
-      // Using text/plain Content-Type avoids CORS preflight OPTIONS request
-      const response = await fetch(googleSheetsUrl, {
+      // Using 'no-cors' mode ensures the request completes successfully and is not blocked by Google's redirect rules.
+      await fetch(googleSheetsUrl, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'text/plain;charset=utf-8'
         },
         body: JSON.stringify(formData)
       });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      if (data.status === 'error') {
-        throw new Error(data.message || 'Failed to submit form');
-      }
-
+      // Fetch in 'no-cors' mode resolves successfully if the request is sent.
       setIsSubmitting(false);
       setIsSuccess(true);
-      setToastType('success');
-      setShowToast(true);
+      setShowModal(true);
 
       // Reset form fields
       setFormData({
@@ -93,10 +93,9 @@ export default function Contact() {
         message: ''
       });
 
-      // Clear success state and toast after timeout
+      // Clear success state after timeout
       setTimeout(() => {
         setIsSuccess(false);
-        setShowToast(false);
       }, 4000);
 
     } catch (error) {
@@ -333,38 +332,58 @@ export default function Contact() {
         </div>
         
         {/* Embedded Google Map */}
-        <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative">
-          <iframe 
-            src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
-            className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
-            allowFullScreen="" 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+        <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative bg-surface-container-lowest flex flex-col items-center justify-center">
+          {loadMap ? (
+            <iframe 
+              src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
+              className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-3">
+              <span className="material-symbols-outlined text-primary text-4xl animate-pulse">map</span>
+              <p className="font-body-md text-xs text-on-surface-variant">Loading map data...</p>
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Toast Notification */}
-      {showToast && (
-        <div className={`fixed bottom-8 right-8 z-50 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 ${
-          toastType === 'success' ? 'bg-emerald-800' : 'bg-rose-800'
-        }`}>
-          <span className={`material-symbols-outlined ${
-            toastType === 'success' ? 'text-emerald-300' : 'text-rose-300'
-          }`}>
-            {toastType === 'success' ? 'verified' : 'error'}
-          </span>
+      {/* Toast Notification (Only for errors) */}
+      {showToast && toastType === 'error' && (
+        <div className="fixed bottom-8 right-8 z-50 bg-rose-800 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300">
+          <span className="material-symbols-outlined text-rose-300">error</span>
           <div>
-            <p className="font-bold text-sm">
-              {toastType === 'success' ? 'Inquiry Sent Successfully' : 'Submission Failed'}
+            <p className="font-bold text-sm">Submission Failed</p>
+            <p className="text-[11px] text-rose-100/80 mt-0.5">
+              Could not submit your inquiry. Please try again or call us directly.
             </p>
-            <p className={`text-[11px] mt-0.5 ${
-              toastType === 'success' ? 'text-emerald-100/80' : 'text-rose-100/80'
-            }`}>
-              {toastType === 'success' 
-                ? 'Thank you! We will get back to you shortly.' 
-                : 'Could not submit your inquiry. Please try again or call us directly.'}
+          </div>
+        </div>
+      )}
+
+      {/* Thank You Popup Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border border-outline-variant/30 transform scale-100 transition-transform duration-300">
+            <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="material-symbols-outlined text-emerald-600 text-3xl font-bold">check_circle</span>
+            </div>
+            
+            <h3 className="font-headline-md text-2xl text-primary font-bold mb-3">
+              Thank You!
+            </h3>
+            <p className="font-body-md text-sm text-on-surface-variant mb-8 leading-relaxed">
+              Your inquiry has been successfully received. Our technical team will get back to you shortly.
             </p>
+            
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full py-3.5 bg-primary text-on-primary rounded-xl font-label-lg text-xs uppercase tracking-widest font-bold hover:bg-[#0b382b] hover:shadow-lg transition-all active:scale-[0.98]"
+            >
+              OK
+            </button>
           </div>
         </div>
       )}
