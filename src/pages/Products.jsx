@@ -167,9 +167,13 @@ export default function Products() {
                     <span className="material-symbols-outlined text-primary text-base">verified</span>
                     <span><strong>100% Neem Wood:</strong> Solid, pesticide-treated core offering natural termite defiance.</span>
                   </div>
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-primary text-base">verified</span>
+                    <span><strong>Okoume Face:</strong> Rich pinkish-red tone with high strength and uniform texture.</span>
+                  </div>
                 </div>
               </div>
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
                   <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
                     <img src="/coorg_plywood_sheet_1.webp" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -186,6 +190,15 @@ export default function Products() {
                   <div className="mt-3 text-center">
                     <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood Core</span>
                     <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">25-Year Guarantee</p>
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
+                    <img src="/okoume_face_plywood.jpg" alt="Coorg Ply Plywood Sheet - Okoume Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <span className="font-headline-md text-sm text-primary font-bold">Okoume Face Veneer</span>
+                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">Premium Face Veneer</p>
                   </div>
                 </div>
               </div>

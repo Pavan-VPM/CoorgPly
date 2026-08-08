@@ -87,9 +87,6 @@ export default function Story() {
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-8">Expansion & Innovation</h2>
-          <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-6 text-justify">
-            Under the leadership of Mr. A. C. Anthony, Coorg Ply achieved a monumental shift. By introducing state-of-the-art veneer peeling units and specialized manufacturing processes, he bridged the gap between raw nature and refined engineering.
-          </p>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">
             Innovation wasn't just about machinery; it was about reimagining what plywood could be. His relentless pursuit of perfection led to the birth of products that can withstand the harshest environments while gracing the most elegant interiors.
           </p>
@@ -108,7 +105,15 @@ export default function Story() {
           <div className="grid md:grid-cols-3 gap-gutter">
             <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10">
               <h3 className="font-headline-md text-headline-md text-primary mb-6">
-                Mr. Sisson Chandy <span className="text-body-lg text-secondary font-normal ml-4">— COO</span>
+                <span className="font-bold">Mr. A. C. Antony Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— Founder & CEO</span>
+              </h3>
+              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                Under the leadership of Mr. A. C. Antony Chandy, Coorg Ply achieved a monumental shift. By introducing state-of-the-art veneer peeling units and specialized manufacturing processes, he bridged the gap between raw nature and refined engineering, steering the company toward high-quality production and consistent growth.
+              </p>
+            </div>
+            <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10">
+              <h3 className="font-headline-md text-headline-md text-primary mb-6">
+                <span className="font-bold">Mr. Sisson Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— COO</span>
               </h3>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
                 Combining traditional values with modern manufacturing logistics, Mr. Sisson Chandy steers the company toward a tech-forward future. His focus on precision manufacturing ensures every sheet of plywood leaving our facility is a masterpiece of stability.
