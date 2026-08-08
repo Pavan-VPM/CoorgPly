@@ -55,7 +55,7 @@ const steps = [
   },
   {
     num: '07',
-    title: 'Cross-Laminated Panel Assembly',
+    title: 'Cross Panel Assembly',
     text: 'The veneers are carefully arranged with alternating grain directions. This cross-laminated construction significantly enhances strength, dimensional stability, and resistance to warping or cracking.',
     image: '/cross_lamination.webp',
     icon: 'grid_view',
@@ -327,7 +327,7 @@ export default function Manufacturing() {
                 </div>
                 <div className="mt-6 sm:mt-8 flex items-baseline gap-2">
                   <span className="font-body-lg text-3xl sm:text-4xl md:text-5xl text-primary-fixed font-bold">
-                    ±0.01
+                    ±0.3
                   </span>
                   <span className="font-label-md text-[10px] sm:text-xs uppercase tracking-wider opacity-80">MM Tolerance</span>
                 </div>
