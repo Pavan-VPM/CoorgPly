@@ -1,61 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-/* ───────────────────────────── helpers ───────────────────────────── */
+/* ────────────────────── static wrapper (no animations) ─────────────────── */
 
-/** Animate a number from 0 → end when `trigger` flips to true */
-function useCountUp(end, duration = 1800, trigger = false) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!trigger) return;
-    let start = 0;
-    const step = (ts) => {
-      if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [trigger, end, duration]);
-  return value;
-}
-
-/** Intersection-observer hook — returns [ref, isInView] */
-function useInView(options = {}) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setInView(true); obs.unobserve(el); } },
-      { threshold: 0.15, ...options },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, inView];
-}
-
-/* ────────────────────── reusable fade-in wrapper ─────────────────── */
-
-function Reveal({ children, className = '', delay = 0 }) {
-  const [ref, inView] = useInView();
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(40px)',
-        transition: `opacity 0.8s cubic-bezier(.16,1,.3,1) ${delay}s, transform 0.8s cubic-bezier(.16,1,.3,1) ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
+function Reveal({ children, className = '' }) {
+  return <div className={className}>{children}</div>;
 }
 
 /* ───────────────────────── step data ─────────────────────────────── */
@@ -158,14 +107,6 @@ export default function Manufacturing() {
     return () => obs.disconnect();
   }, []);
 
-
-
-
-  /* ── metric counters ───────────────────────────────────────────── */
-  const [metricsRef, metricsInView] = useInView();
-  const toleranceVal = useCountUp(1, 1400, metricsInView);
-  const immunityVal = useCountUp(100, 1600, metricsInView);
-
   return (
     <>
       {/* ════════════════════ HERO ════════════════════════════════ */}
@@ -174,7 +115,7 @@ export default function Manufacturing() {
         <div className="absolute inset-0 z-0">
           <img
             alt="Coorg Ply manufacturing facility"
-            className="w-full h-full object-cover scale-105"
+            className="w-full h-full object-cover"
             src="/manufacturing_facility.webp"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-primary/30 z-10" />
@@ -185,33 +126,33 @@ export default function Manufacturing() {
         <div className="relative z-20 px-4 sm:px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
           <Reveal>
             <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 sm:px-5 py-2 font-label-lg text-[10px] sm:text-[11px] text-white/90 tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-6 sm:mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-primary-fixed-dim" />
               Precision Crafted. Quality Assured.
             </span>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal>
             <h1 className="font-body-lg font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[68px] text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight max-w-4xl">
               The Art &amp; Science of<br />
               <span className="text-white/80 font-normal">Our Manufacturing</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.2}>
+          <Reveal>
             <p className="font-body-md sm:font-body-lg text-white/75 max-w-2xl mb-8 sm:mb-10 leading-relaxed text-base sm:text-lg">
               At Coorg Ply, every sheet of plywood is manufactured using advanced technology, premium raw materials, and stringent quality control measures — from carefully selected timber to the final finished panel.
             </p>
           </Reveal>
-          <Reveal delay={0.3}>
+          <Reveal>
             <a
               className="group inline-flex items-center justify-center gap-3 bg-white text-primary px-6 sm:px-8 py-3.5 sm:py-4 font-label-lg text-xs sm:text-label-lg uppercase tracking-[0.15em] hover:bg-primary-fixed-dim transition-all shadow-2xl w-full sm:w-auto text-center"
               href="#process-start"
             >
               Explore the Journey
-              <span className="material-symbols-outlined text-lg group-hover:translate-y-1 transition-transform">south</span>
+              <span className="material-symbols-outlined text-lg">south</span>
             </a>
           </Reveal>
 
           {/* Quick stats ribbon */}
-          <Reveal delay={0.45}>
+          <Reveal>
             <div className="mt-10 sm:mt-16 grid grid-cols-3 gap-2 sm:gap-10 max-w-2xl border-t border-white/15 pt-6 sm:pt-8">
               {[
                 { label: 'Manufacturing Steps', value: '10' },
@@ -253,7 +194,7 @@ export default function Manufacturing() {
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2">
             <div className="absolute inset-0 bg-outline-variant/20" />
             <div
-              className="absolute top-0 left-0 w-full bg-primary transition-all duration-700 ease-out"
+              className="absolute top-0 left-0 w-full bg-primary"
               style={{ height: `${Math.min(100, ((activeStep + 1) / steps.length) * 100)}%` }}
             />
           </div>
@@ -273,7 +214,7 @@ export default function Manufacturing() {
                   {/* Timeline dot (desktop) */}
                   <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-20">
                     <div
-                      className={`w-14 h-14 rounded-full flex items-center justify-center font-label-lg text-sm font-bold transition-all duration-500 shadow-lg ${
+                      className={`w-14 h-14 rounded-full flex items-center justify-center font-label-lg text-sm font-bold shadow-lg ${
                         activeStep >= idx
                           ? 'bg-primary text-on-primary scale-100'
                           : 'bg-surface-container border-2 border-outline-variant text-on-surface-variant scale-90'
@@ -286,7 +227,7 @@ export default function Manufacturing() {
                   {/* Card content */}
                   <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center ${isEven ? '' : 'lg:[direction:rtl]'}`}>
                     {/* Text side */}
-                    <Reveal delay={0.1} className={`${isEven ? 'lg:pr-20 lg:text-right' : 'lg:pl-20 lg:text-left'} [direction:ltr]`}>
+                    <Reveal className={`${isEven ? 'lg:pr-20 lg:text-right' : 'lg:pl-20 lg:text-left'} [direction:ltr]`}>
                       {step.tag && (
                         <span className="inline-block bg-secondary-container text-on-secondary-container px-4 py-1.5 font-label-md text-[10px] uppercase tracking-[0.2em] rounded-full mb-5 font-bold">
                           {step.tag}
@@ -312,12 +253,12 @@ export default function Manufacturing() {
                     </Reveal>
 
                     {/* Image / visual side */}
-                    <Reveal delay={0.25} className="[direction:ltr]">
+                    <Reveal className="[direction:ltr]">
                       {hasImage ? (
                         <div className="relative group overflow-hidden rounded-lg shadow-xl">
                           <img
                             alt={step.title}
-                            className="w-full max-h-[260px] sm:max-h-[400px] object-cover block group-hover:scale-105 transition-transform duration-700"
+                            className="w-full max-h-[260px] sm:max-h-[400px] object-cover block"
                             src={step.image}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent pointer-events-none" />
@@ -360,47 +301,8 @@ export default function Manufacturing() {
         </div>
       </section>
 
-      {/* ════════════════ FACILITY GALLERY MARQUEE ════════════════ */}
-      <section className="py-8 sm:py-10 bg-surface-container-lowest border-y border-outline-variant/20 overflow-hidden relative">
-        <div className="overflow-hidden w-full relative">
-          {/* Edge Fades */}
-          <div className="absolute top-0 bottom-0 left-0 w-8 sm:w-16 bg-gradient-to-r from-surface-container-lowest to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-8 sm:w-16 bg-gradient-to-l from-surface-container-lowest to-transparent z-10 pointer-events-none" />
-
-          {/* Scrollable Gallery Track */}
-          <div className="flex gap-4 sm:gap-5 px-4 sm:px-16 overflow-x-auto py-4 scrollbar-thin scroll-smooth">
-            {[
-              '/timber_selection.webp',
-              '/timber_transport.webp',
-              '/veneer_peeling.webp',
-              '/wood_loading.webp',
-              '/veneer_drying.webp',
-              '/facility_machine.webp',
-              '/quality_grading.webp',
-              '/adhesive_application.webp',
-              '/cross_lamination.webp',
-              '/hot_pressing.webp',
-              '/heavy_press.webp',
-              '/precision_finishing.webp',
-              '/quality_assurance.webp',
-            ].map((src, idx) => (
-              <div
-                key={idx}
-                className="flex-shrink-0 p-1 sm:p-1.5 bg-white border border-outline-variant/30 rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-shadow"
-              >
-                <img
-                  src={src}
-                  alt={`Manufacturing step ${idx + 1}`}
-                  className="w-48 h-32 sm:w-64 sm:h-40 object-cover rounded-md sm:rounded-lg"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ════════════════ QUALITY METRICS ═════════════════════════ */}
-      <section className="py-16 sm:py-section-gap bg-surface" ref={metricsRef}>
+      <section className="py-16 sm:py-section-gap bg-surface">
         <div className="max-w-container-max mx-auto px-4 sm:px-margin-mobile md:px-margin-desktop">
           <Reveal>
             <div className="text-center mb-10 sm:mb-16">
@@ -411,9 +313,9 @@ export default function Manufacturing() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-gutter">
             {/* Metric 1 — Calibrated Thickness */}
-            <Reveal delay={0.05}>
+            <Reveal>
               <div className="bg-primary text-on-primary p-6 sm:p-10 md:p-12 rounded-xl flex flex-col justify-between overflow-hidden relative group h-full">
-                <div className="absolute -right-8 -bottom-8 opacity-[0.07] group-hover:scale-110 transition-transform duration-700">
+                <div className="absolute -right-8 -bottom-8 opacity-[0.07]">
                   <span className="material-symbols-outlined text-[100px] sm:text-[140px]">straighten</span>
                 </div>
                 <div>
@@ -425,7 +327,7 @@ export default function Manufacturing() {
                 </div>
                 <div className="mt-6 sm:mt-8 flex items-baseline gap-2">
                   <span className="font-body-lg text-3xl sm:text-4xl md:text-5xl text-primary-fixed font-bold">
-                    ±0.0{toleranceVal}
+                    ±0.01
                   </span>
                   <span className="font-label-md text-[10px] sm:text-xs uppercase tracking-wider opacity-80">MM Tolerance</span>
                 </div>
@@ -433,9 +335,9 @@ export default function Manufacturing() {
             </Reveal>
 
             {/* Metric 2 — Termite Resistance */}
-            <Reveal delay={0.15}>
+            <Reveal>
               <div className="bg-white border border-outline-variant/30 p-10 md:p-12 rounded-xl flex flex-col justify-between overflow-hidden relative group shadow-sm h-full">
-                <div className="absolute -right-8 -bottom-8 opacity-[0.04] group-hover:scale-110 transition-transform duration-700">
+                <div className="absolute -right-8 -bottom-8 opacity-[0.04]">
                   <span className="material-symbols-outlined text-[140px]" style={{ fontVariationSettings: "'FILL' 1" }}>bug_report</span>
                 </div>
                 <div>
@@ -446,16 +348,16 @@ export default function Manufacturing() {
                   </p>
                 </div>
                 <div className="mt-8 flex items-baseline gap-2 text-primary">
-                  <span className="font-body-lg text-4xl md:text-5xl font-bold">{immunityVal}%</span>
+                  <span className="font-body-lg text-4xl md:text-5xl font-bold">100%</span>
                   <span className="font-label-md text-xs uppercase tracking-wider">Immunity</span>
                 </div>
               </div>
             </Reveal>
 
             {/* Metric 3 — Grade A Core */}
-            <Reveal delay={0.25}>
+            <Reveal>
               <div className="bg-white border border-outline-variant/30 p-10 md:p-12 rounded-xl flex flex-col justify-between overflow-hidden relative group shadow-sm h-full">
-                <div className="absolute -right-8 -bottom-8 opacity-[0.04] group-hover:scale-110 transition-transform duration-700">
+                <div className="absolute -right-8 -bottom-8 opacity-[0.04]">
                   <span className="material-symbols-outlined text-[140px]" style={{ fontVariationSettings: "'FILL' 1" }}>forest</span>
                 </div>
                 <div>
@@ -516,7 +418,7 @@ export default function Manufacturing() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.2}>
+            <Reveal>
               <div className="relative mt-4 lg:mt-0">
                 {/* Decorative frame */}
                 <div className="absolute -inset-2 sm:-inset-3 border border-white/10 rounded-lg pointer-events-none" />
