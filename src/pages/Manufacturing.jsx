@@ -32,19 +32,20 @@ const steps = [
     image: '/veneer_peeling.webp',
     icon: 'layers',
   },
+
   {
     num: '04',
+    title: 'Quality Grading & Inspection',
+    text: 'Each veneer is individually inspected and graded based on its appearance, strength, and structural integrity. Only veneers that meet our quality standards move forward in the production process.',
+    image: '/quality_grading.png',
+    icon: 'verified',
+  },
+  {
+    num: '05',
     title: 'Controlled Veneer Drying',
     text: 'The veneers are dried under carefully monitored temperatures to achieve the ideal moisture content. Proper drying enhances adhesive bonding, improves stability, and contributes to the overall durability of the finished plywood.',
     image: '/veneer_drying.webp',
     icon: 'local_fire_department',
-  },
-  {
-    num: '05',
-    title: 'Quality Grading & Inspection',
-    text: 'Each veneer is individually inspected and graded based on its appearance, strength, and structural integrity. Only veneers that meet our quality standards move forward in the production process.',
-    image: '/quality_grading.webp',
-    icon: 'verified',
   },
   {
     num: '06',
@@ -214,11 +215,10 @@ export default function Manufacturing() {
                   {/* Timeline dot (desktop) */}
                   <div className="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-20">
                     <div
-                      className={`w-14 h-14 rounded-full flex items-center justify-center font-label-lg text-sm font-bold shadow-lg ${
-                        activeStep >= idx
-                          ? 'bg-primary text-on-primary scale-100'
-                          : 'bg-surface-container border-2 border-outline-variant text-on-surface-variant scale-90'
-                      }`}
+                      className={`w-14 h-14 rounded-full flex items-center justify-center font-label-lg text-sm font-bold shadow-lg ${activeStep >= idx
+                        ? 'bg-primary text-on-primary scale-100'
+                        : 'bg-surface-container border-2 border-outline-variant text-on-surface-variant scale-90'
+                        }`}
                     >
                       {step.num}
                     </div>
@@ -237,9 +237,8 @@ export default function Manufacturing() {
                       {/* Mobile step number */}
                       <div className="lg:hidden flex items-center gap-4 mb-4">
                         <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center font-label-md text-xs font-bold ${
-                            activeStep >= idx ? 'bg-primary text-on-primary' : 'bg-surface-container border border-outline-variant text-on-surface-variant'
-                          }`}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center font-label-md text-xs font-bold ${activeStep >= idx ? 'bg-primary text-on-primary' : 'bg-surface-container border border-outline-variant text-on-surface-variant'
+                            }`}
                         >
                           {step.num}
                         </div>

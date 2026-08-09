@@ -55,7 +55,7 @@ export default function Story() {
               </span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-white mb-8">The Architect of Vision</h2>
               <p className="font-headline-md text-xl md:text-headline-md text-primary-fixed mb-12">
-                <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded-sm font-bold">Mr. A. A. Chandy's</span><br />vision transformed a simple sawmill into a trusted name that resonates across the architecture and construction industry.
+                <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded-sm font-bold">Mr. A. A. Chandy</span> <span className="font-normal text-base md:text-lg">— Founder</span><br />vision transformed a simple sawmill into a trusted name that resonates across the architecture and construction industry.
               </p>
               <div className="flex gap-6 sm:gap-12 border-t border-white/10 pt-12">
                 <div>
@@ -105,7 +105,7 @@ export default function Story() {
           <div className="grid md:grid-cols-3 gap-gutter">
             <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10">
               <h3 className="font-headline-md text-headline-md text-primary mb-6">
-                <span className="font-bold">Mr. A. C. Antony Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— Founder & CEO</span>
+                <span className="font-bold">Mr. A. C. Antony Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— CEO</span>
               </h3>
               <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
                 Under the leadership of Mr. A. C. Antony Chandy, Coorg Ply achieved a monumental shift. By introducing state-of-the-art veneer peeling units and specialized manufacturing processes, he bridged the gap between raw nature and refined engineering, steering the company toward high-quality production and consistent growth.
