@@ -119,7 +119,7 @@ export default function Home() {
         </>
       ),
       description: "Premium calibrated plywood engineered for lasting architectural integrity. Sourced responsibly from the heart of Coorg's misty landscapes.",
-      image: "/hero_plywood.webp",
+      image: "/hero_plywood.jpeg",
       primaryLink: "/products",
       primaryLabel: "Explore Plywood",
       secondaryLink: "/story",
@@ -149,7 +149,8 @@ export default function Home() {
         </>
       ),
       description: "Solid core flush doors built with internal bracing and block boards designed to survive severe monsoon dampness while holding perfect lines.",
-      image: "/flush_door.webp",
+      image: "/flush_door.jpeg",
+      imagePosition: "28% center",
       primaryLink: "/products",
       primaryLabel: "Browse Doors",
       secondaryLink: "/contact",
@@ -167,63 +168,66 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Typographic Content */}
             <div className="lg:col-span-7 flex flex-col items-start order-2 lg:order-1">
-              
+
               {/* Tab Selector */}
               <div className="flex gap-1.5 mb-8 bg-surface-container p-1 rounded-full border border-outline-variant/20 self-start shadow-sm">
                 {Object.keys(heroSlides).map((key) => (
                   <button
                     key={key}
                     onClick={() => setActiveTab(key)}
-                    className={`px-5 py-2.5 rounded-full font-label-md text-xs uppercase tracking-wider transition-all duration-300 ${
-                      activeTab === key
-                        ? 'bg-primary text-on-primary font-bold shadow-md'
-                        : 'text-on-surface-variant hover:text-primary hover:bg-surface/50'
-                    }`}
+                    className={`px-5 py-2.5 rounded-full font-label-md text-xs uppercase tracking-wider transition-all duration-300 ${activeTab === key
+                      ? 'bg-primary text-on-primary font-bold shadow-md'
+                      : 'text-on-surface-variant hover:text-primary hover:bg-surface/50'
+                      }`}
                   >
                     {key}
                   </button>
                 ))}
               </div>
 
-              <div key={activeTab} className="animate-fade-in flex flex-col items-start">
-                <div className="overflow-hidden mb-2">
-                  <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block">
-                    {currentSlide.tag}
-                  </span>
-                </div>
-                <h1 className="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
-                  {currentSlide.title}
-                </h1>
-                <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">
-                  {currentSlide.description}
-                </p>
-                <div className="flex flex-wrap gap-6 items-center">
-                  <Link
-                    className="bg-primary text-on-primary px-10 py-5 rounded-sm font-label-lg text-label-lg uppercase tracking-[0.15em] hover:bg-primary-container transition-all shadow-2xl flex items-center gap-3 group"
-                    to={currentSlide.primaryLink}
-                  >
-                    {currentSlide.primaryLabel}
-                    <span className="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">
-                      arrow_right_alt
+              {/* Stable container to prevent layout shifting during remounting */}
+              <div className="w-full min-h-[520px] sm:min-h-[480px] md:min-h-[440px] lg:min-h-[520px] flex flex-col justify-start">
+                <div key={activeTab} className="animate-fade-in flex flex-col items-start w-full">
+                  <div className="overflow-hidden mb-2">
+                    <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block">
+                      {currentSlide.tag}
                     </span>
-                  </Link>
-                  <Link
-                    className="group flex items-center gap-4 font-label-lg text-label-lg uppercase tracking-widest text-secondary hover:text-primary transition-colors"
-                    to={currentSlide.secondaryLink}
-                  >
-                    <span className="w-12 h-[1px] bg-secondary group-hover:w-16 group-hover:bg-primary transition-all"></span>
-                    {currentSlide.secondaryLabel}
-                  </Link>
+                  </div>
+                  <h1 className="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
+                    {currentSlide.title}
+                  </h1>
+                  <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">
+                    {currentSlide.description}
+                  </p>
+                  <div className="flex flex-wrap gap-6 items-center">
+                    <Link
+                      className="bg-primary text-on-primary px-10 py-5 rounded-sm font-label-lg text-label-lg uppercase tracking-[0.15em] hover:bg-primary-container transition-all shadow-2xl flex items-center gap-3 group"
+                      to={currentSlide.primaryLink}
+                    >
+                      {currentSlide.primaryLabel}
+                      <span className="material-symbols-outlined text-xl group-hover:translate-x-2 transition-transform">
+                        arrow_right_alt
+                      </span>
+                    </Link>
+                    <Link
+                      className="group flex items-center gap-4 font-label-lg text-label-lg uppercase tracking-widest text-secondary hover:text-primary transition-colors"
+                      to={currentSlide.secondaryLink}
+                    >
+                      <span className="w-12 h-[1px] bg-secondary group-hover:w-16 group-hover:bg-primary transition-all"></span>
+                      {currentSlide.secondaryLabel}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Asymmetrical Image Integration */}
-            <div className="lg:col-span-5 relative order-1 lg:order-2">
-              <div key={activeTab} className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]">
+            <div className="lg:col-span-5 relative order-1 lg:order-2 aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px] w-full">
+              <div key={activeTab} className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] w-full h-full aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]">
                 <img
                   alt={currentSlide.tag}
                   className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-[3s] ease-out"
+                  style={{ objectPosition: currentSlide.imagePosition || 'center' }}
                   src={currentSlide.image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
@@ -417,7 +421,7 @@ export default function Home() {
                   <img
                     className="rounded-sm shadow-lg w-full aspect-square object-cover"
                     alt="Finished Coorg Ply board"
-                    src="/board_texture.webp"
+                    src="/coorg_plywood_sheet_1.webp"
                   />
                   <img
                     className="rounded-sm shadow-lg w-full aspect-[4/5] object-cover"
@@ -447,7 +451,7 @@ export default function Home() {
       {/* Redesigned Premium Contact Section */}
       <section className="py-24 bg-[linear-gradient(180deg,#fcf9f8_0%,#f5f1ea_100%)] relative overflow-hidden border-t border-outline-variant/10" id="contact">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(163,90,31,0.05),transparent_45%)] pointer-events-none"></div>
-        
+
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
           <div className="text-center mb-16">
             <span className="font-label-lg text-secondary tracking-[0.25em] uppercase block mb-3">Get in Touch</span>
@@ -461,7 +465,7 @@ export default function Home() {
             {/* Contact Details Card (Left Column) */}
             <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
-              
+
               <div>
                 <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 font-label-md text-[10px] uppercase tracking-wider text-primary-fixed-dim font-bold mb-8">
                   Coorg Ply HQ
@@ -527,7 +531,7 @@ export default function Home() {
               <div>
                 <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2 text-xs">Direct Channel</span>
                 <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>
-                
+
                 <form
                   onSubmit={handleSubmit}
                   className="space-y-6"
@@ -628,11 +632,10 @@ export default function Home() {
                     <button
                       type="submit"
                       disabled={isSubmitting || isSuccess}
-                      className={`w-full py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-[0.98] font-bold ${
-                        isSuccess
-                          ? 'bg-emerald-700 text-white'
-                          : 'bg-primary text-on-primary hover:bg-[#0b382b]'
-                      }`}
+                      className={`w-full py-4 rounded-xl font-label-lg text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:shadow-lg transition-all active:scale-[0.98] font-bold ${isSuccess
+                        ? 'bg-emerald-700 text-white'
+                        : 'bg-primary text-on-primary hover:bg-[#0b382b]'
+                        }`}
                     >
                       {isSubmitting ? (
                         <>
@@ -656,15 +659,15 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           {/* Embedded Google Map */}
           <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative bg-surface-container-lowest flex flex-col items-center justify-center">
             {loadMap ? (
-              <iframe 
-                src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
-                className="absolute inset-0 w-full h-full border-0 md:grayscale hover:grayscale-0 transition-all duration-500" 
-                allowFullScreen="" 
-                loading="lazy" 
+              <iframe
+                src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed"
+                className="absolute inset-0 w-full h-full border-0 md:grayscale hover:grayscale-0 transition-all duration-500"
+                allowFullScreen=""
+                loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             ) : (
@@ -696,14 +699,14 @@ export default function Home() {
             <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="material-symbols-outlined text-emerald-600 text-3xl font-bold">check_circle</span>
             </div>
-            
+
             <h3 className="font-headline-md text-2xl text-primary font-bold mb-3">
               Thank You!
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-8 leading-relaxed">
               Your inquiry has been successfully received. Our technical team will get back to you shortly.
             </p>
-            
+
             <button
               onClick={() => setShowModal(false)}
               className="w-full py-3.5 bg-primary text-on-primary rounded-xl font-label-lg text-xs uppercase tracking-widest font-bold hover:bg-[#0b382b] hover:shadow-lg transition-all active:scale-[0.98]"
