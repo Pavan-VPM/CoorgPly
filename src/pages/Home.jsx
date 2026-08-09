@@ -658,11 +658,11 @@ export default function Home() {
           </div>
           
           {/* Embedded Google Map */}
-          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative hidden md:block bg-surface-container-lowest flex flex-col items-center justify-center">
+          <div className="mt-16 rounded-3xl overflow-hidden shadow-xl border border-outline-variant/30 h-96 relative bg-surface-container-lowest flex flex-col items-center justify-center">
             {loadMap ? (
               <iframe 
                 src="https://maps.google.com/maps?q=Coorg%20Ply%20Industries,%20Madikeri%20Road,%20Virajpet,%20Coorg,%20Karnataka&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
-                className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-500" 
+                className="absolute inset-0 w-full h-full border-0 md:grayscale hover:grayscale-0 transition-all duration-500" 
                 allowFullScreen="" 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
