@@ -31,7 +31,7 @@ export default function Story() {
       {/* Section 1: Hero */}
       <section className="relative min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5.4rem)] flex flex-col items-center justify-center overflow-hidden bg-surface-container-lowest py-12">
         <div className="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/10 to-surface"></div>
-        <div className="relative z-10 max-w-container-max px-margin-mobile md:px-margin-desktop text-center reveal-on-scroll flex flex-col items-center justify-center my-auto">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center reveal-on-scroll flex flex-col items-center justify-center my-auto">
           <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-primary mb-6 leading-tight">
             Every strong structure begins with a solid foundation. <br />
             <span className="italic font-normal">Ours began with a vision.</span>
@@ -43,6 +43,16 @@ export default function Story() {
       {/* Section 2: The Humble Beginnings */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="grid md:grid-cols-2 gap-gutter items-center">
+          <div className="relative reveal-mask reveal-delay-200">
+            <div className="aspect-[3/2] bg-surface-container-high rounded-lg overflow-hidden shadow-2xl">
+              <div
+                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
+                style={{
+                  backgroundImage: "url('/sawmill_woodmizer.jpg')"
+                }}
+              ></div>
+            </div>
+          </div>
           <div className="reveal-on-scroll">
             <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest block mb-4">Origins</span>
             <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-8">The Humble Beginnings</h2>
@@ -52,17 +62,6 @@ export default function Story() {
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed italic border-l-4 border-primary pl-6">
               "Hard work and integrity weren't just business strategies; they were the very fibers of our daily operation."
             </p>
-          </div>
-          <div className="relative reveal-mask reveal-delay-200">
-            <div className="aspect-[4/5] bg-surface-container-high rounded-lg overflow-hidden shadow-2xl">
-              <div
-                className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
-                style={{
-                  backgroundImage:
-                    "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBwPkMdYPJgoqJ1hdHw1EYuPDhwiDL7DpvlnRJ7gSYS-76dx0_CHFR4MxCKY4IOLSqjwt-1Aht9RJ8QN5fT60dZ20aGzU1WSVDhTCgy5U3q3_WD7B3PFnYVB9fX9KAs-OanTwDrEP5BhMDTzARDfT5omHdnKf_2cb0h9SpN9I9a2Hz1ZVRyQjmzKjBd_uNg3Fmaa2cjx0YQf7IWcaR-J32XMzhVvU82PQ6grB45si3xobVW6FVZOCkuU9AvCFv-c_BwLCs6E5bDrNY')"
-                }}
-              ></div>
-            </div>
           </div>
         </div>
       </section>
