@@ -99,7 +99,7 @@ export default function Story() {
                 <img
                   className="relative z-10 w-80 md:w-96 aspect-[3/4] object-cover object-top rounded-sm shadow-2xl grayscale"
                   alt="Mr. A. A. Chandy — Founder (1927–1981)"
-                  src="dist/founder.png"
+                  src="/founder.png"
                 />
               </div>
             </div>
