@@ -1,9 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { filmFaceProduct, plywoodProducts } from '../data/plywoodProducts';
 
 export default function Products() {
   const [activeFilter, setActiveFilter] = useState('all');
+
+  useEffect(() => {
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -20px 0px',
+      threshold: 0.05
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .reveal-mask');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, [activeFilter]);
 
   const veneerSamples = [
     { name: 'Natural Teak', type: 'Golden Crown', image: 'https://i.pinimg.com/736x/49/45/48/4945484357c905a068ec587af8051854.jpg' },
@@ -30,7 +54,7 @@ export default function Products() {
       <section className="relative h-[55vh] md:h-[65vh] overflow-hidden">
         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000" alt="Coorg Ply - The Collection" className="w-full h-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary/70"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 reveal-on-scroll">
           <span className="font-label-lg text-primary-fixed-dim uppercase tracking-[0.3em] block mb-4">Coorg Ply</span>
           <h1 className="font-headline-display text-5xl md:text-[72px] text-white mb-5 leading-tight">The Collection</h1>
           <p className="font-body-lg text-white/80 max-w-lg leading-relaxed">
@@ -65,7 +89,7 @@ export default function Products() {
         <section className="py-20 bg-surface">
           <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div>
+              <div className="reveal-on-scroll">
                 <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-4">Decorative Range</span>
                 <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-6">Interior &amp; Decorative Veneers</h2>
                 <p className="font-body-md text-on-surface-variant leading-relaxed mb-8">
@@ -93,7 +117,7 @@ export default function Products() {
                   Request Sample Kit <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
                 </Link>
               </div>
-              <div className="relative group overflow-hidden rounded shadow-2xl aspect-[4/3] lg:aspect-auto lg:h-[500px]">
+              <div className="relative group overflow-hidden rounded shadow-2xl aspect-[4/3] lg:aspect-auto lg:h-[500px] reveal-mask reveal-delay-200">
                 <img src="/veneer_interior.webp" alt="Luxury wood veneer interior" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
@@ -104,7 +128,7 @@ export default function Products() {
             </div>
 
             {/* Seamless Auto-Rolling Veneer Showcase */}
-            <div className="mt-20">
+            <div className="mt-20 reveal-on-scroll">
               <div className="mb-8">
                 <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2">Exotic Textures</span>
                 <h3 className="font-headline-md text-2xl text-primary font-bold">Veneer Texture Samples Showcase</h3>
@@ -146,79 +170,72 @@ export default function Products() {
           <div className="absolute right-[-4rem] top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl"></div>
 
           <div className="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-            <div className="mb-14">
+            <div className="mb-14 reveal-on-scroll">
               <span className="font-label-lg text-secondary tracking-[0.22em] uppercase block mb-3">Brochure Range 2026</span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Our Plywood Range</h2>
             </div>
-            {/* Plywood Sheet Showcase Block */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-12 mb-16 border-b border-outline-variant/20 pb-16">
-              <div className="lg:col-span-4">
-                <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-3">Material Authenticity</span>
-                <h3 className="font-headline-md text-3xl text-primary font-bold mb-6">Built on Genuine Hardwoods</h3>
-                <p className="font-body-md text-sm text-on-surface-variant/80 leading-relaxed mb-6">
-                  Every genuine Coorg Ply sheet is processed using premium hardwood species and calibrated cores. Our boards are characterized by their signature edge stamps, high-density cores, and uniform calibration to deliver flawless results for architectural projects, modular kitchens, and high-end cabinetry.
-                </p>
-                <div className="space-y-4 text-xs text-on-surface-variant">
-                  <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-primary text-base">verified</span>
-                    <span><strong>Gurjan Face:</strong> Premium natural veneer facing for outstanding polish retention.</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-primary text-base">verified</span>
-                    <span><strong>100% Neem Wood:</strong> Solid, pesticide-treated core offering natural termite defiance.</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-primary text-base">verified</span>
-                    <span><strong>Okoume Face:</strong> Rich pinkish-red tone with high strength and uniform texture.</span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:col-span-8 grid grid-cols-2 gap-6">
-                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/coorg_plywood_sheet_1.webp" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">Gurjan Face</span>
-                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">IS:710 Marine Grade</p>
+            {/* Redesigned Material Authenticity Spotlight */}
+            <div className="mt-12 mb-16 border-b border-outline-variant/20 pb-16">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                {/* Left Description & Specs */}
+                <div className="lg:col-span-5 reveal-on-scroll">
+                  <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-3 text-xs">Material Authenticity</span>
+                  <h3 className="font-headline-md text-3xl md:text-4xl text-primary font-bold mb-5 leading-tight">
+                    Built on Genuine Hardwoods
+                  </h3>
+                  <p className="font-body-md text-sm text-on-surface-variant/80 leading-relaxed mb-8">
+                    Every genuine Coorg Ply sheet is processed using premium hardwood species and calibrated cores — stamped for authenticity, high-density stability, and long-term endurance.
+                  </p>
+
+                  <div className="space-y-3">
+                    {[
+                      { title: 'Gurjan Face', tag: 'IS:710 Marine Grade', desc: 'Premium natural veneer facing for outstanding polish retention and moisture defense.' },
+                      { title: '100% Neem Wood', tag: '25-Year Guarantee', desc: 'Solid, pesticide-treated core offering natural termite defiance.' },
+                      { title: 'Gurjan & Neem Core', tag: 'Stamp Board', desc: 'High-density multi-ply core calibration for heavy structural cabinetry.' },
+                      { title: 'Okoume Face', tag: 'Premium Veneer', desc: 'Rich pinkish-red tone with high strength and uniform texture.' },
+                    ].map((item) => (
+                      <div key={item.title} className="p-4 rounded-xl bg-white border border-outline-variant/25 shadow-sm hover:border-primary/40 transition-all group">
+                        <div className="flex items-center justify-between">
+                          <h4 className="font-headline-md text-sm text-primary font-bold">{item.title}</h4>
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-secondary bg-surface-container px-2 py-0.5 rounded">{item.tag}</span>
+                        </div>
+                        <p className="text-xs text-on-surface-variant/70 mt-1 leading-normal">{item.desc}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/coorg_plywood_sheet_2.webp" alt="Coorg Ply Plywood Sheet - 100% Neem Wood" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood</span>
-                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">25-Year Guarantee</p>
-                  </div>
-                </div>
-                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/plywood_display.jpg" alt="Coorg Ply Plywood Sheet - Premium Gurjan Stamp" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">Premium Stamp Board</span>
-                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">Gurjan &amp; Neem Core</p>
-                  </div>
-                </div>
-                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
-                    <img src="/okoume_face_plywood.jpg" alt="Coorg Ply Plywood Sheet - Okoume Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">Okoume Face</span>
-                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">Premium Face Veneer</p>
-                  </div>
+
+                {/* Right 4-Grid Showcase with Aspect Cover */}
+                <div className="lg:col-span-7 grid grid-cols-2 gap-4 reveal-on-scroll reveal-delay-200">
+                  {[
+                    { title: 'Gurjan Face', badge: 'IS:710 Marine', img: '/coorg_plywood_sheet_1.webp' },
+                    { title: '100% Neem Wood', badge: '25-Year Guarantee', img: '/coorg_plywood_sheet_2.webp' },
+                    { title: 'Premium Stamp Board', badge: 'Gurjan & Neem', img: '/plywood_display.jpg' },
+                    { title: 'Okoume Face', badge: 'Premium Veneer', img: '/okoume_face_plywood.jpg' },
+                  ].map((card) => (
+                    <div key={card.title} className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white shadow-sm hover:shadow-xl transition-all duration-500">
+                      <div className="aspect-[4/3] w-full overflow-hidden relative">
+                        <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-md text-[9px] font-bold uppercase tracking-wider text-primary shadow-sm">
+                          {card.badge}
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-3 text-white">
+                          <h4 className="font-headline-md text-xs sm:text-sm font-bold tracking-tight">{card.title}</h4>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 gap-7 md:grid-cols-2 xl:grid-cols-3">
-              {plywoodProducts.map((product) => (
+              {plywoodProducts.map((product, idx) => (
                 <Link
                   key={product.id}
                   to={`/products/${product.id}`}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                  className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 reveal-on-scroll reveal-delay-${(idx % 3 + 1) * 100}`}
                 >
                   <div className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,#0f4c3a_0%,#a35a1f_100%)]"></div>
 
@@ -281,7 +298,7 @@ export default function Products() {
               ))}
             </div>
 
-            <div className="mt-10 overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm">
+            <div className="mt-10 overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm reveal-on-scroll">
               <div className="grid gap-8 px-8 py-9 md:grid-cols-[1.05fr_0.95fr] md:px-10">
                 <div className="text-primary">
                   <span className="inline-flex rounded-md bg-primary-fixed-dim text-primary px-3 py-1 font-label-md text-[10px] uppercase tracking-wider font-bold">
@@ -320,13 +337,13 @@ export default function Products() {
       {showDoors && (
         <section className="py-20 bg-surface-container-low border-t border-outline-variant/10">
           <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-            <div className="mb-14">
+            <div className="mb-14 reveal-on-scroll">
               <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-3">Architectural Range</span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Architectural Doors &amp; Boards</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 reveal-on-scroll">
                 <div className="relative h-80 overflow-hidden rounded-t-2xl">
                   <img src="https://images.unsplash.com/photo-1603673298820-40d77252226d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Solid Core Flush Doors" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-4 left-4 bg-primary-fixed-dim text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider border border-outline-variant/20 shadow-sm">IS:2202</div>
@@ -349,7 +366,7 @@ export default function Products() {
                 </div>
               </div>
 
-              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+              <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300 reveal-on-scroll reveal-delay-200">
                 <div className="relative h-80 overflow-hidden rounded-t-2xl">
                   <img src="/block_boards.webp" alt="Precision Block Boards" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute top-4 left-4 bg-primary-fixed-dim text-primary text-[10px] font-bold px-3 py-1.5 rounded-md uppercase tracking-wider border border-outline-variant/20 shadow-sm">IS:1659</div>
@@ -378,7 +395,7 @@ export default function Products() {
 
       <section className="py-20 bg-primary-container text-on-primary-container">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
+          <div className="reveal-on-scroll">
             <span className="font-label-lg text-primary-fixed-dim uppercase tracking-[0.2em] block mb-4">Next Steps</span>
             <h2 className="font-headline-lg text-3xl md:text-headline-lg text-white mb-6">Bring Heritage to Your Project</h2>
             <p className="font-body-lg text-on-primary-container/80 leading-relaxed mb-10">
@@ -393,7 +410,7 @@ export default function Products() {
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 reveal-on-scroll reveal-delay-200">
             <div className="bg-white/10 rounded p-6 text-center">
               <p className="font-headline-display text-5xl text-white font-bold mb-2">30+</p>
               <p className="font-label-md text-xs text-on-primary-container/70 uppercase tracking-wider">Years in Business</p>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 /* ────────────────────── static wrapper (no animations) ─────────────────── */
 
 function Reveal({ children, className = '' }) {
-  return <div className={className}>{children}</div>;
+  return <div className={`reveal-on-scroll ${className}`}>{children}</div>;
 }
 
 /* ───────────────────────── step data ─────────────────────────────── */
@@ -97,13 +97,19 @@ export default function Manufacturing() {
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            const idx = Number(e.target.dataset.stepIdx);
-            setActiveStep((prev) => Math.max(prev, idx));
+            e.target.classList.add('revealed');
+            if (e.target.dataset.stepIdx !== undefined) {
+              const idx = Number(e.target.dataset.stepIdx);
+              setActiveStep((prev) => Math.max(prev, idx));
+            }
           }
         });
       },
-      { threshold: 0.3 },
+      { rootMargin: '0px 0px -20px 0px', threshold: 0.05 },
     );
+
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .reveal-mask');
+    revealElements.forEach((el) => obs.observe(el));
     stepRefs.current.forEach((el) => el && obs.observe(el));
     return () => obs.disconnect();
   }, []);
@@ -423,24 +429,24 @@ export default function Manufacturing() {
                 <div className="absolute -inset-2 sm:-inset-3 border border-white/10 rounded-lg pointer-events-none" />
                 <div className="grid grid-cols-2 gap-3 sm:gap-4">
                   <img
-                    alt="Board texture close-up"
+                    alt="Looking for premium plywood"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover"
-                    src="/board_texture.webp"
+                    src="/commitment_premium_plywood.jpg"
                   />
                   <img
-                    alt="Manufacturing facility"
+                    alt="Safe for Life — E0 Emission Plywood"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover mt-4 sm:mt-8"
-                    src="/coorg_plywood_sheet_1.webp"
+                    src="/commitment_safe_for_life.jpg"
                   />
                   <img
-                    alt="Plywood quality inspection"
+                    alt="Family Safe Plywood"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover -mt-4 sm:-mt-8"
-                    src="/quality_assurance.webp"
+                    src="/commitment_family_safe.jpg"
                   />
                   <img
-                    alt="Cross lamination"
+                    alt="BWP Grade — Boiling Water Proof Plywood"
                     className="rounded-lg shadow-xl w-full aspect-square object-cover"
-                    src="/coorg_plywood_sheet_2.webp"
+                    src="/commitment_bwp_grade.jpg"
                   />
                 </div>
               </div>

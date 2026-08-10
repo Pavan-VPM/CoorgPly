@@ -1,25 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Story() {
+  useEffect(() => {
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -20px 0px',
+      threshold: 0.05
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .reveal-mask');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <>
       {/* Section 1: Hero */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-surface-container-lowest">
+      <section className="relative min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5.4rem)] flex flex-col items-center justify-center overflow-hidden bg-surface-container-lowest py-12">
         <div className="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/10 to-surface"></div>
-        <div className="relative z-10 max-w-container-max px-margin-mobile md:px-margin-desktop text-center">
-          <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-primary mb-6">
+        <div className="relative z-10 max-w-container-max px-margin-mobile md:px-margin-desktop text-center reveal-on-scroll flex flex-col items-center justify-center my-auto">
+          <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-primary mb-6 leading-tight">
             Every strong structure begins with a solid foundation. <br />
             <span className="italic font-normal">Ours began with a vision.</span>
           </h1>
-          <div className="w-24 h-1 bg-primary mx-auto mt-12 mb-8"></div>
+          <div className="w-24 h-1 bg-primary mx-auto mt-8 mb-4"></div>
         </div>
       </section>
 
       {/* Section 2: The Humble Beginnings */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="grid md:grid-cols-2 gap-gutter items-center">
-          <div>
+          <div className="reveal-on-scroll">
             <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest block mb-4">Origins</span>
             <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-8">The Humble Beginnings</h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-6">
@@ -29,7 +53,7 @@ export default function Story() {
               "Hard work and integrity weren't just business strategies; they were the very fibers of our daily operation."
             </p>
           </div>
-          <div className="relative">
+          <div className="relative reveal-mask reveal-delay-200">
             <div className="aspect-[4/5] bg-surface-container-high rounded-lg overflow-hidden shadow-2xl">
               <div
                 className="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105"
@@ -49,7 +73,7 @@ export default function Story() {
         <div className="max-w-container-max px-margin-mobile md:px-margin-desktop mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Text Content */}
-            <div>
+            <div className="reveal-on-scroll">
               <span className="font-label-lg text-label-lg text-on-primary-container uppercase tracking-widest block mb-4">
                 Legacy Leadership
               </span>
@@ -58,24 +82,24 @@ export default function Story() {
                 <span className="bg-primary-fixed text-primary px-2 py-0.5 rounded-sm font-bold">Mr. A. A. Chandy</span> <span className="font-normal text-base md:text-lg">— Founder</span><br />vision transformed a simple sawmill into a trusted name that resonates across the architecture and construction industry.
               </p>
               <div className="flex gap-6 sm:gap-12 border-t border-white/10 pt-12">
-                <div>
+                <div className="reveal-on-scroll reveal-delay-100">
                   <div className="font-headline-md text-headline-md mb-2">40+</div>
                   <div className="font-label-md text-label-md text-on-primary-container uppercase">Years of Heritage</div>
                 </div>
-                <div>
+                <div className="reveal-on-scroll reveal-delay-200">
                   <div className="font-headline-md text-headline-md mb-2">100%</div>
                   <div className="font-label-md text-label-md text-on-primary-container uppercase">Ethical Sourcing</div>
                 </div>
               </div>
             </div>
             {/* Founder Portrait */}
-            <div className="flex justify-center lg:justify-end">
+            <div className="flex justify-center lg:justify-end reveal-mask reveal-delay-200">
               <div className="relative">
                 <div className="absolute -inset-4 border-2 border-white/20 rounded-sm"></div>
                 <img
                   className="relative z-10 w-80 md:w-96 aspect-[3/4] object-cover object-top rounded-sm shadow-2xl grayscale"
                   alt="Mr. A. A. Chandy — Founder (1927–1981)"
-                  src="/founder.webp"
+                  src="dist/founder.png"
                 />
               </div>
             </div>
@@ -85,7 +109,7 @@ export default function Story() {
 
       {/* Section 4: Expansion & Leadership */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center reveal-on-scroll">
           <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-8">Expansion & Innovation</h2>
           <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed text-justify">
             Innovation wasn't just about machinery; it was about reimagining what plywood could be. His relentless pursuit of perfection led to the birth of products that can withstand the harshest environments while gracing the most elegant interiors.
@@ -96,14 +120,14 @@ export default function Story() {
       {/* Section 5: Modern Operations (Bento Grid) */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low">
         <div className="max-w-container-max mx-auto">
-          <div className="mb-16 text-center">
+          <div className="mb-16 text-center reveal-on-scroll">
             <span className="font-label-lg text-label-lg text-secondary uppercase tracking-widest block mb-4">
               The Next Generation
             </span>
             <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Modern Operations & Future-Proofing</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-gutter">
-            <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10">
+            <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10 reveal-on-scroll">
               <h3 className="font-headline-md text-headline-md text-primary mb-6">
                 <span className="font-bold">Mr. A. C. Antony Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— CEO</span>
               </h3>
@@ -111,7 +135,7 @@ export default function Story() {
                 Under the leadership of Mr. A. C. Antony Chandy, Coorg Ply achieved a monumental shift. By introducing state-of-the-art veneer peeling units and specialized manufacturing processes, he bridged the gap between raw nature and refined engineering, steering the company toward high-quality production and consistent growth.
               </p>
             </div>
-            <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10">
+            <div className="md:col-span-3 bg-white p-12 rounded shadow-sm border border-outline-variant/10 reveal-on-scroll reveal-delay-100">
               <h3 className="font-headline-md text-headline-md text-primary mb-6">
                 <span className="font-bold">Mr. Sisson Chandy</span> <span className="text-body-lg text-secondary font-normal ml-4">— COO</span>
               </h3>
@@ -119,7 +143,7 @@ export default function Story() {
                 Combining traditional values with modern manufacturing logistics, Mr. Sisson Chandy steers the company toward a tech-forward future. His focus on precision manufacturing ensures every sheet of plywood leaving our facility is a masterpiece of stability.
               </p>
             </div>
-            <div className="relative overflow-hidden rounded min-h-[300px]">
+            <div className="relative overflow-hidden rounded min-h-[300px] reveal-mask reveal-delay-200">
               <div
                 className="w-full h-full bg-cover bg-center absolute inset-0"
                 style={{
@@ -132,7 +156,7 @@ export default function Story() {
                 <p className="font-headline-md text-headline-md">BWP & BWR Grade Excellence</p>
               </div>
             </div>
-            <div className="md:col-span-2 bg-primary p-12 rounded">
+            <div className="md:col-span-2 bg-primary p-12 rounded reveal-on-scroll reveal-delay-300">
               <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-8">
                 <span className="px-4 py-1 border border-primary-fixed text-primary-fixed rounded-full font-label-md text-label-md">
                   MR GRADE
@@ -158,27 +182,27 @@ export default function Story() {
       {/* Section 6: Excellence & Promise */}
       <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
         <div className="max-w-4xl mx-auto">
-          <span className="material-symbols-outlined text-6xl text-primary mb-8" style={{ fontVariationSettings: "'FILL' 1" }}>
+          <span className="material-symbols-outlined text-6xl text-primary mb-8 reveal-on-scroll" style={{ fontVariationSettings: "'FILL' 1" }}>
             verified
           </span>
-          <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-10">Excellence & Promise</h2>
-          <blockquote className="font-headline-md text-xl sm:text-2xl md:text-headline-md italic text-on-surface-variant leading-snug mb-12">
+          <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-10 reveal-on-scroll">Excellence & Promise</h2>
+          <blockquote className="font-headline-md text-xl sm:text-2xl md:text-headline-md italic text-on-surface-variant leading-snug mb-12 reveal-on-scroll reveal-delay-100">
             "To build products that become the foundation of beautiful homes and lasting memories. We don't just supply wood; we provide peace of mind."
           </blockquote>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 reveal-on-scroll reveal-delay-100">
               <div className="font-bold text-primary mb-2">Moisture Resistant</div>
               <div className="text-sm text-on-surface-variant">Durability in every humid climate</div>
             </div>
-            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 reveal-on-scroll reveal-delay-200">
               <div className="font-bold text-primary mb-2">Boiling Water Proof</div>
               <div className="text-sm text-on-surface-variant">The ultimate architectural shield</div>
             </div>
-            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 reveal-on-scroll reveal-delay-300">
               <div className="font-bold text-primary mb-2">Termite Proof</div>
               <div className="text-sm text-on-surface-variant">Borer-free legacy for generations</div>
             </div>
-            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="p-6 bg-white border border-outline-variant/20 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 reveal-on-scroll reveal-delay-400">
               <div className="font-bold text-primary mb-2">Structural Integrity</div>
               <div className="text-sm text-on-surface-variant">Unyielding strength in every ply</div>
             </div>
@@ -197,7 +221,7 @@ export default function Story() {
             }}
           ></div>
         </div>
-        <div className="relative z-10 text-center px-margin-mobile md:px-margin-desktop">
+        <div className="relative z-10 text-center px-margin-mobile md:px-margin-desktop reveal-on-scroll">
           <h2 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-white mb-6">
             Plywood is more than a product.<br />
             <span className="italic text-primary-fixed">It is a legacy.</span>
@@ -213,3 +237,4 @@ export default function Story() {
     </>
   );
 }
+

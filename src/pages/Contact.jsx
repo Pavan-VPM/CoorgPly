@@ -24,6 +24,30 @@ export default function Contact() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -20px 0px',
+      threshold: 0.05
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .reveal-mask');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -116,7 +140,7 @@ export default function Contact() {
       {/* Hero Section */}
       <section className="relative pt-24 pb-16 overflow-hidden bg-[linear-gradient(180deg,#fcf9f8_0%,#f5f1ea_100%)]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%)] pointer-events-none"></div>
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10">
+        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10 reveal-on-scroll">
           <span className="inline-block px-4 py-1.5 mb-6 text-label-md font-label-md uppercase tracking-widest text-primary bg-primary-fixed/30 rounded-full text-xs font-bold">
             Connectivity & Trust
           </span>
@@ -133,7 +157,7 @@ export default function Contact() {
       <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           {/* Contact Details Card (Left Column) */}
-          <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5">
+          <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5 reveal-on-scroll">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
             
             <div>
@@ -197,7 +221,7 @@ export default function Contact() {
           </div>
 
           {/* Redesigned Inquiry Form Card (Right Column) */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between">
+          <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between reveal-on-scroll reveal-delay-200">
             <div>
               <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2 text-xs">Direct Channel</span>
               <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>

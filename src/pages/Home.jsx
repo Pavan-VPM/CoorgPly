@@ -19,6 +19,7 @@ export default function Home() {
   const [toastType, setToastType] = useState('success'); // 'success' | 'error'
   const [showModal, setShowModal] = useState(false);
   const [loadMap, setLoadMap] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     // Delay loading the heavy Google Maps iframe to keep initial load super fast
@@ -26,6 +27,47 @@ export default function Home() {
       setLoadMap(true);
     }, 2000);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Parallax scroll position tracking
+  useEffect(() => {
+    let requestRunning = false;
+    const handleScroll = () => {
+      if (!requestRunning) {
+        requestRunning = true;
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          requestRunning = false;
+        });
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Scroll reveal observer for elements with reveal classes
+  useEffect(() => {
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const revealElements = document.querySelectorAll('.reveal-on-scroll, .reveal-mask, .reveal-line');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
   }, []);
 
   const handleInputChange = (e) => {
@@ -167,7 +209,7 @@ export default function Home() {
         <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Typographic Content */}
-            <div className="lg:col-span-7 flex flex-col items-start order-2 lg:order-1">
+            <div className="lg:col-span-7 flex flex-col items-start order-2 lg:order-1 reveal-on-scroll">
 
               {/* Tab Selector */}
               <div className="flex gap-1.5 mb-8 bg-surface-container p-1 rounded-full border border-outline-variant/20 self-start shadow-sm">
@@ -221,20 +263,32 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Asymmetrical Image Integration */}
-            <div className="lg:col-span-5 relative order-1 lg:order-2 aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px] w-full">
-              <div key={activeTab} className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] w-full h-full aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]">
+            {/* Asymmetrical Image Integration with Parallax */}
+            <div className="lg:col-span-5 relative order-1 lg:order-2 aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px] w-full reveal-on-scroll reveal-delay-200">
+              <div 
+                key={activeTab} 
+                className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] w-full h-full aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]"
+              >
                 <img
                   alt={currentSlide.tag}
-                  className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-[3s] ease-out"
-                  style={{ objectPosition: currentSlide.imagePosition || 'center' }}
+                  className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-[3s] ease-out"
+                  style={{ 
+                    objectPosition: currentSlide.imagePosition || 'center',
+                    transform: `translateY(${Math.min(scrollY * 0.03, 18)}px)`
+                  }}
                   src={currentSlide.image}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
               </div>
-              {/* Decorative Elements */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-secondary-container/30 -z-10 rounded-full blur-3xl"></div>
-              <div className="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-30 uppercase tracking-widest">
+              {/* Decorative Floating Elements */}
+              <div 
+                className="absolute -top-10 -right-10 w-40 h-40 bg-secondary-container/30 -z-10 rounded-full blur-3xl"
+                style={{ transform: `translateY(${scrollY * -0.02}px)` }}
+              ></div>
+              <div 
+                className="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-30 uppercase tracking-widest transition-transform duration-300"
+                style={{ transform: `translateY(${scrollY * -0.03}px)` }}
+              >
                 {activeTab}
               </div>
             </div>
@@ -243,24 +297,25 @@ export default function Home() {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-section-gap bg-surface" id="story">
+      <section className="py-section-gap bg-surface relative overflow-hidden" id="story">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
-            <div className="lg:col-span-5 relative">
+            <div className="lg:col-span-5 relative reveal-mask">
               <div className="aspect-[4/5] overflow-hidden rounded-sm shadow-lg">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                  style={{ transform: `translateY(${(scrollY - 400) * -0.02}px)` }}
                   alt="Coorg Ply Heritage — Wood processing in Coorg"
                   src="/heritage.webp"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-primary p-8 text-on-primary rounded-sm shadow-xl hidden md:block max-w-xs">
+              <div className="absolute -bottom-6 -right-6 bg-primary p-8 text-on-primary rounded-sm shadow-xl hidden md:block max-w-xs reveal-on-scroll reveal-delay-200">
                 <p className="font-headline-md italic leading-tight">
                   "Coorg is not just where we work. It is where our story began."
                 </p>
               </div>
             </div>
-            <div className="lg:col-span-6 lg:col-start-7">
+            <div className="lg:col-span-6 lg:col-start-7 reveal-on-scroll reveal-delay-200">
               <div className="space-y-8">
                 <header>
                   <span className="font-label-lg text-label-lg text-secondary tracking-[0.2em] uppercase">
@@ -280,14 +335,14 @@ export default function Home() {
                     region's first dedicated plywood and decorative veneer unit.
                   </p>
                 </div>
-                <div className="pt-6 grid grid-cols-2 gap-6 border-t border-outline-variant/30">
-                  <div className="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                <div className="pt-6 grid grid-cols-2 gap-6 border-t border-outline-variant/30 reveal-line">
+                  <div className="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] reveal-on-scroll reveal-delay-300">
                     <h4 className="font-headline-md text-3xl text-primary font-bold">25+</h4>
                     <p className="font-label-md text-on-surface-variant uppercase tracking-wider text-xs mt-1 font-semibold">
                       Years Guarantee
                     </p>
                   </div>
-                  <div className="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02]">
+                  <div className="bg-primary/[0.03] p-5 border-l-4 border-primary rounded-sm shadow-sm hover:shadow-md transition-all duration-300 hover:scale-[1.02] reveal-on-scroll reveal-delay-400">
                     <h4 className="font-headline-md text-3xl text-primary font-bold">ISO</h4>
                     <p className="font-label-md text-on-surface-variant uppercase tracking-wider text-xs mt-1 font-semibold">
                       9001:2015 Certified
@@ -303,7 +358,7 @@ export default function Home() {
       {/* Product Gallery */}
       <section className="py-section-gap bg-surface-container-low overflow-hidden" id="products">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal-on-scroll">
             <div className="max-w-2xl">
               <span className="font-label-lg text-secondary tracking-[0.2em] uppercase">The Collection</span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mt-4">
@@ -323,7 +378,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Marquee track — full-bleed, edge-faded */}
+        {/* Marquee track with subtle dynamic scroll velocity adjustment */}
         <div
           className="relative w-full"
           style={{
@@ -332,9 +387,10 @@ export default function Home() {
           }}
         >
           <div
-            className="flex gap-6 w-max"
+            className="flex gap-6 w-max parallax-strip"
             style={{
               animation: 'marquee-ltr 32s linear infinite',
+              transform: `translateX(${Math.sin(scrollY * 0.002) * 15}px)`
             }}
             onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
             onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
@@ -376,7 +432,7 @@ export default function Home() {
       <section className="py-section-gap bg-primary text-on-primary overflow-hidden" id="manufacturing">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div>
+            <div className="reveal-on-scroll">
               <span className="font-label-lg text-primary-fixed-dim tracking-[0.2em] uppercase">Process Integrity</span>
               <h2 className="font-headline-lg text-3xl md:text-headline-lg mt-4 mb-8">Manufacturing Excellence</h2>
               <p className="font-body-lg text-on-primary-container leading-relaxed mb-12 opacity-80">
@@ -384,28 +440,28 @@ export default function Home() {
                 processes. From seasoning and bonding to pressing and finishing, precision is maintained at every stage.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors reveal-on-scroll reveal-delay-100">
                   <span className="material-symbols-outlined text-primary-fixed-dim">verified</span>
                   <div>
                     <h4 className="font-label-lg text-white mb-1">Calibrated Precision</h4>
                     <p className="text-xs text-on-primary/60">Uniform thickness guaranteed across all sheets.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors reveal-on-scroll reveal-delay-200">
                   <span className="material-symbols-outlined text-primary-fixed-dim">eco</span>
                   <div>
                     <h4 className="font-label-lg text-white mb-1">Grade A Strength</h4>
                     <p className="text-xs text-on-primary/60">Consistently superior bonding and core quality.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors reveal-on-scroll reveal-delay-300">
                   <span className="material-symbols-outlined text-primary-fixed-dim">factory</span>
                   <div>
                     <h4 className="font-label-lg text-white mb-1">ISO Certified</h4>
                     <p className="text-xs text-on-primary/60">Rigorous quality management standards.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors">
+                <div className="flex items-start gap-4 p-6 bg-white/5 rounded-sm border border-white/10 hover:bg-white/10 transition-colors reveal-on-scroll reveal-delay-400">
                   <span className="material-symbols-outlined text-primary-fixed-dim">location_on</span>
                   <div>
                     <h4 className="font-label-lg text-white mb-1">Made in Coorg</h4>
@@ -414,7 +470,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative hidden lg:block">
+            <div className="relative hidden lg:block reveal-on-scroll reveal-delay-200">
               <div className="absolute -inset-10 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
@@ -453,7 +509,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%),radial-gradient(circle_at_bottom_left,rgba(163,90,31,0.05),transparent_45%)] pointer-events-none"></div>
 
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop relative z-10">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal-on-scroll">
             <span className="font-label-lg text-secondary tracking-[0.25em] uppercase block mb-3">Get in Touch</span>
             <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary">Connect With Coorg Ply</h2>
             <p className="font-body-md text-sm text-on-surface-variant/80 mt-4 max-w-xl mx-auto leading-relaxed">
@@ -463,7 +519,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
             {/* Contact Details Card (Left Column) */}
-            <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5">
+            <div className="lg:col-span-5 bg-[#0b2b20] text-on-primary p-8 sm:p-12 rounded-3xl flex flex-col justify-between shadow-xl relative overflow-hidden border border-white/5 reveal-on-scroll">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
 
               <div>
@@ -527,7 +583,7 @@ export default function Home() {
             </div>
 
             {/* Redesigned Inquiry Form Card (Right Column) */}
-            <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between">
+            <div className="lg:col-span-7 bg-white p-8 sm:p-12 rounded-3xl border border-outline-variant/30 shadow-xl flex flex-col justify-between reveal-on-scroll reveal-delay-200">
               <div>
                 <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-2 text-xs">Direct Channel</span>
                 <h3 className="font-headline-md text-2xl text-primary font-bold mb-8">Send an Inquiry</h3>
