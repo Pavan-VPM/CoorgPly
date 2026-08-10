@@ -29,7 +29,7 @@ export default function Story() {
   return (
     <>
       {/* Section 1: Hero */}
-      <section className="relative min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5.4rem)] flex flex-col items-center justify-center overflow-hidden bg-surface-container-lowest py-12">
+      <section className="relative min-h-[40vh] md:min-h-[calc(100vh-5.4rem)] flex flex-col items-center justify-center overflow-hidden bg-surface-container-lowest py-8 md:py-12">
         <div className="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/10 to-surface"></div>
         <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center reveal-on-scroll flex flex-col items-center justify-center my-auto">
           <h1 className="font-headline-display text-4xl sm:text-5xl md:text-headline-display text-primary mb-6 leading-tight">
@@ -41,7 +41,7 @@ export default function Story() {
       </section>
 
       {/* Section 2: The Humble Beginnings */}
-      <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <section className="py-12 md:py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
         <div className="grid md:grid-cols-2 gap-gutter items-center">
           <div className="relative reveal-mask reveal-delay-200">
             <div className="aspect-[3/2] bg-surface-container-high rounded-lg overflow-hidden shadow-2xl">
