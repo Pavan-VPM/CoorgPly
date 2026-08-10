@@ -67,7 +67,7 @@ export const plywoodProducts = [
     series: 'Platinum',
     standard: 'IS:710 Marine Grade',
     icon: 'shield',
-    image: '/coorg_plywood_sheet_1.webp',
+    image: '/plywood_display.jpg',
     priceRange: '₹51 - ₹123',
     thickness: '6mm - 25mm',
     face: 'Premium Gurjan',

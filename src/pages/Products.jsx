@@ -152,7 +152,7 @@ export default function Products() {
             </div>
             {/* Plywood Sheet Showcase Block */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mt-12 mb-16 border-b border-outline-variant/20 pb-16">
-              <div className="lg:col-span-5">
+              <div className="lg:col-span-4">
                 <span className="font-label-lg text-secondary tracking-[0.2em] uppercase block mb-3">Material Authenticity</span>
                 <h3 className="font-headline-md text-3xl text-primary font-bold mb-6">Built on Genuine Hardwoods</h3>
                 <p className="font-body-md text-sm text-on-surface-variant/80 leading-relaxed mb-6">
@@ -173,13 +173,13 @@ export default function Products() {
                   </div>
                 </div>
               </div>
-              <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="lg:col-span-8 grid grid-cols-2 gap-6">
                 <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
                   <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
                     <img src="/coorg_plywood_sheet_1.webp" alt="Coorg Ply Plywood Sheet - Gurjan Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                   <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">Gurjan Face Veneer</span>
+                    <span className="font-headline-md text-sm text-primary font-bold">Gurjan Face</span>
                     <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">IS:710 Marine Grade</p>
                   </div>
                 </div>
@@ -188,8 +188,17 @@ export default function Products() {
                     <img src="/coorg_plywood_sheet_2.webp" alt="Coorg Ply Plywood Sheet - 100% Neem Wood" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                   <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood Core</span>
+                    <span className="font-headline-md text-sm text-primary font-bold">100% Neem Wood</span>
                     <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">25-Year Guarantee</p>
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="aspect-[3/4] rounded-lg overflow-hidden relative">
+                    <img src="/plywood_display.jpg" alt="Coorg Ply Plywood Sheet - Premium Gurjan Stamp" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  </div>
+                  <div className="mt-3 text-center">
+                    <span className="font-headline-md text-sm text-primary font-bold">Premium Stamp Board</span>
+                    <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">Gurjan &amp; Neem Core</p>
                   </div>
                 </div>
                 <div className="group relative overflow-hidden rounded-2xl border border-outline-variant/30 bg-white p-3.5 shadow-sm hover:shadow-md transition-shadow">
@@ -197,7 +206,7 @@ export default function Products() {
                     <img src="/okoume_face_plywood.jpg" alt="Coorg Ply Plywood Sheet - Okoume Face" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   </div>
                   <div className="mt-3 text-center">
-                    <span className="font-headline-md text-sm text-primary font-bold">Okoume Face Veneer</span>
+                    <span className="font-headline-md text-sm text-primary font-bold">Okoume Face</span>
                     <p className="text-[10px] text-secondary uppercase tracking-wider mt-0.5">Premium Face Veneer</p>
                   </div>
                 </div>
