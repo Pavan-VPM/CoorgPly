@@ -228,14 +228,14 @@ export default function Home() {
               </div>
 
               {/* Stable container to prevent layout shifting during remounting */}
-              <div className="w-full min-h-[520px] sm:min-h-[480px] md:min-h-[440px] lg:min-h-[520px] flex flex-col justify-start">
+              <div className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] flex flex-col justify-start">
                 <div key={activeTab} className="animate-fade-in flex flex-col items-start w-full">
                   <div className="overflow-hidden mb-2">
-                    <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block">
+                    <span className="font-label-lg text-secondary tracking-[0.4em] uppercase block text-xs sm:text-sm">
                       {currentSlide.tag}
                     </span>
                   </div>
-                  <h1 className="font-headline-display text-5xl sm:text-7xl lg:text-[80px] leading-[0.95] text-primary mb-8 tracking-tighter">
+                  <h1 className="font-headline-display text-4xl sm:text-6xl lg:text-[76px] 2xl:text-[84px] leading-[0.95] text-primary mb-6 sm:mb-8 tracking-tighter">
                     {currentSlide.title}
                   </h1>
                   <p className="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-lg leading-relaxed border-l-2 border-outline-variant pl-8">

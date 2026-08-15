@@ -62,13 +62,13 @@ export default function Header() {
             <img alt="Coorg Ply Logo" className="h-12 md:h-20 w-auto" src="/logo.webp" />
             <span className="font-headline-md text-2xl md:text-3xl font-bold text-primary tracking-tight">Coorg Ply</span>
           </Link>
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-8 2xl:gap-10">
             {navLinks.map((link) => {
               const active = currentPath === link.href;
               return (
                 <Link
                   key={link.href}
-                  className={`font-headline-md text-base tracking-wide relative transition-colors ${
+                  className={`font-headline-md text-sm xl:text-base tracking-wide relative transition-colors ${
                     active
                       ? 'text-primary font-bold'
                       : 'text-on-surface-variant hover:text-primary'
@@ -89,11 +89,11 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link
               to="/contact"
-              className="hidden lg:block bg-primary text-on-primary px-8 py-3.5 rounded-sm font-label-lg text-label-lg uppercase tracking-wider hover:bg-primary-container transition-all shadow-lg active:scale-95 text-center"
+              className="hidden lg:block bg-primary text-on-primary px-5 xl:px-8 py-3 rounded-sm font-label-lg text-xs xl:text-label-lg uppercase tracking-wider hover:bg-primary-container transition-all shadow-lg active:scale-95 text-center"
             >
               Get a Quote
             </Link>
- 
+
             {/* Burger Button */}
             <button
               onClick={toggleMobileMenu}
@@ -123,11 +123,11 @@ export default function Header() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`fixed inset-0 bg-surface z-40 transform transition-transform duration-300 flex flex-col items-center justify-center gap-8 text-center px-6 ${
+        className={`fixed inset-0 bg-surface z-40 transform transition-transform duration-300 flex flex-col items-center justify-center gap-8 text-center px-6 overflow-y-auto max-h-screen py-12 ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex flex-col gap-6 w-full max-w-xs">
+        <div className="flex flex-col gap-6 w-full max-w-xs my-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}

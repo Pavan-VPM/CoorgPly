@@ -6,6 +6,15 @@ export default {
   ],
   darkMode: "class",
   theme: {
+    screens: {
+      'xs': '475px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+      '3xl': '1920px',
+    },
     extend: {
       colors: {
         "tertiary-container": "#2e2f2c",
@@ -68,7 +77,7 @@ export default {
         "margin-desktop": "64px",
         "gutter": "24px",
         "unit": "8px",
-        "container-max": "1280px"
+        "container-max": "1360px"
       },
       fontFamily: {
         "headline-display": ["Playfair Display", "serif"],
@@ -81,12 +90,12 @@ export default {
         "body-lg": ["Montserrat", "sans-serif"]
       },
       fontSize: {
-        "headline-display": ["64px", { "lineHeight": "1.1", "fontWeight": "700" }],
+        "headline-display": ["clamp(2.5rem, 5vw + 1rem, 4.5rem)", { "lineHeight": "1.08", "fontWeight": "700" }],
         "label-md": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
         "label-lg": ["14px", { "letterSpacing": "0.1em", "fontWeight": "600" }],
         "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
-        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
-        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "700" }],
+        "headline-md": ["clamp(1.5rem, 2.5vw + 0.5rem, 2.25rem)", { "lineHeight": "1.3", "fontWeight": "600" }],
+        "headline-lg": ["clamp(2rem, 3.5vw + 0.75rem, 3.25rem)", { "lineHeight": "1.2", "fontWeight": "700" }],
         "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
         "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
       }
