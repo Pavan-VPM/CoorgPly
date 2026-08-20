@@ -164,8 +164,7 @@ export default function Products() {
       )}
 
       {showPlywood && (
-        <section className="relative overflow-hidden border-t border-outline-variant/10 bg-[linear-gradient(180deg,#f5f1ea_0%,#fcf9f8_38%,#f7f3ef_100%)] py-20">
-          <div className="absolute inset-x-0 top-0 h-48 bg-[radial-gradient(circle_at_top_left,rgba(183,140,85,0.28),transparent_52%),radial-gradient(circle_at_top_right,rgba(5,30,22,0.08),transparent_38%)]"></div>
+        <section className="relative overflow-hidden border-t border-outline-variant/10 bg-surface py-20">
           <div className="absolute left-[-6rem] top-32 h-56 w-56 rounded-full bg-secondary/10 blur-3xl"></div>
           <div className="absolute right-[-4rem] top-20 h-48 w-48 rounded-full bg-primary/10 blur-3xl"></div>
 
