@@ -31,6 +31,7 @@ export default function Header() {
     { text: 'Our Story', href: '/story' },
     { text: 'Products', href: '/products' },
     { text: 'Manufacturing', href: '/manufacturing' },
+    { text: 'Careers', href: '/careers' },
     { text: 'Contact', href: '/contact' }
   ];
 
@@ -68,11 +69,10 @@ export default function Header() {
               return (
                 <Link
                   key={link.href}
-                  className={`font-headline-md text-sm xl:text-base tracking-wide relative transition-colors ${
-                    active
+                  className={`font-headline-md text-sm xl:text-base tracking-wide relative transition-colors ${active
                       ? 'text-primary font-bold'
                       : 'text-on-surface-variant hover:text-primary'
-                  }`}
+                    }`}
                   to={link.href}
                 >
                   {link.text}
@@ -85,7 +85,7 @@ export default function Header() {
               );
             })}
           </nav>
-          
+
           <div className="flex items-center gap-4">
             <Link
               to="/contact"
@@ -102,19 +102,16 @@ export default function Header() {
               style={{ color: 'var(--color-primary, #051e16)' }}
             >
               <span
-                className={`w-6 h-[2px] bg-current transition-all duration-300 origin-center ${
-                  mobileMenuOpen ? 'rotate-45 translate-y-[8px]' : ''
-                }`}
+                className={`w-6 h-[2px] bg-current transition-all duration-300 origin-center ${mobileMenuOpen ? 'rotate-45 translate-y-[8px]' : ''
+                  }`}
               />
               <span
-                className={`w-6 h-[2px] bg-current transition-all duration-300 ${
-                  mobileMenuOpen ? 'opacity-0' : ''
-                }`}
+                className={`w-6 h-[2px] bg-current transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''
+                  }`}
               />
               <span
-                className={`w-6 h-[2px] bg-current transition-all duration-300 origin-center ${
-                  mobileMenuOpen ? '-rotate-45 -translate-y-[8px]' : ''
-                }`}
+                className={`w-6 h-[2px] bg-current transition-all duration-300 origin-center ${mobileMenuOpen ? '-rotate-45 -translate-y-[8px]' : ''
+                  }`}
               />
             </button>
           </div>
@@ -123,18 +120,16 @@ export default function Header() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`fixed inset-0 bg-surface z-40 transform transition-transform duration-300 flex flex-col items-center justify-center gap-8 text-center px-6 overflow-y-auto max-h-screen py-12 ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed inset-0 bg-surface z-40 transform transition-transform duration-300 flex flex-col items-center justify-center gap-8 text-center px-6 overflow-y-auto max-h-screen py-12 ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="flex flex-col gap-6 w-full max-w-xs my-auto">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               to={link.href}
-              className={`font-headline-md text-2xl ${
-                currentPath === link.href ? 'text-primary font-bold' : 'text-on-surface-variant'
-              }`}
+              className={`font-headline-md text-2xl ${currentPath === link.href ? 'text-primary font-bold' : 'text-on-surface-variant'
+                }`}
             >
               {link.text}
             </Link>

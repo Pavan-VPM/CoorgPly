@@ -8,6 +8,7 @@ import Story from './pages/Story';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Manufacturing from './pages/Manufacturing';
+import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import TechnicalSpecs from './pages/TechnicalSpecs';
 
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/manufacturing" element={<Manufacturing />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/technical-specs" element={<TechnicalSpecs />} />
         </Routes>

@@ -265,14 +265,14 @@ export default function Home() {
 
             {/* Asymmetrical Image Integration with Parallax */}
             <div className="lg:col-span-5 relative order-1 lg:order-2 aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px] w-full reveal-on-scroll reveal-delay-200">
-              <div 
-                key={activeTab} 
+              <div
+                key={activeTab}
                 className="animate-fade-in relative z-20 hero-img-mask overflow-hidden shadow-[12px_12px_0px_0px_rgba(27,51,42,0.05)] md:shadow-[30px_30px_0px_0px_rgba(27,51,42,0.05)] w-full h-full aspect-[1.4] sm:aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:h-[700px]"
               >
                 <img
                   alt={currentSlide.tag}
                   className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-[3s] ease-out"
-                  style={{ 
+                  style={{
                     objectPosition: currentSlide.imagePosition || 'center',
                     transform: `translateY(${Math.min(scrollY * 0.03, 18)}px)`
                   }}
@@ -281,11 +281,11 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
               </div>
               {/* Decorative Floating Elements */}
-              <div 
+              <div
                 className="absolute -top-10 -right-10 w-40 h-40 bg-secondary-container/30 -z-10 rounded-full blur-3xl"
                 style={{ transform: `translateY(${scrollY * -0.02}px)` }}
               ></div>
-              <div 
+              <div
                 className="absolute -bottom-12 -left-12 font-headline-display text-7xl md:text-[120px] text-surface-container-highest/50 select-none -z-10 opacity-30 uppercase tracking-widest transition-transform duration-300"
                 style={{ transform: `translateY(${scrollY * -0.03}px)` }}
               >

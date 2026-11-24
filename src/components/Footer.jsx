@@ -78,8 +78,8 @@ export default function Footer() {
                 <span className="material-symbols-outlined text-base text-white/50 transition-transform duration-300 group-open:rotate-180">expand_more</span>
               </summary>
               <ul className="mt-3 space-y-2.5 text-xs font-body-md text-white/60 pl-1 pb-1">
-                {['Home', 'Our Story', 'Products', 'Manufacturing', 'Contact'].map((link, idx) => {
-                  const paths = ['/', '/story', '/products', '/manufacturing', '/contact'];
+                {['Home', 'Our Story', 'Products', 'Manufacturing', 'Careers', 'Contact'].map((link, idx) => {
+                  const paths = ['/', '/story', '/products', '/manufacturing', '/careers', '/contact'];
                   return (
                     <li key={idx}>
                       <Link to={paths[idx]} className="hover:text-white transition-colors block py-0.5">
@@ -193,8 +193,8 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h4 className="font-label-lg uppercase tracking-[0.2em] text-xs font-bold text-[#a35a1f] mb-6">Explore</h4>
             <ul className="space-y-4 text-sm font-body-md text-white/60">
-              {['Home', 'Our Story', 'Products', 'Manufacturing', 'Contact'].map((link, idx) => {
-                const paths = ['/', '/story', '/products', '/manufacturing', '/contact'];
+              {['Home', 'Our Story', 'Products', 'Manufacturing', 'Careers', 'Contact'].map((link, idx) => {
+                const paths = ['/', '/story', '/products', '/manufacturing', '/careers', '/contact'];
                 return (
                   <li key={idx}>
                     <Link to={paths[idx]} className="hover:text-white transition-colors relative group inline-block py-0.5">

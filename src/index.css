@@ -68,6 +68,7 @@
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -83,6 +84,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -99,6 +101,7 @@
   0% {
     transform: translate3d(-50%, 0, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
@@ -158,6 +161,7 @@
 
 /* Reduced motion accessibility check */
 @media (prefers-reduced-motion: reduce) {
+
   .reveal-on-scroll,
   .reveal-mask {
     opacity: 1 !important;
@@ -173,10 +177,21 @@
   transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal-delay-100 { transition-delay: 100ms; }
-.reveal-delay-200 { transition-delay: 200ms; }
-.reveal-delay-300 { transition-delay: 300ms; }
-.reveal-delay-400 { transition-delay: 400ms; }
+.reveal-delay-100 {
+  transition-delay: 100ms;
+}
+
+.reveal-delay-200 {
+  transition-delay: 200ms;
+}
+
+.reveal-delay-300 {
+  transition-delay: 300ms;
+}
+
+.reveal-delay-400 {
+  transition-delay: 400ms;
+}
 
 /* Dynamic Horizontal Parallax Marquee refinement */
 .parallax-strip {
