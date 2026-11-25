@@ -132,12 +132,6 @@ export default function Manufacturing() {
         {/* Content */}
         <div className="relative z-20 px-4 sm:px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
           <Reveal>
-            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 sm:px-5 py-2 font-label-lg text-[10px] sm:text-[11px] text-white/90 tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-6 sm:mb-8">
-              <span className="w-2 h-2 rounded-full bg-primary-fixed-dim" />
-              Precision Crafted. Quality Assured.
-            </span>
-          </Reveal>
-          <Reveal>
             <h1 className="font-body-lg font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[68px] text-white mb-4 sm:mb-6 leading-[1.1] tracking-tight max-w-4xl">
               The Art &amp; Science of<br />
               <span className="text-white/80 font-normal">Our Manufacturing</span>

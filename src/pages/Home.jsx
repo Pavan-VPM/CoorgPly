@@ -523,9 +523,6 @@ export default function Home() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
 
               <div>
-                <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 font-label-md text-[10px] uppercase tracking-wider text-primary-fixed-dim font-bold mb-8">
-                  Coorg Ply HQ
-                </span>
                 <h3 className="font-headline-md text-3xl text-white mb-6 font-bold leading-tight">Let's Build Together</h3>
                 <p className="font-body-md text-on-primary/85 mb-10 leading-relaxed text-sm">
                   Our technical advisors are available to guide you on standard compliance (IS:303, IS:710), calibration parameters, and customization limits.

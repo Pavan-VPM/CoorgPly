@@ -138,12 +138,9 @@ export default function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 overflow-hidden bg-[linear-gradient(180deg,#fcf9f8_0%,#f5f1ea_100%)]">
+      <section className="relative pt-24 pb-16 overflow-hidden bg-surface">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(15,76,58,0.05),transparent_45%)] pointer-events-none"></div>
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center relative z-10 reveal-on-scroll">
-          <span className="inline-block px-4 py-1.5 mb-6 text-label-md font-label-md uppercase tracking-widest text-primary bg-primary-fixed/30 rounded-full text-xs font-bold">
-            Connectivity & Trust
-          </span>
           <h1 className="font-headline-display text-4xl sm:text-5xl md:text-[60px] text-primary max-w-4xl mx-auto mb-6 leading-tight">
             Let's Build Something Great
           </h1>
@@ -161,9 +158,6 @@ export default function Contact() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(163,90,31,0.15),transparent_60%)] pointer-events-none"></div>
             
             <div>
-              <span className="inline-flex rounded-full bg-white/10 px-4 py-1.5 font-label-md text-[10px] uppercase tracking-wider text-primary-fixed-dim font-bold mb-8">
-                Coorg Ply HQ
-              </span>
               <h3 className="font-headline-md text-3xl text-white mb-6 font-bold leading-tight">Let's Build Together</h3>
               <p className="font-body-md text-on-primary/85 mb-10 leading-relaxed text-sm">
                 Our technical advisors are available to guide you on standard compliance (IS:303, IS:710), calibration parameters, and customization limits.
